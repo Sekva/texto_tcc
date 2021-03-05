@@ -13,11 +13,11 @@ LATEXMK     = latexmk
 BIBTEX      = bibtex
 MAKEINDEX   = makeindex
 GHOSTSCRIPT = gs
-OPENPDF     = evince
+OPENPDF     = firefox
 
 # Executando o processo completo de limpeza, compilação e compressão
 
-all: clean compile2 clean2 open
+all: clean compile2 clean2
 
 # Compilar o código fonte
 

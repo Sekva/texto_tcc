@@ -282,13 +282,13 @@
            		\large\MakeUppercase{\imprimirprograma} \\
 		\end{SingleSpacing}
         \end{center}
-        \vspace{60pt}
+        \vspace{120pt}
 	\begin{center}
-		\large\MakeUppercase{\imprimirautor}\\
+		\MakeUppercase{\imprimirautor}\\
 	\end{center}
 	\vspace{120pt}
         \begin{center}
-            \ABNTEXchapterfont\large\MakeUppercase{\imprimirtitulo}
+            \ABNTEXchapterfont\MakeUppercase{\imprimirtitulo}
             \abntex@ifnotempty{\imprimirsubtitulo}
 	    {%
                 {\ABNTEXchapterfont: }{\large{\imprimirsubtitulo}}
@@ -301,8 +301,8 @@
 	\vfill
         \begin{center}
 		\begin{SingleSpacing}
-            		\large\MakeUppercase{\imprimirlocal}\\
-            		\large\MakeUppercase{\imprimirdata}
+            		\MakeUppercase{\imprimirlocal}\\
+            		\MakeUppercase{\imprimirdata}
 		\end{SingleSpacing}
     	\end{center}
 
@@ -319,26 +319,26 @@
 {%
     \setcounter{page}{2}
     \begin{center}
-        \large\MakeUppercase{\imprimirautor}\\
+        \MakeUppercase{\imprimirautor}\\
     \end{center}
 
-    \vspace*{96pt}
+    \vspace*{120pt}
 
     \begin{center}
-        \ABNTEXchapterfont\large\MakeUppercase{\imprimirtitulo}
+        \ABNTEXchapterfont\MakeUppercase{\imprimirtitulo}
         \abntex@ifnotempty{\imprimirsubtitulo}
 	{%
         	{\ABNTEXchapterfont: }{\large{\imprimirsubtitulo}}
         }
     \end{center}
 
-    \vspace*{60pt}
+    \vspace*{120pt}
 
     \abntex@ifnotempty{\imprimirpreambulo}
     {%
         \SingleSpacing
         \begin{tabular}{p{.25\textwidth}p{.13\textwidth}p{.44\textwidth}}
-            & \multicolumn{2}{p{.6\textwidth}}{\small\hyphenpenalty=10000{\imprimirpreambulo}} \\ & & \\
+            & \multicolumn{2}{p{.6\textwidth}}{\large\hyphenpenalty=10000{\imprimirpreambulo}} \\ & & \\
             \abntex@ifnotempty{\imprimirareaconcentracao}
             {%
                 & \multicolumn{2}{p{.6\textwidth}}{\small\hyphenpenalty=10000{\imprimirareaconcentracaoRotulo\imprimirareaconcentracao}} \\ & & \\
@@ -347,16 +347,6 @@
             {%
                 & \multicolumn{2}{p{.6\textwidth}}{\small\hyphenpenalty=10000{\imprimirlinhapesquisaRotulo\imprimirlinhapesquisa}} \\ & & \\
             }
-            \abntex@ifnotempty{\imprimirorientador}
-            {%
-                & \small\imprimirorientadorRotulo & \imprimirorientador \\
-                & & \small\imprimirinstOrientador \\ & & \\
-            }
-            \abntex@ifnotempty{\imprimircoorientador}
-            {%
-                & \small\imprimircoorientadorRotulo & \imprimircoorientador \\
-                & & \small\imprimirinstCoorientador
-            }
         \end{tabular}
     }
 
@@ -364,8 +354,8 @@
 
     \begin{center}
 	\begin{SingleSpacing}
-            \large\MakeUppercase{\imprimirlocal}\\
-            \large\MakeUppercase{\imprimirdata}
+            \MakeUppercase{\imprimirlocal}\\
+            \MakeUppercase{\imprimirdata}
 	\end{SingleSpacing}
     \end{center}
 }
