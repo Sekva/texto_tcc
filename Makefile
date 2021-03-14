@@ -8,7 +8,7 @@
 # Definindo as variáveis
 
 SOURCE      = utfpr-tcc
-LATEX       = pdflatex
+LATEX       = xelatex
 LATEXMK     = latexmk
 BIBTEX      = bibtex
 MAKEINDEX   = makeindex
@@ -17,7 +17,7 @@ OPENPDF     = firefox
 
 # Executando o processo completo de limpeza, compilação e compressão
 
-all: clean compile2 clean2
+all: clean compile clean2
 
 # Compilar o código fonte
 

@@ -12,8 +12,7 @@
 ]{abntex2cite}                  % Configura as citações bibliográficas conforme a norma ABNT
 
 % PACOTES----------------------------------------------------------------------
-\usepackage[utf8]{inputenc}                                 % Codificação do documento
-\usepackage[T1]{fontenc}                                    % Seleção de código de fonte
+
 \usepackage{booktabs}                                       % Réguas horizontais em tabelas
 \usepackage{color, colortbl}                                % Controle das cores
 \usepackage{float}                                          % Necessário para tabelas/figuras em ambiente multi-colunas
@@ -27,15 +26,6 @@
 \usepackage{verbatim}                                       % Permite apresentar texto tal como escrito no documento, ainda que sejam comandos Latex
 \usepackage{amsfonts, amssymb, amsmath}                     % Fontes e símbolos matemáticos
 \usepackage[algoruled, portuguese]{algorithm2e}             % Permite escrever algoritmos em português
-%\usepackage[scaled]{helvet}                                % Usa a fonte Helvetica
-%\usepackage{times}                                         % Usa a fonte Times
-%\usepackage{palatino}                                      % Usa a fonte Palatino
-%\usepackage{lmodern}                                       % Usa a fonte Latin Modern
-%\usepackage{accanthis}
-
-%\usepackage{fontspec}
-%\setmainfont{Carlito}
-
 \usepackage[bottom]{footmisc}                               % Mantém as notas de rodapé sempre na mesma posição
 \usepackage{ae, aecompl}                                    % Fontes de alta qualidade
 \usepackage{latexsym}                                       % Símbolos matemáticos
@@ -46,3 +36,40 @@
 %\usepackage{upgreek}                                       % Fonte letras gregas
 \usepackage[singlelinecheck=false,tableposition=bottom]{caption}
 \usepackage{tabularx}
+
+
+\usepackage{fontspec}
+\renewcommand{\familydefault}{\sfdefault}
+\setmainfont{Accanthis ADF Std No3}
+\setromanfont{Accanthis ADF Std No3}
+\setsansfont{Accanthis ADF Std No3}
+\setmonofont{Accanthis ADF Std No3}
+
+%% Times New Roman
+%\setromanfont[
+%BoldFont=timesbd.ttf,
+%ItalicFont=timesi.ttf,
+%BoldItalicFont=timesbi.ttf,
+%]{times.ttf}
+%% Arial
+%\setsansfont[
+%BoldFont=arialbd.ttf,
+%ItalicFont=ariali.ttf,
+%BoldItalicFont=arialbi.ttf
+%]{arial.ttf}
+%% Courier New
+%\setmonofont[Scale=0.90,
+%BoldFont=courbd.ttf,
+%ItalicFont=couri.ttf,
+%BoldItalicFont=courbi.ttf,
+%Color={0019D4}
+%]{cour.ttf}
+ 
+\usepackage[utf8]{inputenc}                                 % Codificação do documento
+%\usepackage[T1]{fontenc}
+%\usepackage[scaled]{helvet}                                % Usa a fonte Helvetica
+%\usepackage{times}                                         % Usa a fonte Times
+%\usepackage{palatino}                                      % Usa a fonte Palatino
+%\usepackage{lmodern}                                       % Usa a fonte Latin Modern
+%\usepackage{accanthis}
+ 
