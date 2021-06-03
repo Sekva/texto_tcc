@@ -1,0 +1,271 @@
+
+
+
+
+
+
+
+\section{Cálculos numéricos da Hessiana}
+O calculo das informações de segunda ordem de uma função, a matriz hessiana, faz parte do conjunto
+de problemas computacionais encontrados durante o processo de otimização. Diversos métodos são
+formulados com a necessidade do uso da hessiana.
+
+O método de Newton, assim como toda a família de métodos usados como alternativas a ele,
+denominados de métodos Quasi-Newton, utilizam a matriz hessiana durante seu processo de otimização
+de forma conjunta ou não com o gradiente da função. Como a família de métodos newtonianos é extensa e
+aplicada em diversas áreas, diversos métodos para o calculo da hessiana foram desenvolvidos
+pensado na eficiência de sua aplicação. Dentre os diversos métodos, alguns se tornaram famosos
+e amplamente utilizados, como o BFGS e o DFP, e outros mais específicos como métodos adjuntos,
+métodos complexos e o método hiper-dual.
+
+É necessário ter o conhecimento que nem todos os métodos de otimização, que usam a hessiana de
+alguma forma, requerem a computação exata da hessiana, então existe uma divisão entre métodos
+de computação exata da hessiana, e métodos que computam apenas aproximações da hessiana.
+
+
+\subsection{Diferença finita}
+Os métodos que usam diferença finita podem ser vistas como traduções das definições matemáticas
+das derivadas. No entanto, quando esses métodos são implementados praticamente, problemas com a
+precisão dos números obtidos se tornam um problema, assim como o custo de avaliar diversas
+vezes a função objetivo \cite{caplan2011numerical}.
+
+Existem duas formas normalmente apresentadas para o uso da diferença finita, a diferença
+progressiva e a diferença central. Que para o calculo de derivadas de primeira ordem, temos:
+
+
+TODO: melhorar caption da eqn Diferença progressiva
+\begin{equation*}
+\frac{\partial f}{\partial x_i} = \frac{f(x+he_i) - f(x)}{h}
+\end{equation*}
+
+TODO: melhorar caption da eqn Diferença central
+\begin{equation*}
+\frac{\partial f}{\partial x_i} = \frac{f(x+he_i) - f(x - he_i)}{2h}
+\end{equation*}
+
+Onde \(e_k\) é a \(k\)-ésima base canônica do \(\mathbb{R}^n\).
+
+É preferível escolher a diferença central para usos praticamente pela impossibilidade de
+calculo causada incapacidade de operar com um valor para \(h\) infinitesimalmente pequeno, já
+quando se calcula a derivada considerando a diferença \(f(x+he_i) - f(x)\), acabamos
+calculando a derivada em um ponto um pouco mais a frente do que o desejado, gerando um erro
+significativo. Já usando a diferença central, contorna-se isso equilibrando a posição onde a
+derivada será calculada pela mesma proporção.
+
+Mas ainda é necessário tomar um certo cuidado no uso da diferença central no que se diz
+respeito a escolha de \(h\). Como estamos tomando uma diferença maior entre os valores
+observados, devemos compensar esse aumento na diferença escolhendo um valor menor para \(h\)
+do que escolheríamos se usássemos a diferença progressiva.
+
+
+O calculo da derivada de segunda ordem também é possível por esses mesmos métodos.
+Para o uso da diferença progressiva, \cite{dennisschnabel1996} mostram e provam a seguinte
+expressão:
+
+\begin{equation*}
+\frac{\partial^2 f}{\partial x_i \partial x_j} = \frac{f(x+he_i + he_j) - f(x+he_i) - f(x+he_j) + f(x)}{h^2}
+\end{equation*}
+
+Percebemos logo seu custo de 4 avaliações da função por entrada da matriz hessiana, o que pode
+se tornar um problema considerando um problema de alta dimensionalidade ou funções difíceis de
+se avaliar, mesmo sabendo que a matriz hessiana é simétrica, ou seja, basta computar apenas um
+triangulo da matriz.
+
+Já para o uso da diferença central, descrita em \cite{abramowitz1972handbook}, temos a seguinte
+expressão:
+
+\begin{equation*}
+\frac{\partial^2 f}{\partial x_i \partial x_j} = \frac{f(x + he_i + he_j) - f(x + he_i - he_j) - f(x -he_i + he_j) + f(x - he_i -he_j )}{4h^2}
+\end{equation*}
+
+Da mesma forma, temos 4 avaliações da função, porém com mais operações sobre o valor de entrada,
+e considerando o mesmo problema de ter que escolher um valor menor para \(h\). E também o uso da
+diferença central tem uma precisão melhor que a diferença progressiva.
+
+\subsection{DFP e BFGS}
+Quando o calculo da matriz hessiana se torna custoso demais para se calcular o valor exato,
+métodos de atualização da hessiana tomam seus lugares. Esses métodos normalmente constroem
+essa atualização baseando-se na característica interativa dos algoritmos que estão envolvidos.
+
+Podemos iniciar tomando uma aproximação da expansão local do gradiente da próxima iteração:
+
+\begin{equation*}
+\nabla f(x_{k+1}) \approx \nabla f(x) + H(x) (x_{k+1} - x)
+\end{equation*}
+
+Que reorganizando e tomando a hessiana como constante (o que não é, mas é esperado que o gradiente
+não mude bruscamente) temos a seguinte expressão, gerando uma aproximação para a hessiana em \(x_k\)
+e \(x_{k+1}\):
+
+\begin{equation*}
+H \approx \frac{\nabla f(x_{k+1}) - \nabla f(x)}{(x_{k+1} - x)}
+\end{equation*}
+
+Ou ainda:
+
+\begin{equation*}
+H\sigma \approx y
+\end{equation*}
+
+\begin{equation*}
+y = (\nabla f(x_{k+1}) - \nabla f(x)), \sigma = (x_{k+1} - x)
+\end{equation*}
+
+
+Que nada mais é que a equação da secante. O problema que temos agora, é que a hessiana deve ser
+sempre simétrica e normalmente também definida positiva, o que não esta garantido desta forma.
+
+Em 1970, Davidon \cite{davidon1991variable}, usou em seu método de minimização uma matriz que
+especificava um mapeamento linear das mudanças do gradiente em relação as mudanças da posição
+observada. Essa matriz é atualizada a cada iteração de seu método é pelas relações do que foi
+mudado em relação à posição e no que foi mudado em relação ao gradiente da posição anterior
+e o atual. No entanto, seu método nem sempre era usável, e por isso em 1963, Fletcher e Powell
+\cite{fletcher1963rapidly} introduziram novas ferramentas, garantindo o funcionamento em diversos
+casos e a convergência dessa tal matriz à matriz hessiana inversa (o que já acontecia antes, mas
+não em todos os casos), tornando o método da atualização da matriz o primeiro a receber um grande
+prestigio. A atualização da aproximação da matriz inversa à hessiana de Davidon-Fletcher-Powell
+(DFP) é dada por:
+
+\begin{equation*}
+H^{-1}_{k+1} = H^{-1}_{k} + A_k + B_k
+\end{equation*}
+
+\begin{equation*}
+A_k =  \frac{\sigma_k^T \sigma_k}{\sigma_k^T y_k}
+\end{equation*}
+
+\begin{equation*}
+B_k = - \frac{   H^{-1}_k y_k y^T_k  H^{-1}_k  }{ y^T_k H^{-1}_k y_k}
+\end{equation*}
+
+\begin{equation*}
+y_k = \nabla f(x_{k+1}) - \nabla f(x_k)
+\end{equation*}
+
+\begin{equation*}
+\sigma_k = (x_{k+1} - x_k)
+\end{equation*}
+
+\(\sigma_k\) também pode ser definido como o vetor que quando somado à \(x_k\), minimiza a função na direção \(-H^{-1}_k \nabla f(x_k)\)
+
+Algumas informações podem ser verificadas a partir das expressões dadas, como de que escolhendo, uma
+matriz inicial definida positiva, as seguintes iterações serão positivas definidas, e de que com
+as novas ferramentas trazidas por Fletcher e Powell, o método DFP também se torna um método
+conjugado, por algumas relações ortogonalizantes no processo.
+
+Um dos passos tomados na definição do método DFP é restringir a próxima aproximação da matriz
+inversa à hessiana a ser definida positiva. Mas podemos restringir a própria aproximação da
+hessiana a ser positiva definida e já calculá-la diretamente. Broyden \cite{BROYDEN_1970},
+Fletcher \cite{Fletcher_1970}, Goldfarb \cite{Goldfarb_1970} e Shanno \cite{Shanno_1970} chegaram a
+essa conclusão e demonstraram o método que ofuscaria o DFP, o BFGS, definido da seguinte forma:
+
+
+\begin{equation*}
+H_{k+1} = H_{k} + A_k + B_k
+\end{equation*}
+
+\begin{equation*}
+A_k =  \frac{y_k^T y_k}{y_k^T \sigma_k}
+\end{equation*}
+
+\begin{equation*}
+B_k = - \frac{   H_k \sigma_k \sigma^T_k  H_k  }{ \sigma^T_k H_k \sigma_k}
+\end{equation*}
+
+\begin{equation*}
+y_k = \nabla f(x_{k+1}) - \nabla f(x_k)
+\end{equation*}
+
+\begin{equation*}
+\sigma_k = x_{k+1} - x_k
+\end{equation*}
+
+
+Método que basicamente, inverte as posições de variáveis em relação ao DFP.
+Na literatura encontra-se constantemente exemplos de que o BFGS é um dos melhores
+métodos disponíveis, tanto em eficiência quanto em facilidade de implementação.
+
+
+
+TODO: falar sobre taylor e a expansão local do gradiente????
+
+
+\subsection{Passo complexo}
+O método do passo complexo, assim como mostrado em \cite{Lai_2005}, mas conhecida desde
+\cite{Lyness_1967}, toma como base a expansão de Taylor da função perturbada por um termo
+complexo:
+
+TODO: verificar Layness como primeiro a falar
+
+\begin{equation*}
+f(x + ih) = f(x) + \frac{i^1h^1}{1!}f'(x) + \frac{i^2h^2}{2!} f''(x) + ...
+\end{equation*}
+
+Para a derivada de primeira ordem, podemos truncar as expressão para não considerar derivadas
+de maiores ordens. O que nos deixa com:
+
+
+\begin{equation*}
+f(x + ih) = f(x) + ihf'(x)
+\end{equation*}
+
+Sabendo que \(f(x+ih)\) é um número complexo, podemos pegar apenas a parte imaginaria:
+
+\begin{equation*}
+Imag(f(x + ih)) = hf'(x)
+\end{equation*}
+
+Por fim:
+
+\begin{equation*}
+f'(x) = \frac{Imag(f(x + ih))}{h}
+\end{equation*}
+
+
+O que nos dá uma grande vantagem em relação ao erro criado pelas operações de ponto flutuantes
+executadas em computadores. A desvantagem é a necessidade que todas as ferramentas usadas em
+conjunto com esse método sejam preparadas para trabalhar com funções de imagem complexa.
+
+O erro em relação a qualquer método de diferença finita (comparáveis por serem simples de implementar)
+é consideravelmente menor para um \(h\) suficientemente pequeno, como mostrado em \cite{caplan2011numerical}.
+
+Da mesma forma, pode ser construído um métodos para se obter as segundas derivadas:
+
+\begin{equation*}
+f''(x) = \frac{2}{h^2} (f(x) - Re(f(x+ih)))
+\end{equation*}
+
+\subsection{Números hiper-duais}
+O método do uso de números hiper-duais é baseado na ideia de generalização dos números complexos.
+Introduzido em \cite{Fike_2011}, um número hiper-dual é definido como:
+
+\begin{equation*}
+a = a_0 + a_i\epsilon_i + a_j\epsilon_j + x_{ij}\epsilon_i \epsilon_j
+\end{equation*}
+
+Onde \(\epsilon_i^2 = \epsilon_j^2 = (\epsilon_i\epsilon_j)^2 = 0\), mas \( \epsilon_i, \epsilon_j, \epsilon_i\epsilon_j  \neq 0\).
+
+Quando fazemos a expansão de Taylor de uma função perturbada sobre tais números, temos apenas:
+
+\begin{equation*}
+f(x+ h) = f(x) + h_i \frac{df}{dx} \epsilon_i + h_j \frac{df}{dx} \epsilon_j +    h_ih_j \frac{d^2f}{dx^2} \epsilon_{ij}
+\end{equation*}
+
+Reorganizando, temos:
+
+\begin{equation*}
+  \frac{df}{dx} = \frac{1}{h_i} \epsilon_{if} = \frac{1}{h_j} \epsilon_{jf}
+\end{equation*}
+
+
+Onde \(\epsilon_{kf}\) é a \(\epsilon_k\) parte de \( f(x + h_i\epsilon_i + h_j\epsilon_j) \)
+
+Para segundas derivadas:
+
+\begin{equation*}
+\frac{d^2f}{dx^2} = \frac{1}{h_{ij}} \epsilon_{ijf}
+\end{equation*}
+
+Onde \(\epsilon_{ijf}\) é a \(\epsilon_{ij}\) parte de \( f(x + h_i\epsilon_i + h_j\epsilon_j) \)
+
+TODO: finalizar

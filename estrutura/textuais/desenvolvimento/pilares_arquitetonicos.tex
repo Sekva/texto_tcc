@@ -1,0 +1,250 @@
+\section{Os pilares arquitetônicos do SCP}
+
+O algorítimo SCP \cite{Still2010} apresentado é a extensão de um trabalho sobre as
+mesmas bases. Anteriormente, os autores haviam desenvolvido um método capaz de resolver apenas
+problemas convexos com restrições de desigualdades não lineares.
+
+Assim como o algoritmo antes desse, o objetivo do SCP - Sequential Cutting Plane - é melhorar
+a performance da resolução de problemas onde todas as funções são computacionalmente baratas
+de calcular, já que não se busca minimizar a quantidade de funções computadas durante o processo.
+Portanto, se a computação de alguma função dentro do problema for computacionalmente custosa, então outro
+algoritmo deve fazer esse trabalho melhor.
+
+Os autores pedem que o SCP, acrônimo para Sequential Cutting Plane, não seja confundido, com
+outro SCP, que seria Sequential Convex Programming. No Sequential Convex Programming, o problema é
+resolvido por meio de uma sequência de resoluções de subproblemas convexos não lineares
+separáveis. Já no Sequential Cutting Plane, é usada uma sequência de resoluções de subproblemas
+lineares.
+
+\subsection{Ferramentas usadas pelo SCP}
+O SCP \cite{Still2010} pode ser usado para resolver problemas não lineares, com restrições tanto
+de igualdade, quanto de desigualdade, o que, por exemplo, o LANCELOT (\ref{sec_lancelot}) não pode
+resolver, já que requer que as restrições de desigualdade sejam convertidas em igualdades. Outro
+ponto importante é a convergência global a um ótimo KKT (\ref{sec_kkt}), mesmo em problemas não convexos, desde
+que sejam continuamente diferenciáveis.
+
+\subsubsection{Qualificações de Karush-Kuhn-Tucker}
+\label{sec_kkt}
+
+TODO: introduzir kkt, e expondo e explicando cada uma separadamente
+
+Achava-se que as condições KKT foram propostas apenas em 1951 por Harold W. Kuhn e Albert W.
+Tucker \cite{kuhn1951nonlinear}, mas mais tarde descobriu-se que já foram apresentadas em
+1939 por William Karush \cite{karush1939minima}, em sua tese de mestrado.
+
+Um ponto KKT é aquele que passa por todas as condições de KKT, com testes de primeira e segunda
+ordem. É usada a forma Lagrangiana do seguinte problema:
+
+
+\vspace{-15pt}
+\begin{mini!}
+{x}{ f(x) \label{kkt_obj}}{\label{prob_kkt}}{}
+\addConstraint{h_i(x)}{= 0, \quad}{i = 1, ..., m; \label{r1_kkt}}
+\addConstraint{g_j(x)}{\leq 0, \quad}{j = 1, ...,r. \label{r2_kkt}}
+\end{mini!}
+
+Onde a Lagrangiana é dada por:
+
+\begin{equation}
+  L(x, \mu, \lambda) = f(x) + \mu^T g(x) + \lambda^T h(x)
+\end{equation}
+
+As condições de primeira ordem são as seguintes:
+
+\begin{enumerate}
+
+\item Estacionário:
+
+  TODO: Reescrever essa condição, indicando que deve existir um valor para x tal que a equação se anula.
+  \( 0 \in \{ \partial f(x) + \sum_{i=1}^m \mu_i \partial g_i(x) + \sum_{j=1}^r \lambda_j \partial h_j(x)\} \);
+
+\item Negligência complementar:
+
+  \( \lambda_j h_j(x) = 0; \forall j \);
+  
+\item Viabilidade primária:
+
+  \( g_i(x) \leq 0, h_j(x) = 0; \forall i, j \);
+  
+\item Dupla Viabilidade:
+
+  \( \mu_i \geq 0; \forall i \).
+
+\end{enumerate}
+
+Uma conclusão que se pode tirar dessas condições é que se \( L(x^{*}, \mu^{*}) \) é um ponto de sela e
+\( \mu \geq 0 \), então \( x^{*} \) é uma solução ótima para o problema.
+
+\subsubsection{Qualificações de Mangasarian e Fromovitz}
+As qualificações de restrições de Mangasarian e Fromovitz são um trabalho
+em cima de um conjunto de qualificações "rival" das de Karush-Kuhn-Tucker,
+as qualificações de Fritz John.
+
+As qualificações de restrições de Fritz John, \cite{john2014extremum}
+originalmente foram construídas pensando apenas nas restrições de desigualdades.
+Existindo restrições de igualdades, elas devem ser convertidas em restrições de
+desigualdades, mas isso acaba tornando as qualificações inúteis, uma vez que qualquer
+ponto viável como solução satisfaz as restrições. Considerando o seguinte problema:
+
+
+\vspace{-15pt}
+\begin{mini!}
+{x}{ f(x) \label{emfcq_obj}}{\label{prob_emfcq}}{}
+\addConstraint{g_i(x)}{\leq 0, \quad}{i \in M := \{1, 2, ..., m\}; \label{r1_emfcq}}
+\addConstraint{h_j(x)}{= 0, \quad}{j \in K := \{1, 2, ..., k\}. \label{r2_emfcq}}
+\end{mini!}
+
+
+Considerando o conjunto \(K\) vazio, as condições de otimalidade de Fritz John são as seguintes:
+
+Se \(\bar x\) é solução do problema, então existe um vetor \(u = (u_0, u_1,..., u_m) \in R^{m+1} \)
+de forma que:
+
+\vspace{-15pt}
+\begin{flalign}
+  & u_0 \nabla f(x) + \sum_{i=1}^m u_i \nabla g_i(x) = 0; \\
+  & \sum_{i=1}^m u_i \nabla g_i(x) = 0; \\
+  & u_i > 0, i = 0, ..., m.
+\end{flalign}
+
+No entanto, o conjunto de restrições de igualdade nem sempre é vazio. A saída mais fácil seria
+substituir cada restrição de igualdade por duas de desigualdade, mas isso tornaria as condições
+de otimalidade possíveis para qualquer valor viável. Então usar como uma qualificação de restrição
+pode não ser a melhor opção.
+
+Mesmo existindo outras condições de otimalidade e qualificações paras restrições, normalmente
+as restrições de desigualdades e igualdades eram analisadas separadamente. Com isso, Mangasarian
+e Fromovitz  \cite{mangasarian1967fritz} melhoraram as condições de Fritz John para a analise
+conjunta das restrições. Tomando como componente principal o Teorema da Transposição de Motzkin,
+generalizaram as condições para o seguinte:
+
+TODO: onde encontrar o teorema da transposição de motzkin
+
+
+\begin{equation}
+    \bar x \in S :=\{ x | g_i(x) \leq 0, i \in M, h_j(x) = 0, j \in K \}
+\end{equation}
+
+TODO: explicar o que isso quer dizer
+
+Se \( \nabla h_j(\bar x), j \in K\), são linearmente dependentes ou se o sistema
+
+\begin{equation}
+    \begin{cases}
+      \theta(x) - \theta(\bar x) < 0\\
+      g_i(x) < 0, i \in M\\
+      h_j(x) = 0, j \in K
+    \end{cases}
+\end{equation}
+não tem solução para \( x \in \mathbb{R}^n \). A partir dai, construíram também qualificações para
+as restrições, que são as seguintes:
+
+Seja \( \bar x \) solução do problema. Então \( \nabla h_j(\bar x), j \in K\),
+são linearmente independentes e existe um vetor \(\bar y\) tal que:
+
+\begin{itemize}
+\item \( \bar y' \nabla g_i(\bar x) < 0, i \in \bar M := \{i | i \in M, g_i(\bar x) = 0 \} \neq \varnothing \)
+\item \( \bar y' \nabla h_j(\bar x) = 0, j \in K \)
+\end{itemize}
+
+Onde \( \bar y' \) é \(\bar y\) transposta. Caso \(\bar M\) seja vazio, os gradientes das restrições
+de igualdade serem linearmente independentes basta.
+
+
+
+
+\subsection{Sobre a escolha do uso de problemas lineares}
+Como mostrado em um dos métodos anteriores em \ref{secao_historia}, a resolução de subproblemas
+lineares podem ser usadas tanto isoladamente, quanto em conjunto com a resolução de subproblemas
+quadráticos para resolver problemas de otimização não linear. Os métodos que usam os subproblemas
+quadráticos ganharam mais atenção, principalmente, depois que foi mostrada a convergência à um
+ótimo global em 1977 \cite{han1977globally}, e com o tempo, as técnicas que usam resolução de
+subproblemas lineares começaram a ser esquecidas. Nesse contexto, os autores, C. Still e
+T. Westerlund desejam mostrar que o método montado por eles é capaz de resolver problemas não
+lineares eficientemente apenas usando técnicas lineares.
+
+Segundo seus experimentos, mostraram que o seu método é capaz de resolver problemas em um dado
+conjunto de problema tão eficientemente quanto outros métodos amplamente utilizados, métodos
+estes que usam resolução de subproblemas quadráticos. Os resolvedores que usaram foi o LANCELOT
+\cite{conn1991globally} e o DONLP2 \cite{spellucci1999donlp2}. A escolha desses resolvedores se
+deu por terem conceitos diferentes, mas ainda assim comparáveis ao conceito do SCP. O conjunto
+de problemas que todos os 3 resolveram foram os testes de Hock e Schittkowski \cite{Hock1981}, e
+também os teste de Schittkowski \cite{Schittkowski1987}.
+
+TODO: comentario sobre o uso dos testes por outros
+
+\subsubsection{LANCELOT}
+\label{sec_lancelot}
+O LANCELOT \cite{conn1991globally} é na verdade um conjunto de técnicas compiladas em um único
+pacote da  linguagem Fortran. Dentre as técnicas utilizadas, a técnica escolhida para fazer o
+comparativo com o SCP foi um método capaz de convergir para um ótimo global fazendo o uso da
+função Lagrangiana melhorada, assumindo restrições genéricas em um espaço simples. O problema
+que esse método se propõem a resolver é dado como:
+
+
+
+\vspace{-15pt}
+\begin{mini!}
+{x}{ f(x) \label{lancelot_obj}}{\label{prob_lancelot}}{}
+\addConstraint{c_i(x)}{= 0, \quad}{i \in \{1, ..., m\} \label{r1_lancelot}}
+\addConstraint{l \leq x}{\leq u}{ \label{r2_lancelot}}
+\end{mini!}
+
+TODO: dizer e explicar o que é ser continuamente diferenciável, e duas vezes isso
+TODO: dizer q é de classe C2?
+
+
+Considera-se também que as restrições de desigualdades foram convertidas em restrições de
+igualdades. O ponto chave desse método é minimizar a função Lagrangiana melhorada:
+
+\vspace{-15pt}
+\begin{equation}
+  \Phi(x, \lambda, S, \mu) = f(x) + \sum_{i=1}^{m} \lambda_i c_i(x) + \frac{1}{2\mu} \sum_{i=1}^m S_{ii} c_i(x)^2
+\end{equation}
+
+TODO: explicar as equações
+
+Fazendo o uso dos avanços em otimização desenvolvidos na época, criaram esse método a partir
+de outros estudos feitos anteriormente, mas agora com o suporte da Lagrangiana melhorada.
+
+A Lagrangiana melhorada foi proposta de forma independente por \cite{hestenes1969multiplier}
+e \cite{powell1969method}. O interesse nela foi sendo perdido à medida que os métodos
+de otimização sucessiva quadrática (SQP) foi se tornando popular. Alguns autores ousaram e
+usaram o SQP juntamente com a Lagrangiana melhorada, como em \cite{schittkowski1982nonlinear}
+e em \cite{gill1986some}. Esses métodos não são "puros", mas acabam fazendo uso da Lagrangiana
+melhorada apenas para obter algumas informações.
+
+Uma grande desvantagem dos métodos SQP para problemas de grande proporção é o custo computacional
+envolvido na resolução de um problema quadrático no final de cada iteração, da mesma forma que
+o método de Newton é custoso para problemas de grande proporção irrestrito. Essa foi uma das
+motivações para o desenvolvimento do LANCELOT.
+
+Foram apresentados por Schittkowski \cite{schittkowski1982nonlinear} resultados de um estudo
+comparativo sobre métodos não lineares. A conclusão chegada por ele é que, mesmo com os problemas
+já apresentados, os métodos SQP pertencem à classe métodos mais eficientes e eficazes que se tinham
+acesso na época. Um dos primeiros resultados apresentados por Schittkowski é a substituição de uma
+função de penalidade posta por Han e Powell pela função Lagrangiana melhorada para fazer a busca em linha.
+Outro resultado de seus estudos mostrados foi a substituição de subproblemas quadráticos por
+subproblemas de quadrados mínimos, que são menos custosos de computar.
+
+O foco do trabalho de Gill \cite{gill1986some} consiste na análise do uso da Lagrangiana melhorada
+como uma função de mérito para um método SQP, seguindo a sugestão de Schittkowski. Com isso foi
+possível provar que a convergência se dá para um ótimo global e que é do tipo superlinear.
+
+
+
+\subsubsection{DONLP2}
+O DONLP2 é a implementação de uma variante de um método SQP capaz de resolver problemas 
+abrangentes, da seguinte forma:
+
+\vspace{-15pt}
+\begin{mini!}
+{x}{ f(x) \label{donl2_obj}}{\label{prob_donlp2}}{}
+\addConstraint{h(x)}{= 0}{ \label{r1_donlp2}}
+\addConstraint{g(x)}{\geq 0}{ \label{r2_donlp2}}
+\end{mini!}
+
+Onde todas as funções são pelo menos duas vezes continuamente diferenciáveis, assim como no
+LANCELOT. A função de mérito determinada por esse método especifica o tamanho do passo a ser tomado,
+e esta função é uma função de penalidade exata, a \( l_1 \) \cite{han1979exact}, usada nos estudos
+anteriormente citados de Schittkowski, no qual ele substitui a \(l_1\) pela Lagrangiana melhorada.

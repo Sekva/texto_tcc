@@ -1,0 +1,103 @@
+\section{Programação não linear - Um possível início?}
+\label{secao_historia}
+
+Ao mesmo tempo que se refinavam as técnicas de otimização de problemas lineares, o que ocorreu
+alguns anos após os estudos iniciais de Dantzig e Kantorovich, mais esforços foram dirigidos à
+outras áreas da otimização. Problemas de otimização não linear já vinham sendo trabalhados
+há algum tempo, principalmente problemas de otimização não restrita. O método de Newton, descrito
+em \textit{De analysi per aequationes numero terminorum infinitas}, que é um método capaz de encontrar
+raízes de funções diferenciáveis, tomou a liderança dentre os métodos de otimização usados para
+tais problemas, e encontrou um "rival" cerca de dois séculos depois, o método do gradiente
+descendente, proposto por Cauchy \cite{lemarechal2012cauchy} em 1847. Nesse contexto, após
+a fixação de métodos para resolução de problemas lineares, foi iniciada uma busca por métodos para
+problemas não lineares usando essas novas ferramentas. Alguns desses métodos servem como fundamentos
+para o SCP, outros explicam as circunstancias históricas do SCP.
+
+\subsection{J. E. Kelley}
+
+Em 1960, a otimização restrita de problemas de mínimo encontrava pouco sucesso. No
+entanto, um pequeno subconjunto desses problemas estava gerando técnicas muito úteis, e um desses
+subconjuntos era a minimização de uma função convexa em um conjunto fechado e convexo, que foi
+alvo de muito interesse na época. O motivo de tanto interesse era que, como a função é convexa,
+todo ponto de mínimo local é mínimo global.
+
+Ainda em 1960, J.E. Kelley \cite{kelley1960cutting}, posto como responsável pela disseminação dos
+métodos de plano cortante desenvolve um método de otimização capaz de resolver problemas convexos
+a partir de suposições mais genéricas. O método proposto por Kelley é iterativo e consiste na
+resolução de problemas lineares.
+
+Esse método faz parte do crescimento do estudo do problema de ajuste de curvas de Chebyshev
+\cite{kelley1959computational}, \cite{kelley1958application}. O problema do ajuste de curvas pode
+ser resolvido minimizando a seguinte função:
+
+\vspace{-15pt}
+\begin{equation}
+  \underset{\alpha}{\mathrm{min}}\ \sigma(\alpha, x) = f(x) - \Sigma_j \alpha_j g_j(x)
+\end{equation}
+
+Em resumo, o objetivo desse problema de minimização é encontrar escalares para um certo
+conjunto de funções, que quando combinadas aproximam a função \(f\). Dentre as aplicações,
+podemos citar casos onde a computação de todas as funções \(g_j\) é menos custosa que a
+computação de \(f\).
+
+Outros pesquisadores, como Cheney e Goldstein \cite{cheney1959newton} e Phillip Wolfe \cite{wolfe1960rand},
+das condições de Wolfe, chegaram independentemente a este método, todos inspirados pelo trabalho de Remez.
+
+Em 1934, Remez \cite{remez1934procede} desenvolveu um método de ajuste de curvas, que constrói o polinômio
+com melhor aproximação para certas funções sob algumas condições. A forma de resolução é dada
+pela resolução de problemas lineares, analise de erro, e atualização do estado atual baseado
+em condições sobre o erro. Esses passos se tornaram base para toda a família de otimizadores
+pelo fato de gerar informações sobre direções do ótimo baseado numa análise inteligente do
+comportamento da função.
+
+\subsection{R. E. Griffith, R. A. Stewart}
+
+Em 1961, R. E. Griffith e R. A. Stewart \cite{griffith1961nonlinear} foram responsáveis por uma publicação
+de caráter prático. Desenvolveram uma técnica de otimização não linear para sistemas de processamento
+contínuo. Um método responsável por otimizar um problema da companhia de petróleo Shell. Trabalhando
+de forma similar ao proposto por J.E. Kelley, usando resoluções de subproblemas lineares, o processo
+consiste em resolver os subproblemas lineares de forma que a solução deles venham a convergir para
+a solução do problema principal.
+
+O método aceita problemas formulados respeitando um certo conjunto de regras, mas na prática nem
+sempre é necessário que sigam todas as funções visto que a solução dada é boa o suficiente. É dito
+que as melhores formulações para o problema necessitam de que as variáveis sejam separadas em lineares
+e não lineares; que as restrições envolvam tanto variáveis lineares e não lineares; que todas as funções
+sejam contínuas e, preferencialmente, bem comportadas. Um dos pontos positivos é que a escolha do ponto
+inicial para dar início ao algoritmo iterativo não afeta tanto o resultado final.
+
+A forma como a convergência das soluções dos subproblemas lineares resolvidos é mostrada é
+bastante ingênua. O método sendo iterativo precisa de um ponto inicial, e tal ponto inicial é o
+ponto dado como solução do subproblema linear resolvido anteriormente. E como a região onde esse
+subproblema é resolvido respeita as restrições do problema principal, então a sequência de pontos
+gerados converge para a solução ótima dentro de polígonos gerados pela linearização das
+restrições, sendo a solução uma aresta desse polígono.
+
+\subsection{S. P. Han}
+Em 1977, S. P. Han \cite{han1977globally} publicou um artigo no qual demonstrava um método que mudaria
+os rumos do estudo de otimização na época. Os métodos newtonianos que vinham sendo desenvolvidos
+eram de convergência a um ótimo local apenas, até que S.P. Han mostrou um formato que a convergência
+se tornaria a um ótimo global. Esse formato tem como objetivo resolver uma forma quadrática do
+problema original, encontrando uma direção de descida, e, ao invés de analisar a otimização da
+função original, analisa-se um função de mérito que leva em consideração propriedades locais da
+função, tornando o método capaz de convergir para um ótimo global, e mais, de forma superlinear.
+
+Após a publicação desse artigo, uma grande quantidade de publicações foram feitas usando como
+base as técnicas de otimização sequencial quadrática (SQP), e até hoje, uma grande parte dos
+otimizadores usam de alguma forma tais técnicas.
+
+\subsection{Richard H. Byrd, et al.}
+Mesmo o SQP sendo uma das abordagens mais bem sucedidas para otimização em larga escala, como
+problemas com centenas de variáveis e restrições, existe um defeito, justamente neste caso, a
+abordagem se torna computacionalmente ineficiente. Por isso, Bryd, Gould, Nocedal e
+Waltz \cite{byrd2003algorithm}, desenvolveram um novo método onde o problema quadrático não precisa
+ser resolvido completamente, em que a resolução de um problema linear limite o que precisa ser
+avaliado pelo problema quadrático, reduzindo assim o custo computacional da etapa mais pesada do
+método, a resolução de problemas quadráticos. O que os métodos anteriores vinham fazendo era avaliar
+as funções de restrição ao mesmo tempo que se fazia a computação da atualização do ponto da
+sequência naquele momento. A mudança que este método fez foi separar cada etapa da resolução e
+buscar uma melhor forma de resolver cada passo. O primeiro passo, feito por uma resolução de um
+problema linear reduz o conjunto de restrições e define uma direção de minimização. Feito isso é
+computado um modelo quadrático minimizando uma função de mérito que faz uso da direção dada pela
+resolução do problema linear. Por fim, o problema quadrático é resolvido usando o conjunto de
+restrições determinada na primeira etapa.

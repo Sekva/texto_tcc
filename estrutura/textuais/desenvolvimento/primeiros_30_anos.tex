@@ -1,0 +1,124 @@
+
+\section{As primeiras três décadas da programação}
+
+Na década de 1930 o mundo encontrava-se em um estado onde problemas de gerenciamento
+se tornaram muito complexos, e tão pouco estruturados, que modelos matemáticos e o poder
+computacional existente na época foram postos à prova. A partir daí o campo de
+pesquisa responsável por esses assuntos começou a tomar forma e ganhar mais importância.
+Dentre os vários nomes dados a essa área de pesquisa, podemos encontrar pesquisa operacional,
+análise de sistemas, análise de custo-benefício e análise de custo-efetividade. Durante essa
+década, onde inciava-se a segunda guerra mundial, problemas como a alocação de recursos
+limitados entre atividades simultâneas sob certas restrições eram comuns.
+
+
+\subsection{Kantorovich}
+
+Em 1939, problemas de otimização de produções com base nas reservas da indústria (materiais,
+trabalhadores e equipamentos) se tornaram essenciais no sustento do estado Soviético.
+Segundo Kantorovich \cite{kantorovich1939}, existem duas formas de melhorar a eficiência
+de uma fábrica. A primeira é melhorando a tecnologia empregada nos meios de produção, e a
+outra é melhorando a organização do planejamento e da produção.
+
+Antes disso, Kantorovich havia percebido que uma grande quantidade de problemas, de diversas
+áreas, levavam à formulação de problemas de extremos. Mas ele também notou que esses problemas,
+embora similares à problemas da análise matemática, quando se tentava resolver
+usando os mesmos processos matemáticos, formalmente definidos, se tornavam inúteis, pois era
+deveras custoso no aspecto computacional. Dentre um dos exemplos está a resolução de milhares
+ou milhões de sistemas de equações.
+
+Ele foi capaz de reduzir vários dos problemas que encontrou em três tipos.
+Partindo do problema de alocação de tempo de uso de máquinas para a produção de partes que compõem
+um dado produto, foi formulado um problema genérico considerando um número
+\(n\) de máquinas, e a produção de \(m\) partes diferentes para confecção do produto. Usando
+a \(i\)-ésima máquina para produzir apenas a \(k\)-ésima parte durante um dia inteiro de trabalho,
+seria produzido \(\alpha_{i, k}\) partes. O problema consiste em dividir o tempo de trabalhado de cada
+máquina de forma que possa ser construído o máximo possível de produtos.
+
+
+Considerando \(h_{i, k}\) como a fração do dia de trabalho que a máquina \(i\) passou produzindo
+a parte \(k\), como sendo a variável que desejamos otimizar. Por motivos óbvios, ela deve ser positiva.
+E também, por não podermos considerar que uma máquina esteja parada durante o dia de trabalho, temos
+duas restrições:
+
+\vspace{5pt}
+
+%\begin{enumerate}[leftmargin=\parindent] alinha o conteúdo com o paragrafo
+\begin{enumerate}[leftmargin=5em]%\itemsep 3em
+  \item \(h_{i, k} \geq 0\), para \(i =1, ..., m \);
+  \item \(\sum_{k=1}^m h_{i, k} = 1\), para \(i =1, ..., m \);
+  \label{restricoes_a}
+\end{enumerate}
+
+\vspace{5pt}
+
+Observando que a restrição \(2.\) significa que a soma das frações \(h_{i, k}\) deve resultar
+em 1, visto que a unidade de tempo é o dia. Portanto, temos que a quantidade da \(k\)-ésima parte
+produzida no dia é:
+
+\vspace{-15pt}
+
+\begin{equation}
+  z_k = \sum_{i=1}^n \alpha_{i, k} h_{i, k}.
+  \label{zk}
+\end{equation}
+
+
+\par Para que se obtenha o máximo de produtos completos, é necessário que se tenha a mesma quantidade de
+cada tipo de parte, do contrário foi perdido tempo produzindo partes extras. Com isso temos o
+\textit{Problema A}, cuja configuração é dada pelas restrições a seguir:
+
+\textit{
+  Encontrar \(h_{i, k}\) tal que as partes \(z_k\) sejam todas iguais, isto é \(z_{k_1} = z_{k_2} \)
+  para \(k_1, k_2 \in \{1, ..., m\}\). Onde \(z_k\) é dado pela expressão \ref{zk} e adicionalmente
+  \(h_{i, k}\) satisfazendo as restrições descritas em \ref{restricoes_a}.
+}
+
+Problemas como o uso racional de combustível e distribuição ótima de terras aráveis
+também foram usados como exemplos de problemas que podem ser reduzidos a mesma forma
+que o Problema A.
+
+Caso tenhamos mais condições limitantes, temos um outro modelo esperado por Kantorovich.
+Considerando o mesmo problema de produção anteriormente definido, e agora com limite
+máximo de energia gasta \(C\) para todas as máquinas e, \(c_{i, k}\) sendo o consumo de energia
+da máquina \(i\) produzindo a parte \(k\) por um dia inteiro de trabalho, temos o Problema A com
+mais uma restrição, chamado de Problema B. Onde essa nova restrição é dada por:
+
+\begin{equation}
+  \sum_{i=1}^n \sum_{k=1}^m c_{i, k} h_{i, k} \leq C
+\end{equation}
+
+Podem existir vários significados sobre as quantidades em torno de \(C\), como, por exemplo,
+a quantidade de pessoas disponíveis para trabalho, consumo de água ou qualquer recurso
+necessário para a produção. Da mesma forma podemos ter diversas restrições como esta,
+o que ainda é classificado como um problema tipo Problema B.
+
+Ainda há um terceiro modelo de problema, quando uma mesma máquina pode produzir ao mesmo tempo
+mais de uma parte, e que ela pode ser configurada para operar de diferentes métodos, com cada
+método resultando em números diferentes de partes. Considerando \( \gamma_{i, k, l} \) o número de
+\(k\)-ésimas partes, produzidas na \(i\)-ésima máquina, utilizando a \(l\)-ésima configuração,
+é preciso encontrar a fração de horas do dia trabalhado \(h_{i, l}\) que uma máquina \(i\) deverá
+passar operando na configuração \(l\). O números de \(k\)-ésimas partes é dado por
+\( z_k = \Sigma_{i, l} \gamma_{i, k, l} h_{i, l}\). São aplicados as restrições da mesma forma para o Problema
+A e o Problema B. Com isso temos o Problema C:
+
+\begin{maxi!}
+{}{ \displaystyle{z_k} \label{kobj}}{\label{prob_kantorovich}}{}
+\addConstraint{z_i}{= z_j, \quad}{\forall i, j \leq m \label{kr1}}
+\addConstraint{z_k}{= \displaystyle{\sum_{i, l} \gamma_{i, k, l}  h_{i, l}}, \quad}{k=1, ..., m \label{kr2}}
+\addConstraint{h_{i, l}}{ \geq 0, \quad}{ \forall i, l \label{kr3}}
+\addConstraint{\displaystyle{\sum_l h_{i, l}}}{ = 1, \quad}{\forall i, l \label{kr4}}
+\end{maxi!}
+
+\vspace {0.5cm}
+
+Para a resolução de tais problemas, Kantorovich desenvolveu um método simples. A partir do
+Problema A, é certo que existe um conjunto de multiplicadores \(\{ \lambda_1, \lambda_2, ..., \lambda_m \}\) com
+cada um correspondendo a uma parte produzida, que são capazes de levar à solução do problema.
+A partir deles podemos observar cada máquina \(i\) e escolher os multiplicadores que geram os
+máximos entre \(\{\lambda_1\alpha_{i, 1}, \lambda_2\alpha_{i, 2}, ..., \lambda_m\alpha_{i, m}\}\). Em seguida, os multiplicadores \( \lambda_k \)
+observados nas máquinas \(i\) que resultaram em máximos são postos como \(h_{i, k}\). Feito isso,
+fica muito mais fácil determinar os outros valores para \( h_{i, k} \).
+
+\subsection{Dantzig}
+
+TODO: ele
