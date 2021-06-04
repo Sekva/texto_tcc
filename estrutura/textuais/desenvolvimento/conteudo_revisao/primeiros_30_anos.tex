@@ -109,8 +109,6 @@ A e o Problema B. Com isso temos o Problema C:
 \addConstraint{\displaystyle{\sum_l h_{i, l}}}{ = 1, \quad}{\forall i, l \label{kr4}}
 \end{maxi!}
 
-\vspace {0.5cm}
-
 Para a resolução de tais problemas, Kantorovich desenvolveu um método simples. A partir do
 Problema A, é certo que existe um conjunto de multiplicadores \(\{ \lambda_1, \lambda_2, ..., \lambda_m \}\) com
 cada um correspondendo a uma parte produzida, que são capazes de levar à solução do problema.
@@ -121,4 +119,65 @@ fica muito mais fácil determinar os outros valores para \( h_{i, k} \).
 
 \subsection{Dantzig}
 
-TODO: ele
+Ainda na década de 40, mas desta vez no Estados Unidos da América, os mesmos problemas de alocação de
+recursos surgiam, uma vez dado o contexto de guerra. Dada necessidade de coordenação entre os diversos
+problemas que demandavam atenção, Dantzig \citeyear{dantzig1}, ao mesmo tempo que \citeauthor{kantorovich1939},
+desenvolveu modelos e métodos para a resolução de problemas lineares.
+
+Para dar exemplos de uso, Dantzig elencou alguns problemas rotineiros para ele nas décadas de 30-40.
+Dentre os problemas, podemos falar sobre uma empresa vendedora de mesas. A empresa tem quatro modelos
+de mesas, onde cada mesa é construída em uma carpinteira e depois mandada para o acabamento. O número
+de horas de trabalho e o número de horas disponíveis para cada lugar são conhecidos. É certo a
+disponibilidade de matérias primas e a venda das mesas fabricadas. O objetivo da empresa é saber
+quantas mesas de cada modelo irá encomendar de forma que maximize o lucro, e isso facilmente
+pode ser representado como um problema linear.
+
+Dentre as várias contribuições dadas por Dantzig, podemos destacar três. A primeira sendo a
+padronização de um problema linear. Como já visto, o problema de otimização linear consiste
+em otimizar uma expressão linear de \(n\) considerando um conjunto de \(m\) igualdades
+também lineares:
+
+% TODO: melhorar mostragem
+
+\begin{mini!}
+{x}{ c_1 x_1 + ... + c_n x_n \label{dobj}}{\label{prob_dantzig}}{}
+\addConstraint{a_{11} x_1 + ... + a_{1n} x_n}{\leq b_1}{\label{dr1}}
+\addConstraint{a_{21} x_1 + ... + a_{2n} x_n}{\leq b_2}{\label{dr2}}
+\addConstraint{a_{m1} x_1 + ... + a_{mn} x_n}{\leq b_m}{\label{dr3}}
+\end{mini!}
+
+Considerando em notação de matrizes e vetores:
+
+\begin{mini!}
+{x}{ c^Tx \label{dobj2}}{\label{prob_dantzig2}}{}
+\addConstraint{Ax}{= b}{\label{dr12}}
+\addConstraint{x}{\geq 0}{\label{dr22}}
+\end{mini!}
+
+A restrição \ref{dr22} foi considerada parte da formulação padrão uma vez que os problemas
+consistia em escolha de número de itens, o que limita a escolha a ser nula ou positiva, mas
+sem muitas dificuldades podemos tornar um problema com variáveis negativas nesta forma.
+
+Uma segunda contribuição foram instruções praticas de como modelar problemas lineares.
+São consideradas duas abordagens para modelagem, por receita/atividade e por balanço
+de materiais. A primeira abordagem considera uma coleção de processos que são tomados
+durante a situação que se deseja otimizar. Já a segunda, uma coleção de restrições acerca
+de materiais ou recursos que serão usados nos processos. Dantzig recomenda, se possível,
+tomar as duas abordagens, mesmo que gerem o mesmo modelo, uma vez que o ganho de conhecimento
+da situação trazida por ambas abordagens é sempre de interesse.
+
+A terceira contribuição, certamente uma das que lhe trouxe fama, foi o método simplex para
+resolução de problemas lineares. O método opera sobre o problema na forma canônica, que
+considera o sinal \(\leq\) ao invés de \(=\) em \ref{dr12}. A transformação de um problema
+para o outro é trivial, basta duplicar cada linha de \(A\) e \(b\) e cada linha duplicada
+é multiplicado por \(-1\). As restrições definem um politopo, que por exemplo, um politopo
+de 3 dimensões é um poliedro.
+
+Uma característica de um problema linear é que a solução é um vértice do politopo. Para ver
+isso basta considerar um poliedro e verificar que o ponto mais alto (ou mais baixo) do
+poliedro é um vértice. Caso qualquer ponto em uma face do poliedro seja uma solução, isso
+também faz com que qualquer vértice daquela face seja uma solução.
+
+O método simplex, de forma geral, faz operações em uma matriz gerada a partir problema
+até que se produza a solução. Uma forma de visualização para essas operações é considerar
+que cada operação move a solução atual de um vértice para um vértice vizinho.

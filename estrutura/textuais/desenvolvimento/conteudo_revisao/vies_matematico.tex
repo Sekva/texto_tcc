@@ -1,0 +1,269 @@
+\section{A programação sob o viés matemático}
+
+TODO: instroduzir o que é essa seção
+
+\par Desde que começamos a produzir materiais usando de maquinários nos confrontamos com o problema de otimização. Em primeira escala o problema já tinha uma abordagem matemática sólida iniciada em consequência da evolução da matemática analítica que foi fortificada pelos instrumentos advindos do Cálculo Diferencial e Integral. 
+\par Mesmo os métodos mais simples, matematicamente, podem ser de alto custo computacional. Esse o objeto desse texto. Apresentar os elementos da otimização de funções reais à uma variável e, sem seguida, à várias variáveis, desconsiderando completamente o fato de que em nosso tempo tais processos são feitos quase que exclusivamente por computadores e seus métodos. E por esse motivo precisam de uma abordagem dirigida ao fato de que o computador precisa entender o que teoricamente pode ser fácil de definir, mas que para os processos de otimização computacionais são delicados, como por exemplo a estimativa de cálculo com números infinitesimais, que adotamos teoricamente como algo concreto, passa a ser um desafio computacional. 
+\par Faremos nossa exposição usando de dois momentos. No primeiro definimos o que significa otimizar e apresentamos os elementos que cercam essa definição. Num segundo momento apresentamos critérios de otimalidade que definem condições sob as quais podemos garantir a existência de soluções para os problemas propostos.
+\par Para o que vamos apresentar estamos considerando que o conjunto $\mathbb{R}^n$ é um Espaço Vetorial Normado, com a norma provinda de um produto interno. Representamos a norma por: $||\cdot ||: \mathbb{R}^n \rightarrow \mathbb{R}$. Não faremos distinção de notação para as possíveis variações de $n$.
+
+\subsection{Funções à Uma Variável Real}
+
+\par Damos início a essa seção apresentando o que devemos entender por processo de otimização. Tornou-se comum o uso de modelagem matemática para a determinação de como os processos de certos fenômenos podem ser simulados. Essa simulação molda o que significamos como sendo uma solução para um problema que está dentro de parâmetros estabelecidos a partir do fenômeno. O instrumento que usamos para representar o modelo é o que matematicamente entendemos como sendo uma função. Que definimos a seguir:
+
+\begin{definition}[Função Real]
+  Uma função real é uma relação entre dois subconjuntos $I$, $J \subset \mathbb{R}$. Para que seja considerada uma função a relação deve satisfazer as seguintes condições:				
+  \begin{enumerate}
+  \item Para todo $x \in I$ deve existir um número real $f(x)$;
+  \item Para todo $x \in I$, deve existir um único $f(x) \in J$.
+  \end{enumerate}
+  O conjunto $I$ é denominado o domínio de $f(x)$ e $J$ a imagem de $f(x)$.
+\end{definition}
+
+
+\par Existem diversos estudos que podemos fazer para que possamos analisar o comportamento de uma função assumindo a variação dos valores de $x$ dentro do subconjunto $I$. Os avanços teóricos obtidos desde a construção do Cálculo Diferencial nos permite fazer a análise de variação infinitesimal de uma função $f(x)$ que satisfaça determinadas condições. 
+
+\par Para que possamos caracterizar o ente \textit{derivada de uma função real } vamos construir sucintamente uma cadeia de resultados que revelam a natureza desse ente. Um instrumento que usaremos frequentemente é o que denominamos de \textit{intervalo}, que podemos compreender como sendo um subconjunto de $\mathbb{R}$ definido pelos extremos $a$, $b$. O conjunto $I = (a,b)$ é o intervalo aberto definido pelos valores de $x$, tais que $ a < x < b$. Equivalentemente, o intervalo fechado $\bar{I}= [a,b]$ é definido pelos valores de $x$, tais que $a \leq x \leq b$. 
+
+\par Iremos precisar de uma noção íntima ao estudo das derivadas que é a de aproximação infinitesimal. Dado um valor real $c$, desejamos poder gerar uma entidade que represente uma vizinhança de $c$, isto é, um conjunto de valores reais que estão suficientemente próximos de $c$. Para isso é clássico o uso de variáveis de acréscimo e decréscimo infinitesimal. O infinitésimo deve ser compreendido como uma porção arbitrariamente pequena, ou seja, ao assumir que um valor real $\epsilon \approx 0$, estou supondo que a diferença entre $\epsilon$ e $0$ é tal pequena que podemos considerar que esses valores representam grandezas indistinguíveis. Vamos denotar por uma $\epsilon$-vizinhança de $c$, o subconjunto $V_{c} = (c-\epsilon, c+ \epsilon)$. 
+
+\par Antes de apresentar o conceito de derivada, devemos apresentar o conceito de continuidade que precede o de derivada e o fomenta de uma forma intrínseca. 
+
+\begin{definition}[Função Contínua]
+  Dizemos que uma função real definida em um subconjunto $I$, um intervalo, é uma função contínua se, e somente se, para todo valor real $\check{x} \in I$ pudermos escolher arbitrariamente uma variável infinitesimal, $\epsilon > 0$, que implique na existência de outra variável infinitesimal $\delta>0$ tais que:
+  $$||x - \check{x}|| < \delta \Rightarrow ||f(x) - f(\check{x})|| < \epsilon.$$ 
+\end{definition}
+
+\par A construção do entendimento do que vem a ser uma função contínua é de grande interesse ao que estamos construindo. Devemos perceber que dizemos que uma função é contínua em um valor real específico $\check{x}$, isso confere um caráter local à definição. De fato podemos definir continuidade pontualmente. Mas escolhemos apresentar essa definição que implicitamente é dada para todos os valores de um intervalo real. Ademais, o fato de $||x - \check{x}|| < \delta$ significa na prática que estamos considerando estimativas para o valor de $\check{x}$ com um erro de no máximo $\delta$. Que faz implicar que as estimativas para o valor de $f(\check{x})$ no máximo vão diferir em $\epsilon$, que descrevemos como: $||f(x) - f(\check{x})|| < \epsilon$.
+
+\par Essas noções definem um ente que denotamos por limite, e que se apresenta como a seguir:
+$$\lim_{x \rightarrow \check{x}}f(x)= f(\check{x}).$$
+Essa equação representa o fato de que ao considerarmos $x$ tender à $\check{x}$ obtemos por implicação que $f(x)$ tende à $f(\check{x})$. Como dissemos que isso ocorre para todos os valores de $\check{x} \in I$, então ocorre que o limite de $f(x)$ existe para qualquer valor de $x \in I$. Tecnicamente isso tem uma outra interpretação. Se considerarmos uma sequência de valores reais $\{x_k\}$, em $I$ tais que a partir de um determinado índice $K$ tenhamos $||x_k - \check{x}|| < \delta$. O fato de $f(x)$ ser contínua em $I$ implica que se considerarmos a sequência de valores reais gerados $\{f(x_k)\}$ será tal que $||f(x_k) - f(\check{x})|| < \epsilon$. Em outras palavras, ao considerar uma sequência de valores reais $\{x_k\}$ convergindo para o valor $\check{x}$ temos que os valores associados pela imagem da função real contínua $\{f(x_k)\}$ é uma sequência de valores reais convergentes à $f(\check{x})$.
+
+\par Estamos em posição de confrontar os seguintes entendimentos sobre o que desejamos como solução do que chamamos de otimização de funções reais que são os extremos de uma função real. 
+
+\begin{definition}[Extremos de $f(x)$]
+  Considerando uma função real $f : I \rightarrow J$, definimos como extremo de $f(x)$ em $I$ um ponto $x^*$ que satisfaça:
+  \begin{enumerate}
+  \item $f(x^*) < f(x)$ para todo $x \in I$, nesse caso dizemos que $x^*$ é um mínimo, ou;
+  \item $f(x^*) > f(x)$ para todo $x \in I$, nesse caso dizemos que $x^*$ é um máximo.
+  \end{enumerate}
+\end{definition}
+
+\par Obviamente que os pontos de mínimo ou máximo podem ser de carácter local ou global. Se considerarmos, por exemplo, uma lista de intervalos $I_k$ tais que $I = \cup_{k} I_k$, e, ademais, $I_i \cap I_j = \phi$. Uma lista de tais intervalos denotamos por partição do intervalo $I$. Naturalmente, que ao aplicarmos a definição de extremos de $f(x)$ a cada intervalo $I_k$ obtemos potenciais mínimos e máximos que numa visão geral devem ser considerados como locais. 
+
+\par Como um primeiro passo concreto em direção à nossa ambiciosa missão de concatenar a teoria de otimização em alguns comentários, nos deparamos a um resultado clássico, conhecido como o Teorema de Weierstrass, que enunciamos:
+
+\begin{theorem}[Teorema de Weierstrass]
+  Toda função contínua definida em um intervalo fechado assume seus extremos.
+\end{theorem}
+
+\par Esse Teorema expressa de forma precisa o que estamos interessados em encontrar. Ele garante a existência de valores de máximo e de mínimo para toda função contínua desde que essa esteja restrita a um intervalo fechado. O modo como apresentamos o Teorema é sugestivo. Em verdade ele se expressa em uma linguagem topológica mais ampla, em termos de compactos. Basta, por enquanto, dizer que os compactos da reta são os intervalos fechados. O que justifica nossa abordagem.		
+
+\par Como primeiro efeito do Teorema de Weierstrass temos o seguinte critério de otimalidade:
+
+\begin{theorem}[Critério de Otimalidade I]
+  Uma função objetivo que seja contínua assume valores de ótimo em intervalos fechados. Isto é, se as regiões de busca dos valores de ótimos de uma função objetivo que seja contínua forem intervalos fechados, então em cada intervalo a função objetivo terá um mínimo local e um máximo local. 
+\end{theorem}
+
+
+\par Podemos observar que esse critério garante a existência de valores de ótimo. O que computacionalmente é suficiente, mas ineficiente teoricamente. O que nos leva a considerar um refinamento em nossa abordagem. A fim de fortalecer os critérios de otimalidade vamos considerar a diferenciabiliade. 
+
+\begin{definition}[Função Diferenciável]
+  Considerando uma função real $f(x)$ definida num intervalo aberto $I$. Diremos que $f(x)$ é diferenciável em $I$ se, e somente se, o seguinte limite existir para todo valor real $\check{x} \in I$:
+  $$ f^{'}(\check{x})= \lim_{h \rightarrow 0}\frac{f(\check{x}+h)- f(\check{x})}{h}.$$ 
+  onde $f^{'}(\check{x})$ denota a derivada de $f(x)$ em $\check{x}$.
+\end{definition}
+
+\par Agora podemos usar da diferenciabilidade da função $f(x)$ para propor uma análise mais robusta do problema a ser otimizado. É fácil observar que se a função for diferenciável então ela é contínua. O que garante que podemos usar o critério de otimalidade para as funções que sejam sabidamente diferenciáveis. O que nos interessa portanto é encontrar mais informações sobre como encontrar os ótimos da função objetivo. O que nos leva ao seguinte fato:
+
+\begin{theorem}[Teorema de Fermat]
+  Dada uma função real $f:[a,b] \rightarrow J$. Se $f(x)$ for diferenciável em $(a,b)$, então seus extremos $x^{*} \in (a,b)$ satisfazem a condição $f^{'}(x^*) = 0$. 
+\end{theorem}
+
+\par Esse Teorema de Fermat nos leva a um patamar mais sofisticado de análise, pois agora sabemos quais são os candidatos a pontos de extremos de toda função que seja diferenciável em $(a,b)$ e que seja ao menos contínua em $[a,b]$. Os pontos $x^{*}$ que satisfazem a equação $f^{'}(x^*) = 0$ são comumente chamados de pontos críticos de $f(x)$. O que nos leva ao seguinte critério de otimalidade:
+
+\begin{theorem}[Critério de Otimalidade II]
+  Se a função objetivo for contínua no intervalo fechado $[a,b]$ e diferenciável no intervalo aberto $(a,b)$, então existem ótimos e esses podem ser determinados fazendo:
+  \begin{enumerate}
+  \item $min\{f(a), f(b), f(x^{*})\}$, onde $x^{*}$ é ponto crítico de $f(x)$, ou;
+  \item $max\{f(a), f(b), f(x^{*})\}$, onde $x^{*}$ é ponto crítico de $f(x)$.
+  \end{enumerate}
+\end{theorem}
+
+\par Para além dessas análises ainda somos capazes de refinar ainda mais os critérios de otimalidade se considerarmos que a função objetivo seja duas vezes diferenciável e que sua segunda derivada seja uma função contínua. A segunda derivada de uma função é precisamente o que parece ser, a derivada da função derivada. Isto é,
+
+$$ f^{''}(\check{x}) = \lim_{h \rightarrow 0} \frac{f^{'}(\check{x}+h)- f^{'}(\check{x})}{h}.$$
+
+\par Para dar contexto ao que vamos apresentar devemos fazer a exposição de um resultado deveras valoroso que permite fazermos uma representação local de uma função duas vezes diferenciável da forma seguinte:
+
+\begin{theorem}[Teorema de Taylor]
+  Dada uma função real $f:[a,b] \rightarrow J$. Se $f(x)$ for duas vezes diferenciável em $(a,b)$, então para todo $c \in (a,b)$ temos que:
+  $$f(x) = f(c)+ f^{'}(c)(x-c) + \frac{1}{2} f^{''}(c)(x-c)^2 + r(x),$$
+  com $\lim_{x \rightarrow c}\frac{r(x)}{|x|} = 0$.
+\end{theorem}
+
+
+\par Portanto, ao aplicarmos o Teorema de Taylor a um ponto crítico de $f(x)$ obtemos que:
+$$f(x) - f(x^*) \approx \frac{1}{2} f^{''}(x^*)(x-x^*)^2.$$
+
+\par O termo $(x-x^*)^2$ é definido positivo. Logo o sinal de variação da função com relação ao ponto crítico $x^*$ é dado pela aplicação da segunda derivada ao ponto crítico, isto é, é dado por $f^{''}(x^*)$. Esse fato sugere as seguintes definições:
+
+\begin{definition}[Função Convexa]
+  Dada uma função real duas vezes diferenciável em $(a,b)$. Diremos que $f(x)$ é convexa se sua segunda derivada for definida positiva, isto é, se $f^{''}(x) > 0$ para todo $x \in (a,b)$.
+\end{definition}
+
+\par Como uma implicação direta da definição de função convexa temos que se uma função convexa possui um ponto crítico em $x^{*}$ então esse ponto é um ponto de mínimo global de $f(x)$. Esse fato sugere que as funções que são mais facilmente otimizadas são as que são convexas. Equivalentemente, podemos definir funções côncavas, exigindo que a segunda derivada seja definida negativa, isto é, $f^{''}(x) < 0$ para todo $x$ no domínio de diferenciabilidade da função.
+\par Uma implicação desses argumentos é o seguinte critério de otimalidade:
+
+\begin{theorem}[Critério de Otimalidade III]
+  Se a função objetivo for contínua convexa no intervalo fechado $[a,b]$ e duas vezes diferenciável no intervalo aberto $(a,b)$, então existe um ótimo e esse pode ser encontrado fazendo: $min\{f(a), f(b), f(x^{*})\}$, onde $x^{*}$ é ponto crítico de $f(x)$. 
+\end{theorem}
+
+\par Esse último critério traz uma expressão definitiva sobre o ambiente que desejamos simular o fenômeno. Os modelos de otimalidade mais eficazes são aqueles em que a função objetivo é contínua convexa num intervalo fechado. Salientando que o intervalo fechado é o melhor ambiente para a confecção de valores de ótimo tendo em vista o fato de serem conjuntos compactos. 
+\par Podemos concluir que a otimização de funções à uma variável real é algo tangível, visto que podemos equilibrar o modelo para uma restrição de seu domínio natural ou amplificar se necessário. Restando a tarefa de decifrar essas configurações à uma linguagem computacional acessível e razoavelmente controlável.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+
+\subsection{Funções à Várias Variáveis Reais}
+
+\par Nessa seção exporemos o contexto de otimização para funções à várias variáveis reais. A primeira coisa que faremos é definir um ente.
+
+\begin{definition}[Função Real à várias variáveis]
+  Uma função real à várias variáveis é uma relação entre dois conjuntos $\mathcal{U} \subset \mathbb{R}^n$ e $J \subset \mathbb{R}$. Para que seja considerada uma função a relação deve satisfazer as seguintes condições:				
+  \begin{enumerate}
+  \item Para todo $x \in \mathcal{U}$ deve existir um número real $f(x)$;
+  \item Para todo $x \in \mathcal{U}$, deve existir um único $f(x) \in J$.
+  \end{enumerate}
+  O conjunto $\mathcal{U}$ é denominado o domínio de $f(x)$ e $J$ a imagem de $f(x)$.
+\end{definition}
+
+
+\par Diante ao novo contexto, para que possamos caracterizar o ente \textit{derivada de uma função real à várias variáveis} vamos construir sucintamente uma cadeia de resultados que revelam a natureza desse ente. Agora passamos a ter como domínio no mínimo um subconjunto do plano $\mathbb{R}^2$. Que vamos usar como protótipo de domínio para o argumento inicial. Diferente do intervalo que é um subconjunto da reta real, num subconjunto do plano real temos uma liberdade infinita de direções. Por causa disso definir e compreender conceitos como limite e derivada passa antes pode um barema de construção geométrico de aproximação. 
+
+\par Para que possamos ter um lastro vamos começar definindo o que seria uma vizinhança de um ponto num subconjunto $\mathcal{U} \subset \mathbb{R}^2$. Dado um ponto $a \in \mathcal{U}$ definimos como a $\epsilon$-vizinhança de $a$ o conjunto: $\mathcal{B}_{\epsilon}(a) = \{x \in \mathcal{U} | ||x - a|| < \epsilon\}$ Esse conjunto é comumente denominado de bola aberta de centro $a$ e raio $\epsilon$. A partir da definição desse conjunto já podemos ver que temos infinitas maneiras de se aproximar do ponto $a$ por pontos de $\mathcal{B}_{\epsilon}(a)$. Por exemplo, se considerarmos as retas que passam pelo ponto $(0,0)$ e que tem equação $y = m \cdot x$. O fato de podermos escolher arbitrariamente um valor para $m$ indica nossa arbitrariedade de direções de aproximação ao ponto $a$. É nesse contexto que iremos confeccionar nossos instrumentos de análise.
+
+\begin{definition}[Função Contínua]
+  Dizemos que uma função real definida em um subconjunto $\mathcal{U} \subset \mathbb{R}^n$ é uma função contínua se, e somente se, para todo ponto $\check{x} \in \mathcal{U}$ pudermos escolher arbitrariamente uma variável infinitesimal, $\epsilon > 0$, que implique na existência de outra variável infinitesimal $\delta>0$ tais que:
+  $$||x - \check{x}|| < \delta \Rightarrow ||f(x) - f(\check{x})|| < \epsilon.$$ 
+\end{definition}
+
+\par Tal como feito para função reais à uma variável, temos que essas noções definem um ente que denotamos por limite, e que se apresenta como a seguir:
+$$\lim_{x \rightarrow \check{x}}f(x)= f(\check{x}).$$
+Essa equação representa o fato de que ao considerarmos $x$ tender à $\check{x}$ obtemos por implicação que $f(x)$ tende à $f(\check{x})$. Como dissemos que isso ocorre para todos os valores de $\check{x} \in \mathcal{U}$, então ocorre que o limite de $f(x)$ existe para qualquer valor de $x \in \mathcal{U}$.
+
+\par  Tecnicamente isso tem uma outra interpretação. Se considerarmos uma sequência de pontos $\{x_k\}$, em $\mathcal{U}$ tais que a partir de um determinado índice $K$ tenhamos $||x_k - \check{x}|| < \delta$. O fato de $f(x)$ ser contínua em $\mathcal{U}$ implica que se considerarmos a sequência de pontos gerados $\{f(x_k)\}$ será tal que $||f(x_k) - f(\check{x})|| < \epsilon$. Em outras palavras, ao considerar uma sequência de pontos $\{x_k\}$ convergindo para o valor $\check{x}$ temos que os pontos associados pela imagem da função real contínua $\{f(x_k)\}$ é uma sequência de pontos convergentes à $f(\check{x})$.
+
+\begin{definition}[Extremos de $f(x)$]
+  Considerando uma função real $f : \mathcal{U} \subset \mathbb{R}^n \rightarrow J$, definimos como extremo de $f(x)$ em $\mathcal{U}$ um ponto $x^*$ que satisfaça:
+  \begin{enumerate}
+  \item $f(x^*) < f(x)$ para todo $x \in \mathcal{U}$, nesse caso dizemos que $x^*$ é um mínimo, ou;
+  \item $f(x^*) > f(x)$ para todo $x \in \mathcal{U}$, nesse caso dizemos que $x^*$ é um máximo.
+  \end{enumerate}
+\end{definition}
+
+
+\par Como na primeira seção faremos aqui um passo concreto em direção à nossa teoria de otimização em alguns comentários.  Apresentamos a versão geral do clássico Teorema de Weierstrass, que enunciamos:
+
+\begin{theorem}[Teorema de Weierstrass]
+  Toda função contínua definida em um compacto assume seus extremos.
+\end{theorem}
+
+\par Esse Teorema expressa de forma precisa o que estamos interessados em encontrar. Ele garante a existência de valores de máximo e de mínimo para toda função contínua desde que essa esteja restrita a um compacto do $\mathbb{R}^n$. Como primeiro efeito do Teorema de Weierstrass temos o seguinte critério de otimalidade:
+
+\begin{theorem}[Critério de Otimalidade IV]
+  Uma função objetivo que seja contínua assume valores de ótimo em conjuntos compactos. Isto é, se as regiões de busca dos valores de ótimos de uma função objetivo que seja contínua forem conjuntos compactos, então a função objetivo terá um mínimo local e um máximo local. 
+\end{theorem}
+
+
+\par Podemos observar que esse critério garante a existência de valores de ótimo. O que computacionalmente é suficiente, mas ineficiente teoricamente. O que nos leva a considerar um refinamento em nossa abordagem. A fim de fortalecer os critérios de otimalidade vamos considerar a diferenciabilidade. 
+
+\begin{definition}[Função Diferenciável]
+  Considerando uma função real $f(x)$ definida num subconjunto $\mathcal{U} \subset \mathbb{R}^n$. Diremos que $f(x)$ é diferenciável em $\mathcal{U}$ se, e somente se, existirem $n$ números reais $\{A_1, ..., A_n\}$, tais que:
+  $$ f(x+v)- f(x)= A_1 \cdot v_1 + ... + A_n \cdot v_n + r(v),$$ 
+  para todo $x \in \mathcal{U}$, e $v = (v_1, ..., v_n)$ tal que $x+v \in \mathcal{U}$. Com $\lim_{v\rightarrow 0} \frac{r(v)}{||v||}=0$.
+\end{definition}
+
+\par Agora podemos usar da diferenciabilidade da função $f(x)$ para propor uma análise mais robusta do problema a ser otimizado. É fácil observar que se a função for diferenciável então ela é contínua. O que garante que podemos usar o critério de otimalidade para as funções que sejam sabidamente diferenciáveis. O que nos interessa portanto é encontrar mais informações sobre como encontrar os ótimos da função objetivo.
+
+\par Segue direto da definição de função diferenciável que podemos calcular a derivada de $f(x)$ fazendo uso dos vetores canônicos de $\mathbb{R}^n$, obtendo que os números reais $\{A_1, ..., A_n\}$ são o que denominamos de derivadas parciais da função $f(x)$ com relação à suas coordenadas, como segue:
+$$\frac{\partial f}{\partial x_i}(x) = A_i.$$
+\par Tal como fizemos na seção anterior, podemos definir essas derivadas parciais a partir do cálculo de um limite, com a seguir:
+$$\frac{\partial f}{\partial x_i}(x) = \lim_{h \rightarrow 0}\frac{f(x+h \cdot e_i) - f(x)}{h}.$$
+\par Podemos fazer uso desses argumentos para definir o que denotamos como a diferencial de $f(x)$ que seria o equivalente a derivada de $f(x)$ quando tínhamos uma variável. 
+
+\begin{definition}[O Diferencial de $f(x)$]
+  Seja $f(x)$ uma função real à várias variáveis definida em um aberto $\mathcal{U} \subset \mathbb{R}^n$. Supondo que as $n$ derivadas parciais existam e que sejam funções contínuas, temos o diferencial de $f(x)$ dado com respeito à uma base canônica,$\{dx_1, ..., dx_n\}$, do Espaço Dual $\mathbb{R}^*$ pela expressão:
+  $$Df(x) = \sum_{i=1}^{n} \frac{\partial f}{\partial x_i}(x)  \cdot dx_i .$$
+\end{definition}
+
+\par Podemos definir os pontos críticos de $f(x)$ a partir do conjunto solução da equação: $Df(x) = 0$. Segue dessa definição que num ponto crítico todas as derivadas parciais são nulas, isto é, $\frac{\partial f}{\partial x_i}(x) = 0$. Temos para as funções à várias variáveis o equivalente ao Teorema de Fermat:
+
+
+\begin{theorem}
+  Seja $f(x)$ uma função real à várias variáveis definida em um aberto $\mathcal{U} \subset \mathbb{R}^n$. Se $f(x)$ for diferenciável em $\mathcal{U}$, então seus extremos $x^{*} \in \mathcal{U}$, satisfazem a condição $Df(x^*) = 0$. 
+\end{theorem}
+
+\par Esse Teorema nos leva a uma sofisticação da análise, pois agora sabemos quais são os candidatos a pontos de extremos de toda função que seja diferenciável em um aberto $\mathcal{U}$ de $\mathbb{R}^n$ e que seja ao menos contínua no fecho do conjunto $\mathcal{U}$, desde que esse seja um conjunto compacto. Podemos entender o fecho de um conjunto como sendo a coleção de todos os pontos de acumulação do conjunto. Os pontos de fronteira são todos os pontos que definem o interior e o exterior do conjunto. Denotamos o conjunto pontos de fronteira, ou a fronteira do conjunto $\mathcal{U}$ por $\partial \mathcal{U}$. O que nos leva ao seguinte critério de otimalidade:
+
+\begin{theorem}[Critério de Otimalidade V]
+  Se a função objetivo for contínua no compacto $\mathcal{\bar{U}}$ e diferenciável no aberto $\mathcal{U}$, então existem ótimos e esses podem ser determinados fazendo:
+  \begin{enumerate}
+  \item $min\{f(x), f(x^{*})\}$, onde $x^{*}$ é ponto crítico de $f(x)$ em $\mathcal{U}$ e $x \in \partial \mathcal{U}$ , ou;
+  \item $max\{f(x), f(x^{*})\}$, onde $x^{*}$ é ponto crítico de $f(x)$ em $\mathcal{U}$ e $x \in \partial \mathcal{U}$.
+  \end{enumerate}
+\end{theorem}
+
+\par Para além dessas análises ainda somos capazes de refinar ainda mais os critérios de otimalidade se considerarmos que a função objetivo seja duas vezes diferenciável e que sua segunda derivada seja uma função contínua. A segunda derivada de uma função é precisamente o que parece ser, a derivada da função derivada. Isto é,
+$$D(Df)(x) = D^{2}f(x).$$
+
+\par Para dar contexto ao que vamos apresentar devemos fazer a exposição de um resultado deveras valoroso que permite fazermos uma representação local de uma função duas vezes diferenciável da forma seguinte:
+
+\begin{theorem}[Teorema de Taylor]
+  Seja $f(x)$ uma função real à várias variáveis definida em um aberto $\mathcal{U} \subset \mathbb{R}^n$. Se $f(x)$ for duas vezes diferenciável em $\mathcal{U}$, então: 
+  $$f(x+v) = f(x)+ Df(x) \cdot v  \hspace{0.1cm} (x+v) + \frac{1}{2} D^2f(x) \cdot v^2 \hspace{0.1cm} (x+v)^2 + r(x),$$
+  onde $v \in \mathbb{R}^n$, tal que $x+v \in \mathcal{U}$. Com $\lim_{v \rightarrow 0}\frac{r(v)}{||v||^2} = 0$.
+\end{theorem}
+
+\par Nessa versão do Teorema de Taylor apresentamos implicitamente um conceito deveras importante para a análise de funções reais à várias variáveis, a saber, a forma Hessiana. Denotada por $D^2f(x) \cdot v^2$ a forma Hessiana, tem o mesmo papel que a segunda derivada para uma função real à uma variável. Visto que podemos encontrar uma expressão de $f(x)$ numa vizinhança de um ponto crítico dada por:	
+
+$$f(x^*+v) - f(x^*) \approx \frac{1}{2} D^2f(x^*) \cdot v^2 \hspace{0.1cm}  (x^*+v)^2.$$
+
+\par Precisamos encontrar uma maneira de analisar a variação da forma Hessiana. Uma que se ajusta muito bem por diversas razões é a forma matricial. A matriz da forma Hessiana, é denominada de matriz Hessiana, e tem a seguinte expressão:
+$$[D^2f(x)] = H = \left(\frac{\partial^2 f}{\partial x_i \partial x_j }(x)\right).$$
+\par Analogamente podemos definir a matriz associada ao funcional $Df(x)$ que é denominada de matriz Jacobiana e tem a expressão:
+$$[Df(x)] = J = \left(\frac{\partial f}{\partial x_i}(x)\right).$$
+\par Obviamente que a matriz Jacobiana é uma matriz linha, ou coluna. Enquanto que a matriz Hessiana é uma matriz quadrada de ordem $n$. Há um fato muito relevante que faz da matriz Hessiana um manjar da otimização que é o fato de ser uma matriz simétrica, quando consideramos condições simples para a função $f(x)$. A fim de que o Teorema de Shwarz seja satisfeito. Por ser simétrica podemos definir um produto interno sempre que ela for definida positiva. Isso gera um estrutura deveras importante. 
+\par Associado ao funcional $Df(x)$ temos um vetor que desempenha para a otimização um papel de príncipe. Esse vetor é denominado de vetor gradiente, representado por $\nabla f(x)$ e é definido a partir da seguinte equação:
+$$Df(x) \cdot v = \left\langle \nabla f(x), v\right\rangle.$$
+\par Ao usarmos a definição de ângulo entre vetores no $\mathbb{R}^n$, provinda do produto interno, temos que:
+$$cos(\theta_{\nabla f(x),v}) = \frac{\left\langle \nabla f(x), v\right\rangle}{||\nabla f(x)||\cdot ||v||}.$$
+\par Podemos considerar, sem perda de generalidade que $||v||=1$, encontrando que:
+$$cos(\theta_{\nabla f(x),v})  ||\nabla f(x)|| = \left\langle \nabla f(x), v\right\rangle = Df(x) \cdot v .$$
+\par Portanto, podemos concluir que a direção para $v$ na qual o funcional $Df(x)$ assume o maior valor é precisamente $v = \nabla f(x)$ visto que é nessa direção que o ângulo $\theta_{\nabla f(x),\nabla f(x)} = 0$ tornando o $cos(\theta_{\nabla f(x),\nabla f(x)}) =1$, logo: $Df(x) \cdot v = ||\nabla f(x)||$. 
+\par Além desse fato, o gradiente é facilmente calculado visto que ele é definido pelas derivadas parciais: 
+$$\nabla f(x) = \left(\frac{\partial f}{\partial x_1}, ..., \frac{\partial f}{\partial x_n}\right).$$
+
+\begin{definition}[Função Convexa]
+  Dada uma função real duas vezes diferenciável em $\mathcal{U}$. Diremos que $f(x)$ é convexa se sua forma Hessiana for definida positiva, isto é, se $H \cdot v^2> 0$ para todo $x \in\mathcal{U}$.
+\end{definition}
+
+\par Como uma implicação direta da definição de função convexa temos que se uma função convexa possui um ponto crítico em $x^{*}$ então esse ponto é um ponto de mínimo global de $f(x)$. Esse fato sugere que as funções que são mais facilmente otimizadas são as que são convexas. Equivalentemente, podemos definir funções côncavas, exigindo que a forma Hessiana seja definida negativa, isto é, $H \cdot v^2> 0$ para todo $x$ no domínio de diferenciabilidade da função.
+\par Uma implicação desses argumentos é o seguinte critério de otimalidade:
+
+\begin{theorem}[Critério de Otimalidade VI]
+  Se a função objetivo for contínua convexa no $\mathcal{\bar{U}}$ e duas vezes diferenciável no aberto $\mathcal{U}$, então existe um ótimo global e esse pode ser encontrado fazendo: $min\{f(x), f(x^{*})\}$, onde $x^{*}$ é ponto crítico de $f(x)$ e $x \in \partial \mathcal{U}$. 
+\end{theorem}
+
+\par Diferente das funções à uma variável real essas opções não chegam a esgotar as possibilidades de representação de fenômenos a partir de modelos matemáticos. Pode ocorrer de termos uma série de restrições que devem ser satisfeitas pelos valores do domínio da função objetivo em concomitância as condições implicadas pela função $f(x)$. Para essa estrutura, que se apresenta como uma generalização num sentido de representação de problemas em que a função objetivo seja contínua e ao menos duas vezes diferenciável, temos o seguinte teorema devido a Lagrange:
+
+\begin{theorem}[Multiplicadores de Lagrange]
+  Seja $f(x)$ uma função duas vezes diferenciável em um aberto $\mathcal{U}$ do $\mathbb{R}^{n+1}$. E seja $M = \phi^{-1}(c)$ uma hiperfície de $\mathbb{R}^n+1$. Então a fim de que exista um ótimo para a restrição $f|M$ é suficiente e necessário que exista um número real $\lambda$ tal que:
+  $$\nabla f(x) = \lambda \cdot \nabla \phi(x).$$
+  O número real $\lambda$ é denominado de multiplicador de Lagrange.
+\end{theorem}
+
+\par Podemos considerar o próprio Teorema dos Multiplicadores de Lagrange como um critério de otimalidade. Pois ele define um método que garante a existência de um ótimo para a restrição $f|M$ que nada mais é do que a função objetivo restrita à condições de otimalidade. 
+\par É possível encontrar outras descrições e argumentos que ampliem o leque da compreensão de como tratar da otimização de modelos matemáticos de forma matemática, assim como uma exposição mais abrangente de todos os temas expostos nesse texto nos seguintes livros: \cite{algebralinear1}, \cite{analise2}, \cite{algebralinear}, \cite{analisereal1}, \cite{analisereal2}, \cite{espacosmetricos} e \cite{analise1}. 

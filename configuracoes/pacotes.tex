@@ -24,7 +24,16 @@
 \usepackage{subeqnarray}                                    % Permite subnumeração de equações
 \usepackage{lastpage}                                       % Para encontrar última página do documento
 \usepackage{verbatim}                                       % Permite apresentar texto tal como escrito no documento, ainda que sejam comandos Latex
+
 \usepackage{amsfonts, amssymb, amsmath}                     % Fontes e símbolos matemáticos
+\usepackage{amsthm}
+\usepackage{amscd,latexsym}
+
+\usepackage{geometry} % just for not getting an overfull box
+\usepackage{bm}
+
+    
+    
 \usepackage[algoruled, portuguese]{algorithm2e}             % Permite escrever algoritmos em português
 \usepackage[bottom]{footmisc}                               % Mantém as notas de rodapé sempre na mesma posição
 \usepackage{ae, aecompl}                                    % Fontes de alta qualidade
@@ -64,7 +73,34 @@
 %BoldItalicFont=courbi.ttf,
 %Color={0019D4}
 %]{cour.ttf}
- 
+
+
+
+\newtheorem{theorem}{Teorema}
+%\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+%\newtheorem{algorithm}[theorem]{Afirmação}
+%\newtheorem{axiom}{Axioma}
+%\newtheorem{case}[theorem]{Caso}
+%\newtheorem{claim}[theorem]{Claim}
+%\newtheorem{conclusion}[theorem]{Conclusion}
+%\newtheorem{condition}[theorem]{Condition}
+%\newtheorem{conjecture}[theorem]{Conjectura}
+%\newtheorem{corollary}{Corolário}
+%\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}{Definição}
+%\newtheorem{example}{Exemplo}
+%\newtheorem{exercise}{Exercício}
+%\newtheorem{lemma}{Lema}
+%\newtheorem{notation}{Notação}
+%\newtheorem{problem}[theorem]{Problem}
+%\newtheorem{proposition}{Proposição}
+%\newtheorem{remark}{Observação}
+%\newtheorem{solution}[theorem]{Solução}
+%\newtheorem{summary}[theorem]{Summary}
+%\newenvironment{proof}[1][\textbf{Demonstração:}\hspace{0.2cm}]{\textit{#1}}{\begin{flushright}\itshape{QED.}\end{flushright}}
+
+
+     
 \usepackage[utf8]{inputenc}                                 % Codificação do documento
 %\usepackage[T1]{fontenc}
 %\usepackage[scaled]{helvet}                                % Usa a fonte Helvetica

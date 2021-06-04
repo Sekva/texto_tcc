@@ -23,10 +23,13 @@ resolver, já que requer que as restrições de desigualdade sejam convertidas e
 ponto importante é a convergência global a um ótimo KKT (\ref{sec_kkt}), mesmo em problemas não convexos, desde
 que sejam continuamente diferenciáveis.
 
-\subsubsection{Qualificações de Karush-Kuhn-Tucker}
+\subsubsection{Condições de Karush-Kuhn-Tucker}
 \label{sec_kkt}
 
-TODO: introduzir kkt, e expondo e explicando cada uma separadamente
+As condições de Karush-Kuhn-Tucker (KKT) são um conjunto de condições necessárias para
+que uma solução seja considerada um ótimo local para um dado problema. Esse conjunto
+de condições são usadas como peça fundamental para a construção de diversos métodos mais
+recentes.
 
 Achava-se que as condições KKT foram propostas apenas em 1951 por Harold W. Kuhn e Albert W.
 Tucker \cite{kuhn1951nonlinear}, mas mais tarde descobriu-se que já foram apresentadas em
@@ -46,34 +49,61 @@ ordem. É usada a forma Lagrangiana do seguinte problema:
 Onde a Lagrangiana é dada por:
 
 \begin{equation}
-  L(x, \mu, \lambda) = f(x) + \mu^T g(x) + \lambda^T h(x)
+  L(x, \mu, \lambda) = f(x) + \lambda^T g(x) + \mu^T h(x)
 \end{equation}
 
-As condições de primeira ordem são as seguintes:
+As condições de primeira ordem para um \(x*\) ser solução são as seguintes:
 
 \begin{enumerate}
 
 \item Estacionário:
 
-  TODO: Reescrever essa condição, indicando que deve existir um valor para x tal que a equação se anula.
-  \( 0 \in \{ \partial f(x) + \sum_{i=1}^m \mu_i \partial g_i(x) + \sum_{j=1}^r \lambda_j \partial h_j(x)\} \);
+  A derivada de primeira ordem (ou gradiente) deve ser nula, o que caracteriza
+  um ponto extremo da função. Mas também deve ser levada em consideração
+  informações de primeira ordem das restrições, quando não cumpridas.
 
-\item Negligência complementar:
+  \begin{equation}
+    \nabla f(x^*) + \sum_{j=1}^r \lambda_j \nabla g_j(x^*) + \sum_{i=1}^m \mu_i \nabla h_i(x^*) = \overrightarrow{0}
+  \end{equation}
 
-  \( \lambda_j h_j(x) = 0; \forall j \);
-  
+
 \item Viabilidade primária:
 
-  \( g_i(x) \leq 0, h_j(x) = 0; \forall i, j \);
+  Simplesmente considera que as restrições são satisfeitas.
+
+  \begin{equation}
+    \begin{split}
+      g_j(x) \leq 0, & \hspace{0.2cm} j = 1, ..., r;\\
+      h_i(x) = 0,    & \hspace{0.2cm} i = 1, ..., m.
+    \end{split}
+  \end{equation}
+  
+  
+  
+  
+\item Negligência complementar:
+
+  Quando buscado um ótimo para a Lagrangiana, queremos desconsiderar o máximo possível
+  das restrições a fim de otimizar a função. Então, em um ponto ótimo, anulamos as
+  restrições e otimizamos apenas \(f\). Como a solução é um ponto viável \(h_i(x)\)
+  é nulo, então não é necessário se preocupar nesta condição.
+
+  \begin{equation}
+    \lambda_j g_j(x) = 0, \hspace{0.2cm} j = 1, ..., r;
+  \end{equation}
   
 \item Dupla Viabilidade:
 
-  \( \mu_i \geq 0; \forall i \).
+  Esta condição garante a existência da solução do problema dual (\ref{sec_prob_dual}).
 
+  \begin{equation}
+    \lambda_j \geq 0, \hspace{0.2cm} j = 1, ..., r.
+  \end{equation}
+  
 \end{enumerate}
 
-Uma conclusão que se pode tirar dessas condições é que se \( L(x^{*}, \mu^{*}) \) é um ponto de sela e
-\( \mu \geq 0 \), então \( x^{*} \) é uma solução ótima para o problema.
+%Uma conclusão que se pode tirar dessas condições é que se \( L(x^{*}, \mu^{*}) \) é um ponto de sela e
+%\( \mu \geq 0 \), então \( x^{*} \) é uma solução ótima para o problema.
 
 \subsubsection{Qualificações de Mangasarian e Fromovitz}
 As qualificações de restrições de Mangasarian e Fromovitz são um trabalho
@@ -115,39 +145,41 @@ pode não ser a melhor opção.
 Mesmo existindo outras condições de otimalidade e qualificações paras restrições, normalmente
 as restrições de desigualdades e igualdades eram analisadas separadamente. Com isso, Mangasarian
 e Fromovitz  \cite{mangasarian1967fritz} melhoraram as condições de Fritz John para a analise
-conjunta das restrições. Tomando como componente principal o Teorema da Transposição de Motzkin,
-generalizaram as condições para o seguinte:
+conjunta das restrições. Tomando como componente principal o Teorema da Transposição de Motzkin
+\cite{Nemirovski}, generalizaram as condições para o seguinte:
 
-TODO: onde encontrar o teorema da transposição de motzkin
-
-
-\begin{equation}
-    \bar x \in S :=\{ x | g_i(x) \leq 0, i \in M, h_j(x) = 0, j \in K \}
-\end{equation}
-
-TODO: explicar o que isso quer dizer
-
-Se \( \nabla h_j(\bar x), j \in K\), são linearmente dependentes ou se o sistema
+Seja \( \bar x \) solução do problema, e por isso, cumpre todas as restrições, então podemos
+dizer que \(\bar x\) pertence à um conjunto solução.
 
 \begin{equation}
-    \begin{cases}
-      \theta(x) - \theta(\bar x) < 0\\
-      g_i(x) < 0, i \in M\\
-      h_j(x) = 0, j \in K
-    \end{cases}
+    \bar x \in S :=\{ x \hspace{0.1cm} | \hspace{0.1cm} g_i(x) \leq 0, \hspace{0.1cm} i \in M, \hspace{0.1cm} h_j(x) = 0, \hspace{0.1cm} j \in K \}
 \end{equation}
-não tem solução para \( x \in \mathbb{R}^n \). A partir dai, construíram também qualificações para
-as restrições, que são as seguintes:
 
-Seja \( \bar x \) solução do problema. Então \( \nabla h_j(\bar x), j \in K\),
+
+Para que as condições sejam satisfeitas, \( \nabla h_j(\bar x), j \in K\) são linearmente dependentes
+entre si, ou o sistema
+
+\begin{equation}
+\begin{split}
+  \theta(x) - \theta(\bar x) & < 0, \hspace{0.2cm} \bar x \in S; \\
+  g_i(x)                     & < 0, \hspace{0.2cm} i \in M; \\
+  h_j(x)                     & = 0, \hspace{0.2cm} j \in K.
+\end{split}
+\end{equation}
+não tem solução para \( x \in \mathbb{R}^n \).
+
+
+A partir daí, construíram também qualificações para as restrições, em que \( \nabla h_j(\bar x), j \in K\)
 são linearmente independentes e existe um vetor \(\bar y\) tal que:
 
-\begin{itemize}
-\item \( \bar y' \nabla g_i(\bar x) < 0, i \in \bar M := \{i | i \in M, g_i(\bar x) = 0 \} \neq \varnothing \)
-\item \( \bar y' \nabla h_j(\bar x) = 0, j \in K \)
-\end{itemize}
+\begin{equation}
+  \bar y' \nabla g_i(\bar x) < 0, i \in \bar M := \{i | i \in M, g_i(\bar x) = 0 \} \neq \varnothing
+\end{equation}
 
-Onde \( \bar y' \) é \(\bar y\) transposta. Caso \(\bar M\) seja vazio, os gradientes das restrições
+\begin{equation}
+\bar y' \nabla h_j(\bar x) = 0, j \in K
+\end{equation}
+onde \( \bar y' \) é \(\bar y\) transposta. Caso \(\bar M\) seja vazio, os gradientes das restrições
 de igualdade serem linearmente independentes basta.
 
 
@@ -171,7 +203,10 @@ deu por terem conceitos diferentes, mas ainda assim comparáveis ao conceito do 
 de problemas que todos os 3 resolveram foram os testes de Hock e Schittkowski \cite{Hock1981}, e
 também os teste de Schittkowski \cite{Schittkowski1987}.
 
-TODO: comentario sobre o uso dos testes por outros
+Os dois conjuntos de testes usados podem ser considerados clássicos uma vez que são usados em
+diversas áreas da otimização e em artigos e livros relevantes. Dentre os exemplos de aplicação
+podemos citar testes em algoritmos genéticos \cite{Deb_2000, Joines}, ambientes de teste
+\cite{Bongartz_1995} e meta-heurísticas \cite{Gandomi_2012}.
 
 \subsubsection{LANCELOT}
 \label{sec_lancelot}
@@ -190,19 +225,22 @@ que esse método se propõem a resolver é dado como:
 \addConstraint{l \leq x}{\leq u}{ \label{r2_lancelot}}
 \end{mini!}
 
-TODO: dizer e explicar o que é ser continuamente diferenciável, e duas vezes isso
-TODO: dizer q é de classe C2?
-
-
-Considera-se também que as restrições de desigualdades foram convertidas em restrições de
-igualdades. O ponto chave desse método é minimizar a função Lagrangiana melhorada:
+É necessário que todas as funções sejam diferenciáveis, e que suas derivadas também
+sejam, ou então, sejam duas vezes continuamente diferenciáveis. Considera-se também
+que as restrições de desigualdades foram convertidas em restrições de igualdades. O
+ponto chave desse método é minimizar a função Lagrangiana melhorada:
 
 \vspace{-15pt}
 \begin{equation}
   \Phi(x, \lambda, S, \mu) = f(x) + \sum_{i=1}^{m} \lambda_i c_i(x) + \frac{1}{2\mu} \sum_{i=1}^m S_{ii} c_i(x)^2
 \end{equation}
 
-TODO: explicar as equações
+As duas primeiras parcelas são da função Lagrangiana original. A ultima parcela é um termo
+de penalidade. \(\mu\) define o peso dessa penalidade, a matriz \(S\) é diagonal e todas
+as entradas positivas (o que a torna definida positiva e simetrica), onde cada entrada
+da diagonal principal escala o quadrado da restrição correspondente. Portanto, a Lagrangiana
+melhorada considera como penalidade o quadrado das restrições escalados de acordo com a
+necessidade.
 
 Fazendo o uso dos avanços em otimização desenvolvidos na época, criaram esse método a partir
 de outros estudos feitos anteriormente, mas agora com o suporte da Lagrangiana melhorada.

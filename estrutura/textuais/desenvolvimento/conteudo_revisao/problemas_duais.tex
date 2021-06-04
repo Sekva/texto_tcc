@@ -1,6 +1,5 @@
-
-
 \section{Problemas lineares duais}
+\label{sec_prob_dual}
 Qualquer problema linear possui um outro problema atrelado a ele, o problema dual \cite{fischetti2019}.
 Considerando a ideia de que queremos minimizar uma quantidade na reta real e, por
 simplicidade, assumimos que este mínimo existe. Podemos dizer então que este valor
@@ -14,23 +13,20 @@ para isso, o mínimo do comprador deve ser o máximo do fazendeiro.
 
 Considerando o seguinte problema linear de minimização, que chamaremos de problema primal:
 
-\begin{equation*}
-P := \{Ax = b,\ x \geq \overrightarrow{\mathrm 0}\}
-\end{equation*}
-
-\begin{flalign}
-& \underset{x}{\mathrm min}\{c^Tx\ |\ x \in P \};\\
-& x \in \mathbb{R}^n,\\
-& b \in \mathbb{R}^m,\\
-& A \in \mathbb{R}^{m \times n}
-\end{flalign}
-
+\vspace{-15pt}
+\begin{mini!}
+{x}{ c^Tx \label{duall_obj}}{\label{prob_duall}}{}
+\addConstraint{x}{\in \mathbb{R}^n}{\label{r1_duall}}
+\addConstraint{x}{\in P := \{Ax = b,\ x \geq \overrightarrow{\mathrm 0}\}}{\label{r2_duall}}
+\addConstraint{b}{\in \mathbb{R}^m}{\label{r3_duall}}
+\addConstraint{A}{\in \mathbb{R}^{m \times n}}{\label{r4_duall}}
+\end{mini!}
 
 Podemos escrever o problema de achar um máximo de outro problema, que chamaremos de dual, como:
 
-\begin{equation*}
+\begin{equation}
 \underset{x}{\mathrm min}\{c^Tx\ |\ x \in P \} = \underset{c_0}{\mathrm max}\{c_0\ |\ c^Tx \geq c_0\ \forall x \in P\}
-\end{equation*}
+\end{equation}
 
 Com isso, já podemos perceber alguns fatos sobre ambos os problemas. Se considerarmos que o
 problema primal é irrestrito, ou seja, se \(\underset{x}{\mathrm min}\{c^Tx\ |\ x \in P\} = - \infty \),
@@ -41,31 +37,19 @@ primal.
 
 Como queremos encontrar \(c_0\) de forma que \(c^Tx \geq c_0\), a partir dos sistemas de equações
 formados pelas restrições podemos construir expressões limitantes para \(c^Tx\). Novamente,
-considerando o mesmo problema:
+considerando o mesmo problema (\ref{prob_duall}), podemos multiplicar todo o sistema de
+equações por escalares \(u \in \mathbb{R}^m\):
 
-\begin{flalign}
-& \underset{x} {\mathrm{min}} \{c^Tx\ |\ x \in P \};\\
-& x \in \mathbb{R}^n,\\
-& b \in \mathbb{R}^m,\\
-& A \in \mathbb{R}^{m \times n}
-\end{flalign}
-
-\begin{equation*}
-P := \{Ax = b,\ x \geq \overrightarrow{\mathrm 0}\}
-\end{equation*}
-
-Podemos multiplicar todo o sistema de equações por escalares \(u \in \mathbb{R}^m\)
-
-\begin{equation*}
+\begin{equation}
 u^TAx = u^Tb
-\end{equation*}
+\end{equation}
 
 Com essa nova expressão, podemos modificar algumas características sem a tornar inválida.
 Podemos substituir \(=\) por \(\geq\).
 
-\begin{equation*}
+\begin{equation}
 u^TAx \geq u^Tb
-\end{equation*}
+\end{equation}
 
 Feito isso, podemos reduzir o valor de \(u^Tb\) o quanto quisermos, ou seja, sempre existe
 um \(c_0 \leq u^Tb\). Como \(x \geq \overrightarrow{\mathrm 0}\), podemos aumentar os valores dos
@@ -76,60 +60,63 @@ Sabendo que \(u^TA\) são coeficientes para \(x\), podemos limita-los superiorme
 coeficientes do problema original: \(c^T \geq u^TA\). Por fim, temos as seguintes três expressões, todas
 válidas:
 
-\begin{flalign*}
-& u^TAx = u^Tb\\
-& c^Tx \geq u^TAx\\
-& u^Tb \geq c_0
-\end{flalign*}
+\begin{equation}
+  u^TAx = u^Tb
+\end{equation}
 
+\begin{equation}
+  c^Tx \geq u^TAx
+\end{equation}
+
+\begin{equation}
+  u^Tb \geq c_0
+\end{equation}
 
 Que quando combinadas:
 
-\begin{equation*}
+\begin{equation}
 c^Tx \geq u^TAx = u^Tb \geq c_0
-\end{equation*}
+\end{equation}
 
 Com isso podemos montar um outro problema, encontrar o valor máximo de \(u\) de forma que \(u^Tb\)
 nos sirva como o limite inferior \(c_0\) que buscamos, mas para isso temos que \(c^T \geq u^TA \).
 
-\begin{equation*}
+\begin{equation}
 \underset{u}{\mathrm max}\{u^Tb\ |\ u \in \{c^T \geq u^TA \} \}
-\end{equation*}
+\end{equation}
 
 Assim temos nosso problema dual, que satisfaz a condição que o mínimo do primal é o máximo do
 dual pois, por construção, no momento em que multiplicamos o sistema \(Ax = b\) por \(u^T\),
 vemos que existem soluções para \(u^TA = c^T\). Portanto podemos dizer que:
 
-\begin{flalign*}
-& c^Tx = u^TAx\\
-& c^Tx = u^Tb \geq c_0
-\end{flalign*}
+\begin{equation}
+  c^Tx = u^TAx \implies c^Tx = u^Tb \geq c_0
+\end{equation}
 
 Mas como estamos considerando \(u^Tb = c_0\):
 
-\begin{align*}
-& c^Tx = u^Tb = c_0\\
-& c^Tx = c_0
-\end{align*}
+\begin{equation}
+ c^Tx = u^Tb = c_0 \implies c^Tx = c_0
+\end{equation}
 
 
-Por fim, mostramos que:
+Então mostramos que:
 
-\begin{equation*}
-\underset{x}{\mathrm min}\{c^Tx\ |\ x \in P \}
+\begin{equation}
+\underset{x}{\mathrm{min}}\{c^Tx\ |\ x \in P \}
 =
-\underset{c_0}{\mathrm max}\{c_0\ |\ c^Tx \geq c_0\ \forall x \in P\}
+\underset{c_0}{\mathrm{max}}\{c_0\ |\ c^Tx \geq c_0\ \forall x \in P\}
 =
-\underset{u}{\mathrm max}\{u^Tb\ |\ u \in \{c^T \geq u^TA \} \}
-\end{equation*}
+\underset{u}{\mathrm{max}}\{u^Tb\ |\ u \in \{c^T \geq u^TA \} \}
+\end{equation}
 
-\begin{equation*}
-\underset{x}{\mathrm min} = \underset{c_0}{\mathrm max} = \underset{u}{\mathrm max}
-\end{equation*}
+Que é o mesmo que dizer que:
 
-\begin{equation*}
-c_0 = u^Tb
-\end{equation*}
+\begin{equation}
+\underset{x}{\mathrm{min}} = \underset{c_0}{\mathrm{max}} = \underset{u}{\mathrm{max}} \implies c_0 = u^Tb
+\end{equation}
 
-
-TODO: complementar esse final
+Então temos mostrado que a solução do problema primal e dual são iguais (para o caso linear). Esse fato se
+torna útil verificação a resolução dos problemas em aplicações praticas. Outra utilidade é que como a
+solução do problema dual relaciona todas as restrições à solução do problema primal, isso nos diz algo
+sobre os multiplicadores de Lagrange, em alguns casos são usados como estimativas dos multiplicadores.
