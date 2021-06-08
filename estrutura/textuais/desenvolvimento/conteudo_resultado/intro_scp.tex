@@ -1,0 +1,57 @@
+\section{Introdução ao SCP}
+O Sequencial Cutting Plane (SCP) \cite{Still2010} pode ser visto como uma demonstração da
+capacidade das técnicas de otimização por problemas lineares que, como já dito, haviam
+sido deixadas de lado. O método apresentado por Claus Still e Tapio Westerlund em 2010
+pode ser visto como a conclusão do estudo deles sobre abordagens de subproblemas lineares
+em problemas não lineares. Um estudo de pelo menos 5 anos, com o primeiro artigo sendo
+uma apresentação do método em um estagio inicial aplicado a problemas de otimização
+não linear inteira mista (MINLP) \cite{Still_2005}.
+
+O método foi primariamente aplicado em problemas MINLP como parte de um algoritmo,
+demonstrando melhor performance em problemas MINLP convexos. Outra possibilidade de
+aplicação é o uso para resolução de problemas não lineares de grande escala, de grande
+dimensionalidade, visto a problemática enfrentada por métodos quadráticos para tais
+problemas.
+
+\subsection{Aplicação SCP em MINLP}
+Uma das aplicações do SCP foi como parte de um otimizador de outra classe de problemas, na
+otimização não linear inteira mista (MINLP). Existem problemas que buscam o ótimo usando
+variáveis tanto discretas como continuas, com relações entre elas que são não lineares e
+que também contém funções não convexas. Tudo isso dificulta muito a computação da solução.
+Otimizadores capazes de resolverem esses tipos de problemas são ditos como os mais flexíveis,
+já que seu escopo é tão abrangente. Isso o torna o centro das atenções por pesquisadores de
+todas as áreas.
+
+Problemas MINLP, na sua forma mais abstrata se dão da seguinte forma:
+
+\vspace{-15pt}
+\begin{mini!}
+{x}{ f(x) \label{minlp_obj}}{\label{prob_minlp}}{}
+\addConstraint{x}{\in \mathcal{F} \subseteq \mathbb{R}^n}{\label{r1_minlp}}
+\end{mini!}
+onde o conjunto \( \mathcal{F} \) pode ser tanto não linear quanto discreto, e \( f: \mathbb{R}^n \mapsto \mathbb{R}\) .
+As diferentes escolhas
+de \(f\) e \(\mathcal{F}\) levam as diferentes subclasses de MINLP, das quais temos algumas
+denominações mais comuns, como:
+
+\begin{itemize}
+\item Otimização Convexa, onde \( \mathcal{F} \) é convexo, e o ótimo é inteiro;
+\item Otimização Disjuntiva, onde algumas variáveis são continuas e outras são booleanas;
+\item Otimização Não Linear, onde restrições não lineares constroem \(\mathcal{F}\) e/ou \(f\) é não linear. Normalmente usados métodos SQP;
+\item Otimização por meio de grafos de expressões;
+\item Otimização por meio de subespaços convexos e/ou linearizações de \(\mathcal{F}\).
+\end{itemize}
+
+Podemos encontrar que as formas mais gerais de MINLP são incomputáveis, visto que pode não existir
+informações ou ferramentas para serem usadas na resolução do problema. Para problemas MINLP convexos,
+e com restrições de desigualdades, a resolução de subproblemas lineares oferecem limites inferiores para
+o ótimo, o que para o SCP, saber desses limites ajuda em questões de eficiência. Segundo os autores do
+SCP, ao ser usado para problemas MINLP, foram encontradas soluções melhores em apenas um minuto do que
+usando outros métodos que encontraram boas soluções em 12 horas.
+
+A resolução de problemas MINLP convexos é importante no contexto global de problemas MINLP, já
+que a maioria dos problemas são resolvidos por uma sequência de problemas que foram convertidos em
+problemas convexos. Experiências numéricas mostram que o SCP pode ser aplicado para problemas MINLP
+não convexos como solucionador de subproblemas. A convergência ao ponto estacionário, quando aplicado
+a estes tipos de problemas, aparenta ser rápida o suficiente mesmo que o estado do algoritmo esteja
+longe do ponto estacionário.

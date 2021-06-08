@@ -1,0 +1,84 @@
+\section{As vantagens e desvantagens computacionais do SCP}
+
+Agora pensando exclusivamente na implementação do método, primeiro foi necessária
+a construção de uma estrutura para o armazenamento do problema. Essa estrutura guarda
+a função objetivo do problema, uma lista de funções das restrições de desigualdades e
+outra lista de funções para as restrições de igualdades. Para o armazenamento das
+funções basta considerar ponteiros para elas. Outras informações que podem ser
+armazenadas nessa estrutura do problema são as regiões de confiança, como os
+pontos que de fato são. Para essa estrutura também foi criada uma função
+para avaliar todos os aspectos básicos do problema em um certo ponto. Nessas
+funções são avaliada a função objetivo e seu gradiente e todas as restrições e seus
+gradientes. Essa função é usada em quase todas as vezes que se é requerida uma avaliação
+do problema, não sendo usada em casos onde se usam certas funções isoladamente. A
+possibilidade de se ter essa estrutura onde todas as funções podem ser avaliadas de uma vez
+nos dá uma vantagem em questões de performance, uma vez que podemos otimizar o tempo de
+realizar todas essas avaliações aumentando consideravelmente o tempo de execução do algoritmo.
+
+Um outro efeito benéfico sobre o método ter esses momentos onde todas as funções são
+avaliadas é um custo reduzido em problemas com funções muito difíceis. No entanto, ainda
+é feita uma grande quantidade de avaliações, por isso, mesmo considerando esse efeito
+benéfico, os autores não recomendam para problemas com funções difíceis.
+
+O uso de subproblemas lineares é o ponto principal do método, e com ele vem todos
+os efeitos. O problema linear, mesmo que grande, é de rápida computação e, a depender
+do método de resolução, pode ser resolvido com operações simples da CPU, o que reafirma
+a velocidade do método. No entanto, complexidade de processo não é a única preocupação
+que se deve ter com um método capaz de resolver problemas de grande escala. Para que
+possamos usar métodos já conhecidos para otimização linear, foi necessária a transformação
+do problema no formato do artigo (\ref{prob_scpl}) em um equivalente em um formato mais
+simples (\ref{prob_scplt}) de ser percebido e partir dele extraído a matriz
+e os vetores (\ref{prob_linear_pdr}), e ai que encontramos o problema.
+
+Mesmo sendo apenas números, o armazenamento da matriz e dos vetores pode vir a
+se tornar um problema. Primeiro temos que considerar os tamanhos. Para o vetor
+\(c\), temos que seu número de elementos é \(n+m_i+m_e+m_e\), o que de cara
+não parece ser um problema, principalmente pelo fato de que se foi possível
+armazenar as funções e restrições na estrutura do problema, deve-se ter
+capacidade para armazenar as entradas de \(c\). No entanto, isso vale
+quando consideramos que \(c \in \mathbb{R}^n\), mas se por exemplo, quisermos
+adaptar o método para funcionar com números hiper-duais (\ref{sec_hiper_dual}),
+que equivalem a quatro números reais, já existe um aumento considerável nos
+requerimentos de armazenamento.
+
+Sabendo quantos elementos tem o vetor \(c\), sabemos também quantas colunas tem
+a matriz \(A\), visto que devem ser iguais para que possa ter \(Ax\). O que nos
+falta agora é saber o número de linhas de \(A\), que também é o número de elemento
+de \(b\), também para que se possa ter \(Ax = b\). Ao observarmos o problema
+ajustado (\ref{prob_scplt}), podemos ver que o número de linhas é de pelo menos
+\( m_i + m_e + m_e + n + n + m_i + m_i + m_e + m_e + m_e + m_e = 2n + 3m_i + 6m_e\).
+É no mínimo isso pelo fato das restrições (\ref{r4_scplt}) e (\ref{r5_scplt})
+adicionarem \(2n\) linhas a cada iterações de resolução de problemas lineares,
+e se chegar a ter \(n\) iterações, são \(2n^2\) linhas adicionais.
+Portanto, a matriz \(A\) tem no mínimo \( (2n + 3m_i+6m_e) \cdot  (n+m_i+2m_e) \)
+elementos e no máximo  \( (2n^2 + 2n + 3m_i+6m_e) \cdot (n+m_i+2m_e)\), o que
+pode facilmente se tornar uma dificuldade de uso em casos onde seria interessante
+se ter os benefícios, um exemplo seria um dispositivo embarcado que resolva problemas
+ideais para o SCP, porém tem pouca memória.
+
+Outro ponto que podemos observar é a construção do ferramental para o funcionamento
+do SCP. Mesmo que isso não seja relacionado ao funcionamento do método propriamente
+dito, a existência do ferramental por si só já é uma vantagem. Isso talvez seja resultado
+da posição histórica do método, uma vez que os autores foram capazes de estudar e
+compreender as ferramentas que utilizaram em um estado muito mais refinado do que
+se tinha, por exemplo, na década de 70.
+
+Contanto só com as ferramentas mais básicas, como as operações entre vetores, números,
+matrizes e cálculos de derivadas, podemos facilmente implementar métodos básicos, como
+o método de Newton, e o gradiente descendente. Para o método de Newton, que requer o
+uso das primeiras e segundas derivadas, temos duas opções. A primeira sendo calcular
+a matriz Hessiana diretamente, o que é custoso, mas existindo a segunda opção para
+cobrir o caso que é necessário mais desempenho, não é um problema. A segunda opção
+é caracterizada pelo uso do BFGS (\ref{sec_bfgs}), podendo ser adaptado para calcular
+o inverso da Hessiana, já que é o inverso que é usado no método de Newton. Além disso,
+já existindo o cálculo pelo BFGS, podemos usar o próprio método de minimização do BFGS.
+Para o método do gradiente descendente, pequenas mudanças devem ser feitas ao método de
+busca em linha para que se possa escolher os limites para o tamanho do passo, uma
+vez que para o SCP, na função Lagrangiana penalizada, o tamanho do passo é limitado
+entre \(0\) e \(1\).
+
+Também existem métodos mais complexos que podemos montar a partir do que foi construído
+para o SCP. Foram construídas funções Lagrangianas, com e sem penalidades, e uma função
+de mérito, que quando analisamos a penalidade dela vemos que também tem uma forma semelhante
+à Lagrangiana. Dessa forma temos a habilidade de usar essas funções de maneira similar ao uso
+nos métodos empregados no LANCELOT (\ref{sec_lancelot}) e DONLP2 (\ref{sec_dosnlp2}).
