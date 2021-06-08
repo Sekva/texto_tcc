@@ -49,10 +49,11 @@ ordem. É usada a forma Lagrangiana do seguinte problema:
 Onde a Lagrangiana é dada por:
 
 \begin{equation}
+  \label{fn_lagrangiana}
   L(x, \mu, \lambda) = f(x) + \lambda^T g(x) + \mu^T h(x)
 \end{equation}
 
-As condições de primeira ordem para um \(x*\) ser solução são as seguintes:
+As condições de primeira ordem para um \(x^*\) ser solução são as seguintes:
 
 \begin{enumerate}
 
@@ -106,6 +107,7 @@ As condições de primeira ordem para um \(x*\) ser solução são as seguintes:
 %\( \mu \geq 0 \), então \( x^{*} \) é uma solução ótima para o problema.
 
 \subsubsection{Qualificações de Mangasarian e Fromovitz}
+\label{sec_emfcq}
 As qualificações de restrições de Mangasarian e Fromovitz são um trabalho
 em cima de um conjunto de qualificações "rival" das de Karush-Kuhn-Tucker,
 as qualificações de Fritz John.
@@ -144,12 +146,12 @@ pode não ser a melhor opção.
 
 Mesmo existindo outras condições de otimalidade e qualificações paras restrições, normalmente
 as restrições de desigualdades e igualdades eram analisadas separadamente. Com isso, Mangasarian
-e Fromovitz  \cite{mangasarian1967fritz} melhoraram as condições de Fritz John para a analise
+e Fromovitz  \cite{mangasarian1967fritz} melhoraram as condições de Fritz John para a análise
 conjunta das restrições. Tomando como componente principal o Teorema da Transposição de Motzkin
 \cite{Nemirovski}, generalizaram as condições para o seguinte:
 
 Seja \( \bar x \) solução do problema, e por isso, cumpre todas as restrições, então podemos
-dizer que \(\bar x\) pertence à um conjunto solução.
+dizer que \(\bar x\) pertence a um conjunto solução.
 
 \begin{equation}
     \bar x \in S :=\{ x \hspace{0.1cm} | \hspace{0.1cm} g_i(x) \leq 0, \hspace{0.1cm} i \in M, \hspace{0.1cm} h_j(x) = 0, \hspace{0.1cm} j \in K \}
@@ -179,8 +181,8 @@ são linearmente independentes e existe um vetor \(\bar y\) tal que:
 \begin{equation}
 \bar y' \nabla h_j(\bar x) = 0, j \in K
 \end{equation}
-onde \( \bar y' \) é \(\bar y\) transposta. Caso \(\bar M\) seja vazio, os gradientes das restrições
-de igualdade serem linearmente independentes basta.
+onde \( \bar y' \) é \(\bar y\) transposta. Caso \(\bar M\) seja vazio, basta que os gradientes das
+restrições de igualdade sejam linearmente independentes.
 
 
 
@@ -189,7 +191,7 @@ de igualdade serem linearmente independentes basta.
 Como mostrado em um dos métodos anteriores em \ref{secao_historia}, a resolução de subproblemas
 lineares podem ser usadas tanto isoladamente, quanto em conjunto com a resolução de subproblemas
 quadráticos para resolver problemas de otimização não linear. Os métodos que usam os subproblemas
-quadráticos ganharam mais atenção, principalmente, depois que foi mostrada a convergência à um
+quadráticos ganharam mais atenção, principalmente, depois que foi mostrada a convergência a um
 ótimo global em 1977 \cite{han1977globally}, e com o tempo, as técnicas que usam resolução de
 subproblemas lineares começaram a ser esquecidas. Nesse contexto, os autores, C. Still e
 T. Westerlund desejam mostrar que o método montado por eles é capaz de resolver problemas não
@@ -235,9 +237,9 @@ ponto chave desse método é minimizar a função Lagrangiana melhorada:
   \Phi(x, \lambda, S, \mu) = f(x) + \sum_{i=1}^{m} \lambda_i c_i(x) + \frac{1}{2\mu} \sum_{i=1}^m S_{ii} c_i(x)^2
 \end{equation}
 
-As duas primeiras parcelas são da função Lagrangiana original. A ultima parcela é um termo
-de penalidade. \(\mu\) define o peso dessa penalidade, a matriz \(S\) é diagonal e todas
-as entradas positivas (o que a torna definida positiva e simetrica), onde cada entrada
+As duas primeiras parcelas são da função Lagrangiana original. A última parcela é um termo
+de penalidade. O \(\mu\) define o peso dessa penalidade, a matriz \(S\) é diagonal e todas
+as entradas positivas (o que a torna definida positiva e simétrica), onde cada entrada
 da diagonal principal escala o quadrado da restrição correspondente. Portanto, a Lagrangiana
 melhorada considera como penalidade o quadrado das restrições escalados de acordo com a
 necessidade.
@@ -272,6 +274,7 @@ possível provar que a convergência se dá para um ótimo global e que é do ti
 
 
 \subsubsection{DONLP2}
+\label{sec_dosnlp2}
 O DONLP2 é a implementação de uma variante de um método SQP capaz de resolver problemas 
 abrangentes, da seguinte forma:
 

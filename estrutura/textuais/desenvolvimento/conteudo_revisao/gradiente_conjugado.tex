@@ -1,6 +1,6 @@
 \section{Método do gradiente conjugado}
 Dentre os métodos mais simples podemos citar o método do gradiente descendente
-ou o próprio método de Newton, mas que possuem seus problemas e por isso
+ou o próprio método de Newton, mas que possuem seus problemas, e por isso,
 a necessidade de métodos um pouco mais elaborados, mas ainda assim não
 tão distantes da simplicidade empregadas nos outros já citados.
 
@@ -38,7 +38,7 @@ O gradiente descendente, por mais simples e prático que seja, tem seu preço.
 Se pararmos para observar seu comportamento, percebemos um esforço gasto à toa.
 Analisando o movimento do ponto atualizado vemos um "zig-zag", isso quer dizer que
 a cada iteração, estamos desfazendo um pouco do progresso feito em uma iteração
-anterior. Além disso, o gradiente negativo não aponta numa direção pro mínimo, mas
+anterior. Além disso, o gradiente negativo não aponta numa direção para o mínimo, mas
 sim nos dá uma direção de minimização imediata em relação ao ponto atual. Se
 considerarmos minimizar uma função quadrática convexa com seções elípticas com
 alta excentricidade usando o gradiente descendente, depois de muitas iterações
@@ -72,6 +72,7 @@ interno com respeito à ela:
 Onde dizemos que os vetores \(u\) e \(v\) são conjugados em respeito a \(A\) (ou A-conjugados) se:
 
 \begin{equation}
+\label{aortogonal}
 \langle u, v \rangle_A = 0
 \end{equation}
 
@@ -104,20 +105,20 @@ x^* = \sum_{i=1}^n \alpha_i d_i
 Multiplicando A pela esquerda nos dois lados e depois multiplicando por algum \(d_k\):
 
 \begin{equation}
-Ax^* = \sum_{i=1}^n \alpha_i Ad_i \implies  d_k A x^* = \sum_{i=1}^n \alpha_i d_k A d_i
+Ax^* = \sum_{i=1}^n \alpha_i Ad_i \Rightarrow  d_k A x^* = \sum_{i=1}^n \alpha_i d_k A d_i
 \end{equation}
 
 Substituindo \(Ax^*\) por um vetor \(b\) e explicitando o produto interno no lado direito:
 
 \begin{equation}
-  \langle d_k, b \rangle = \sum_{i=1}^n \alpha_i d_k A d_i \implies \langle d_k, b \rangle = \sum_{i=1}^n \alpha_i \langle d_k ,d_i \rangle_A  
+  \langle d_k, b \rangle = \sum_{i=1}^n \alpha_i d_k A d_i \Rightarrow \langle d_k, b \rangle = \sum_{i=1}^n \alpha_i \langle d_k ,d_i \rangle_A  
 \end{equation}
 
-Considerando \ref{gc_prod_interno}, apenas a parcela \( \langle d_k, d_k \rangle_A \) não é nula, e rearranjando para
+Considerando (\ref{gc_prod_interno}), apenas a parcela \( \langle d_k, d_k \rangle_A \) não é nula, e rearranjando para
 \(\alpha_k\):
 
 \begin{equation}
-\langle d_k, b \rangle  = \alpha_k \langle d_k , d_k \rangle_A \implies \frac{\langle d_k, b \rangle}{\langle d_k , d_k \rangle_A} = \alpha_k
+\langle d_k, b \rangle  = \alpha_k \langle d_k , d_k \rangle_A \Rightarrow \frac{\langle d_k, b \rangle}{\langle d_k , d_k \rangle_A} = \alpha_k
 \end{equation}
 
 Logo, para calcular a solução diretamente, basta encontrar o conjunto \(U\).
@@ -178,7 +179,7 @@ Onde \(d_k \in U\) e \(\alpha_k\) é o tamanho do passo, que pode ser exato mini
 
 Como queremos direções conjugadas, que por sua vez são geradas a partir dos gradientes,
 então o gradiente no próximo ponto já pode ser conjugado em relação à direção atual.
-Considerando \ref{att_gc}, podemos dizer que:
+Considerando (\ref{att_gc}), podemos dizer que:
 
 \begin{equation}
   \label{def_gc_gk1}
@@ -189,26 +190,26 @@ Com isso, queremos que:
 
 \begin{equation}
 \label{def_gc_dk_gk1}
-\langle g_{k+1}, d_k \rangle = 0 \implies \langle g_k + \alpha_k A d_k, d_k \rangle = 0
+\langle g_{k+1}, d_k \rangle = 0 \Rightarrow \langle g_k + \alpha_k A d_k, d_k \rangle = 0
 \end{equation}
 
 
 Considerando as propriedades inerentes a um produto interno:
 
 \begin{equation}
-\langle g_k, d_k \rangle + \alpha_k \langle A d_k, d_k \rangle = 0 \implies \alpha_k \langle A d_k, d_k \rangle = - \langle g_k, d_k \rangle
+\langle g_k, d_k \rangle + \alpha_k \langle A d_k, d_k \rangle = 0 \Rightarrow \alpha_k \langle A d_k, d_k \rangle = - \langle g_k, d_k \rangle
 \end{equation}
 
 Por fim, resolvendo para \(\alpha_k\) e mudando a notação:
 
 \begin{equation}
-\alpha_k= - \frac{\langle g_k, d_k \rangle}{\langle A d_k, d_k \rangle} \implies \alpha_k= - \frac{\langle g_k, d_k \rangle}{\langle d_k, d_k \rangle_A}
+\alpha_k= - \frac{\langle g_k, d_k \rangle}{\langle A d_k, d_k \rangle} \Rightarrow \alpha_k= - \frac{\langle g_k, d_k \rangle}{\langle d_k, d_k \rangle_A}
 \end{equation}
 
 
 O que nos falta agora é a atualização de \(d_k\). Como dito anteriormente, queremos
 construir essas direções a partir do gradiente negativo corrigido para que seja
-A-ortogonal em relação as direções já encontradas.
+A-ortogonal em relação às direções já encontradas.
 
 \begin{equation}
 \label{def_dk1}
@@ -218,13 +219,13 @@ d_{k+1} = -g_{k+1} + \beta_k d_k
 Portando, \(\beta_k\) deve ser escolhido de forma que \(\langle d_{k+1}, d_k \rangle_A = 0\):
 
 \begin{equation}
-\langle -g_{k+1} + \beta_k d_k, d_k \rangle_A = 0 \implies \langle -g_{k+1}, d_k \rangle_A + \beta_k \langle d_k, d_k \rangle_A = 0
+\langle -g_{k+1} + \beta_k d_k, d_k \rangle_A = 0 \Rightarrow \langle -g_{k+1}, d_k \rangle_A + \beta_k \langle d_k, d_k \rangle_A = 0
 \end{equation}
 
 Rearranjando e resolvendo para \( \beta_k \):
 
 \begin{equation}
-  \beta_k \langle d_k, d_k \rangle_A = - \langle -g_{k+1}, d_k \rangle_A \implies \beta_k = -\frac{\langle -g_{k+1}, d_k \rangle_A}{\langle d_k, d_k \rangle_A}
+  \beta_k \langle d_k, d_k \rangle_A = - \langle -g_{k+1}, d_k \rangle_A \Rightarrow \beta_k = -\frac{\langle -g_{k+1}, d_k \rangle_A}{\langle d_k, d_k \rangle_A}
 \end{equation}
 
 Já temos o algoritmo pronto, mas ainda é custoso. Com mais um pouco de trabalho, podemos
@@ -235,11 +236,11 @@ remover duas multiplicações por A de \(\beta_k\):
 \beta_k = - \frac{\langle -g_{k+1}, Ad_k \rangle}{\langle d_k, Ad_k \rangle}
 \end{equation}
 
-Queremos substituir \(Ad_k\) por algo mais simples, para isso podemos usar \ref{def_gc_gk1}:
+Queremos substituir \(Ad_k\) por algo mais simples, para isso podemos usar (\ref{def_gc_gk1}):
 
 \begin{equation}
 \label{def_adk}
-g_{k+1} = g_k + \alpha_k A d_k \implies g_{k+1} - g_k = \alpha_k A d_k \implies A d_k = \frac{g_{k+1} - g_k}{\alpha_k}
+g_{k+1} = g_k + \alpha_k A d_k \Rightarrow g_{k+1} - g_k = \alpha_k A d_k \Rightarrow A d_k = \frac{g_{k+1} - g_k}{\alpha_k}
 \end{equation}
 
 Como \(\beta_k\) é definido por uma razão, podemos trabalhar o numerador e o denominador
@@ -249,10 +250,10 @@ separadamente. Então comecemos trabalhando apenas o numerador de \(\beta_k\):
 \langle -g_{k+1}, Ad_k \rangle
 \end{equation}
 
-Substituindo \(Ad_k\) pela definição em \ref{def_adk}, e extraindo os coeficientes:
+Substituindo \(Ad_k\) pela definição em (\ref{def_adk}), e extraindo os coeficientes:
 
 \begin{equation}
-\langle -g_{k+1}, \frac{g_{k+1} - g_k}{\alpha_k} \rangle \implies -\frac{1}{\alpha_k} \langle g_{k+1}, g_{k+1} - g_k \rangle
+\langle -g_{k+1}, \frac{g_{k+1} - g_k}{\alpha_k} \rangle \Rightarrow -\frac{1}{\alpha_k} \langle g_{k+1}, g_{k+1} - g_k \rangle
 \end{equation}
 
 E pela linearidade do produto interno:
@@ -277,19 +278,19 @@ Agora trabalhando o denominador de \(\beta_k\):
 \end{equation}
 
 
-Novamente, usando \ref{def_adk}, e extraindo o coeficiente:
+Novamente, usando (\ref{def_adk}), e extraindo o coeficiente:
 
 \begin{equation}
-\langle d_k, \frac{g_{k+1} - g_k}{\alpha_k} \rangle \implies \frac{1}{\alpha_k}\langle d_k, g_{k+1} - g_k \rangle
+\langle d_k, \frac{g_{k+1} - g_k}{\alpha_k} \rangle \Rightarrow \frac{1}{\alpha_k}\langle d_k, g_{k+1} - g_k \rangle
 \end{equation}
 
-Pela linearidade do produto interno e usando \ref{def_gc_dk_gk1}:
+Pela linearidade do produto interno e usando (\ref{def_gc_dk_gk1}):
 
 \begin{equation*}
-\frac{1}{\alpha_k} (\langle d_k, g_{k+1} \rangle + \langle d_k, - g_k \rangle) \implies \frac{1}{\alpha_k} \langle d_k, - g_k \rangle
+\frac{1}{\alpha_k} (\langle d_k, g_{k+1} \rangle + \langle d_k, - g_k \rangle) \Rightarrow \frac{1}{\alpha_k} \langle d_k, - g_k \rangle
 \end{equation*}
 
-Considerando \ref{def_dk1} para substituir \(d_k\):
+Considerando (\ref{def_dk1}) para substituir \(d_k\):
 
 \begin{equation}
 \frac{1}{\alpha_k} \langle -g_{k} + \beta_{k-1} d_{k-1}, - g_k \rangle
@@ -302,14 +303,14 @@ Aplicando a linearidade e extraindo coeficientes:
 \frac{1}{\alpha_k}(
 \langle -g_{k}, - g_k \rangle +
 \langle \beta_{k-1} d_{k-1}, - g_k \rangle
-) \implies
+) \Rightarrow
 \frac{1}{\alpha_k}(
 \langle -g_{k}, - g_k \rangle -
 \beta_{k-1}(\langle d_{k-1}, g_k \rangle)
 )
 \end{equation}
 
-Por fim, considerando \ref{def_gc_dk_gk1}, temos o denominador dado por:
+Por fim, considerando (\ref{def_gc_dk_gk1}), temos o denominador dado por:
 
 \begin{equation}
 \label{def_gc_denominador}
@@ -317,19 +318,19 @@ Por fim, considerando \ref{def_gc_dk_gk1}, temos o denominador dado por:
 \end{equation}
 
 
-Finalmente, podemos reescrever \(\beta_k\). Considerando \ref{def_beta_gc}, \ref{def_gc_numerador} e \ref{def_gc_denominador}, e substituindo:
+Finalmente, podemos reescrever \(\beta_k\). Considerando (\ref{def_beta_gc}), (\ref{def_gc_numerador}) e (\ref{def_gc_denominador}), e substituindo:
 
 \begin{equation}
-\beta_k = - \frac{\langle -g_{k+1}, Ad_k \rangle}{\langle d_k, Ad_k \rangle} \implies \beta_k = - \frac{-\frac{1}{\alpha_k} \langle g_{k+1}, g_{k+1} \rangle}{\frac{1}{\alpha_k} \langle -g_{k}, - g_k \rangle}
+\beta_k = - \frac{\langle -g_{k+1}, Ad_k \rangle}{\langle d_k, Ad_k \rangle} \Rightarrow \beta_k = - \frac{-\frac{1}{\alpha_k} \langle g_{k+1}, g_{k+1} \rangle}{\frac{1}{\alpha_k} \langle -g_{k}, - g_k \rangle}
 \end{equation}
 
 Isolando e resolvendo o coeficiente:
 
 \begin{equation}
-  \beta_k = - \frac{-\frac{1}{\alpha_k}}{\frac{1}{\alpha_k}} \cdot \frac{\langle g_{k+1}, g_{k+1} \rangle}{\langle -g_{k}, - g_k \rangle}   \implies \beta_k = - (-1) \frac{\langle g_{k+1}, g_{k+1} \rangle}{\langle -g_{k}, - g_k \rangle}
+  \beta_k = - \frac{-\frac{1}{\alpha_k}}{\frac{1}{\alpha_k}} \cdot \frac{\langle g_{k+1}, g_{k+1} \rangle}{\langle -g_{k}, - g_k \rangle}   \Rightarrow \beta_k = - (-1) \frac{\langle g_{k+1}, g_{k+1} \rangle}{\langle -g_{k}, - g_k \rangle}
 \end{equation}
 
-Por fim, temos a ultima peça para a definição do algoritmo do gradiente conjugado:
+Por fim, temos a última peça para a definição do algoritmo do gradiente conjugado:
 
 \begin{equation}
 \beta_k = \frac{\langle g_{k+1}, g_{k+1} \rangle}{\langle -g_{k}, - g_k \rangle}
@@ -354,5 +355,5 @@ d_{k+1} = -g_{k+1} + \beta_k d_k
 \end{equation}
 
 Podemos ver que o método não é complexo de ser usado, nem tão custoso computacionalmente em casos simples.
-Em problemas de maior dimensão, funções custosas ou ainda problemas difíceis que não seja quadráticos, o
-método pode não ser o recomendado pelo fato de considerar varias avaliações da função para uma única iteração.
+Em problemas de maior dimensão, funções custosas ou ainda problemas difíceis que não sejam quadráticos, o
+método pode não ser o recomendado pelo fato de considerar várias avaliações da função para uma única iteração.

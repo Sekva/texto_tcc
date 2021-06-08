@@ -25,11 +25,11 @@ Considerando o seguinte problema linear de minimização, que chamaremos de prob
 Podemos escrever o problema de achar um máximo de outro problema, que chamaremos de dual, como:
 
 \begin{equation}
-\underset{x}{\mathrm min}\{c^Tx\ |\ x \in P \} = \underset{c_0}{\mathrm max}\{c_0\ |\ c^Tx \geq c_0\ \forall x \in P\}
+\underset{x}{\mathrm{min}}\{c^Tx\ |\ x \in P \} = \underset{c_0}{\mathrm{max}}\{c_0\ |\ c^Tx \geq c_0\ \forall x \in P\}
 \end{equation}
 
 Com isso, já podemos perceber alguns fatos sobre ambos os problemas. Se considerarmos que o
-problema primal é irrestrito, ou seja, se \(\underset{x}{\mathrm min}\{c^Tx\ |\ x \in P\} = - \infty \),
+problema primal é irrestrito, ou seja, se \(\underset{x}{\mathrm{min}}\{c^Tx\ |\ x \in P\} = - \infty \),
 então não seremos capazes de encontrar um \(c_0\) que satisfaça. Portanto, se o problema primal
 for irrestrito, então o problema dual é inalcançável. O caminho oposto também é verdade, se
 considerarmos o problema dual irrestrito, então \(c_0 = \infty\), logo não existe um mínimo para o problema
@@ -82,7 +82,7 @@ Com isso podemos montar um outro problema, encontrar o valor máximo de \(u\) de
 nos sirva como o limite inferior \(c_0\) que buscamos, mas para isso temos que \(c^T \geq u^TA \).
 
 \begin{equation}
-\underset{u}{\mathrm max}\{u^Tb\ |\ u \in \{c^T \geq u^TA \} \}
+\underset{u}{\mathrm{max}}\{u^Tb\ |\ u \in \{c^T \geq u^TA \} \}
 \end{equation}
 
 Assim temos nosso problema dual, que satisfaz a condição que o mínimo do primal é o máximo do

@@ -1,29 +1,29 @@
 \section{Cálculos numéricos da Hessiana}
-O calculo das informações de segunda ordem de uma função, a matriz hessiana, faz parte do conjunto
+O cálculo das informações de segunda ordem de uma função, a matriz Hessiana, faz parte do conjunto
 de problemas computacionais encontrados durante o processo de otimização. Diversos métodos são
-formulados com a necessidade do uso da hessiana.
+formulados com a necessidade do uso da Hessiana.
 
 O método de Newton, assim como toda a família de métodos usados como alternativas a ele,
-denominados de métodos Quasi-Newton, utilizam a matriz hessiana durante seu processo de otimização
+denominados de métodos Quasi-Newton, utilizam a matriz Hessiana durante seu processo de otimização
 de forma conjunta ou não com o gradiente da função. Como a família de métodos newtonianos é extensa e
-aplicada em diversas áreas, diversos métodos para o calculo da hessiana foram desenvolvidos
+aplicada em diversas áreas, diversos métodos para o cálculo da Hessiana foram desenvolvidos
 pensado na eficiência de sua aplicação. Dentre os diversos métodos, alguns se tornaram famosos
 e amplamente utilizados, como o BFGS e o DFP, e outros mais específicos como métodos adjuntos,
 métodos complexos e o método hiper-dual.
 
-É necessário ter o conhecimento que nem todos os métodos de otimização, que usam a hessiana de
-alguma forma, requerem a computação exata da hessiana, então existe uma divisão entre métodos
-de computação exata da hessiana, e métodos que computam apenas aproximações da hessiana.
+É necessário ter o conhecimento que nem todos os métodos de otimização, que usam a Hessiana de
+alguma forma, requerem a computação exata da Hessiana, então existe uma divisão entre métodos
+de computação exata da Hessiana, e métodos que computam apenas aproximações da Hessiana.
 
 
 \subsection{Diferença finita}
-Os métodos que usam diferença finita podem ser vistas como traduções das definições matemáticas
+Os métodos que usam diferença finita podem ser vistos como traduções das definições matemáticas
 das derivadas. No entanto, quando esses métodos são implementados praticamente, problemas com a
 precisão dos números obtidos se tornam um problema, assim como o custo de avaliar diversas
 vezes a função objetivo \cite{caplan2011numerical}.
 
 Existem duas formas normalmente apresentadas para o uso da diferença finita, a diferença
-progressiva e a diferença central. Que para o calculo de derivadas de primeira ordem, temos:
+progressiva e a diferença central. Que para o cálculo de derivadas de primeira ordem, temos:
 
 
 \begin{equation}
@@ -35,13 +35,13 @@ progressiva e a diferença central. Que para o calculo de derivadas de primeira 
 \label{dc_po}
 \frac{\partial f}{\partial x_i} = \frac{f(x+he_i) - f(x - he_i)}{2h}
 \end{equation}
-onde \(e_k\) é a \(k\)-ésima base canônica do \(\mathbb{R}^n\), \ref{dp_po} é o calculo
-da derivada por diferença progressiva e \ref{dc_po} por diferença central.
+onde \(e_k\) é a \(k\)-ésima base canônica do \(\mathbb{R}^n\), (\ref{dp_po}) é o cálculo
+da derivada por diferença progressiva e (\ref{dc_po}) por diferença central.
 
-É preferível escolher a diferença central para usos praticamente pela impossibilidade de
-calculo causada incapacidade de operar com um valor para \(h\) infinitesimalmente pequeno, já
+É preferível escolher a diferença central principalmente por causa da impossibilidade de
+cálculo causada pela incapacidade de operar com um valor de \(h\) infinitesimalmente pequeno, já
 quando se calcula a derivada considerando a diferença \(f(x+he_i) - f(x)\), acabamos
-calculando a derivada em um ponto um pouco mais a frente do que o desejado, gerando um erro
+calculando a derivada em um ponto um pouco mais à frente do que o desejado, gerando um erro
 significativo. Já usando a diferença central, contorna-se isso equilibrando a posição onde a
 derivada será calculada pela mesma proporção.
 
@@ -50,7 +50,7 @@ respeito a escolha de \(h\). Como estamos tomando uma diferença maior entre os 
 observados, devemos compensar esse aumento na diferença escolhendo um valor menor para \(h\)
 do que escolheríamos se usássemos a diferença progressiva.
 
-O calculo da derivada de segunda ordem também é possível por esses mesmos métodos.
+O cálculo da derivada de segunda ordem também é possível por esses mesmos métodos.
 Para o uso da diferença progressiva, \cite{dennisschnabel1996} mostram e provam a seguinte
 expressão:
 
@@ -58,17 +58,21 @@ expressão:
 \frac{\partial^2 f}{\partial x_i \partial x_j} = \frac{f(x+he_i + he_j) - f(x+he_i) - f(x+he_j) + f(x)}{h^2}
 \end{equation}
 
-Percebemos logo seu custo de 4 avaliações da função por entrada da matriz hessiana, o que pode
+Percebemos logo seu custo de 4 avaliações da função por entrada da matriz Hessiana, o que pode
 se tornar um problema considerando um problema de alta dimensionalidade ou funções difíceis de
-se avaliar, mesmo sabendo que a matriz hessiana é simétrica, ou seja, basta computar apenas um
-triangulo da matriz.
+se avaliar, mesmo sabendo que a matriz Hessiana é simétrica, ou seja, basta computar apenas um
+triângulo da matriz.
 
 Já para o uso da diferença central, descrita em \cite{abramowitz1972handbook}, temos a seguinte
 expressão:
 
-\begin{equation}
-\frac{\partial^2 f}{\partial x_i \partial x_j} = \frac{f(x + he_i + he_j) - f(x + he_i - he_j) - f(x -he_i + he_j) + f(x - he_i -he_j )}{4h^2}
-\end{equation}
+{\footnotesize
+  \begin{equation}
+    \label{diffinitah}
+      \frac{\partial^2 f}{\partial x_i \partial x_j} = \frac{f(x + he_i + he_j) - f(x + he_i - he_j) - f(x -he_i + he_j) + f(x - he_i -he_j )}{4h^2}
+    \end{equation}
+}
+
 
 Da mesma forma, temos 4 avaliações da função, porém com mais operações sobre o valor de entrada,
 e considerando o mesmo problema de ter que escolher um valor menor para \(h\). E também o uso da
@@ -80,8 +84,9 @@ impraticável. No caso da otimização, a precisão da solução é diretamente 
 precisão oferecida, ou ainda, condições de parada de métodos (\ref{sec_kkt}).
 
 \subsection{DFP e BFGS}
-Quando o calculo da matriz hessiana se torna custoso demais para se calcular o valor exato,
-métodos de atualização da hessiana tomam seus lugares. Esses métodos normalmente constroem
+\label{sec_bfgs}
+Quando o cálculo da matriz Hessiana se torna custoso demais para se calcular o valor exato,
+métodos de atualização da Hessiana tomam seus lugares. Esses métodos normalmente constroem
 essa atualização baseando-se na característica interativa dos algoritmos que estão envolvidos.
 
 Podemos iniciar tomando uma aproximação da expansão local do gradiente da próxima iteração:
@@ -90,8 +95,8 @@ Podemos iniciar tomando uma aproximação da expansão local do gradiente da pr�
 \nabla f(x_{k+1}) \approx \nabla f(x) + H(x) (x_{k+1} - x)
 \end{equation}
 
-Que reorganizando e tomando a hessiana como constante (o que não é, mas é esperado que o gradiente
-não mude bruscamente) temos a seguinte expressão, gerando uma aproximação para a hessiana em \(x_k\)
+Que reorganizando e tomando a Hessiana como constante (o que não é, mas é esperado que o gradiente
+não mude bruscamente) temos a seguinte expressão, gerando uma aproximação para a Hessiana em \(x_k\)
 e \(x_{k+1}\):
 
 \begin{equation}
@@ -109,18 +114,18 @@ y = (\nabla f(x_{k+1}) - \nabla f(x)), \sigma = (x_{k+1} - x)
 \end{equation}
 
 
-Que nada mais é que a equação da secante. O problema que temos agora, é que a hessiana deve ser
+Que nada mais é que a equação da secante. O problema que temos agora, é que a Hessiana deve ser
 sempre simétrica e normalmente também definida positiva, o que não esta garantido desta forma.
 
 Em 1970, Davidon \cite{davidon1991variable}, usou em seu método de minimização uma matriz que
 especificava um mapeamento linear das mudanças do gradiente em relação as mudanças da posição
-observada. Essa matriz é atualizada a cada iteração de seu método é pelas relações do que foi
+observada. Essa matriz é atualizada a cada iteração de seu método pelas relações do que foi
 mudado em relação à posição e no que foi mudado em relação ao gradiente da posição anterior
 e o atual. No entanto, seu método nem sempre era usável, e por isso em 1963, Fletcher e Powell
 \cite{fletcher1963rapidly} introduziram novas ferramentas, garantindo o funcionamento em diversos
-casos e a convergência dessa tal matriz à matriz hessiana inversa (o que já acontecia antes, mas
+casos e a convergência dessa tal matriz à matriz Hessiana inversa (o que já acontecia antes, mas
 não em todos os casos), tornando o método da atualização da matriz o primeiro a receber um grande
-prestigio. A atualização da aproximação da matriz inversa à hessiana de Davidon-Fletcher-Powell
+prestígio. A atualização da aproximação da matriz inversa à Hessiana de Davidon-Fletcher-Powell
 (DFP) é dada por:
 
 \begin{equation}
@@ -145,14 +150,14 @@ y_k = \nabla f(x_{k+1}) - \nabla f(x_k)
 \(\sigma_k\) também pode ser definido como o vetor que quando somado à \(x_k\), minimiza a função
 na direção \(-H^{-1}_k \nabla f(x_k)\).
 
-Algumas informações podem ser verificadas a partir das expressões dadas, como de que escolhendo, uma
-matriz inicial definida positiva, as seguintes iterações serão positivas definidas, e de que com
+Algumas informações podem ser verificadas a partir das expressões dadas, como por exemplo, escolhendo uma
+matriz inicial definida positiva, as seguintes iterações serão positivas definidas, e com
 as novas ferramentas trazidas por Fletcher e Powell, o método DFP também se torna um método
 conjugado, por algumas relações ortogonalizantes no processo.
 
-Um dos passos tomados na definição do método DFP é restringir a próxima aproximação da matriz
-inversa à hessiana a ser definida positiva. Mas podemos restringir a própria aproximação da
-hessiana a ser positiva definida e já calculá-la diretamente. Broyden \cite{BROYDEN_1970},
+Um dos passos tomados na definição do método DFP consiste em restringir a próxima aproximação da matriz
+inversa à Hessiana a ser definida positiva. Mas podemos restringir a própria aproximação da
+Hessiana a ser positiva definida e já calculá-la diretamente. Broyden \cite{BROYDEN_1970},
 Fletcher \cite{Fletcher_1970}, Goldfarb \cite{Goldfarb_1970} e Shanno \cite{Shanno_1970} chegaram a
 essa conclusão e demonstraram o método que ofuscaria o DFP, o BFGS, definido da seguinte forma:
 
@@ -186,15 +191,15 @@ métodos disponíveis, tanto em eficiência quanto em facilidade de implementaç
 
 
 \subsection{Passo complexo}
-O método do passo complexo, mostrado por \citeauthor{Lai_2005} (\citeyear{Lai_2005}) , mas
-conhecida desde \citeyear{Lyness_1967}, toma como base a expansão de Taylor da função
+O método do passo complexo, mostrado por Lai \cite{Lai_2005}, mas
+conhecido desde 1967 \cite{Lyness_1967}, toma como base a expansão de Taylor da função
 perturbada por um termo complexo:
 
 \begin{equation}
 f(x + ih) = f(x) + \frac{i^1h^1}{1!}f'(x) + \frac{i^2h^2}{2!} f''(x) + ...
 \end{equation}
 
-Para a derivada de primeira ordem, podemos truncar as expressão para não considerar derivadas
+Para a derivada de primeira ordem, podemos truncar as expressões para não considerar derivadas
 de maiores ordens. O que nos deixa com:
 
 
@@ -214,7 +219,7 @@ Por fim:
 f'(x) = \frac{Imag(f(x + ih))}{h}
 \end{equation}
 
-Da mesma forma, pode ser construído um métodos para se obter as segundas derivadas:
+Da mesma forma, pode ser construído um método para se obter as segundas derivadas:
 
 \begin{equation}
 f''(x) = \frac{2}{h^2} (f(x) - Re(f(x+ih)))
@@ -228,6 +233,7 @@ O erro em relação a qualquer método de diferença finita (comparáveis por se
 é consideravelmente menor para um \(h\) suficientemente pequeno \cite{caplan2011numerical}.
 
 \subsection{Números hiper-duais}
+\label{sec_hiper_dual}
 O método do uso de números hiper-duais \cite{Fike_2011} é baseado na ideia de generalização dos números complexos.
 Um número hiper-dual é definido como:
 
@@ -259,5 +265,5 @@ Para segundas derivadas:
 onde \(\epsilon_{ijf}\) é a \(\epsilon_{ij}\) parte de \( f(x + h_i\epsilon_i + h_j\epsilon_j) \)
 
 Encontramos o mesmo problema que o método imaginário, a aplicação que se quer usar deve ter
-suporte para os números hiper duais. No entanto, como mostrado por \citeauthor{Fike_2011}, essa
-é uma das formas mais precisas e eficientes de se ter primeiras e segundas derivadas.
+suporte para os números hiper-duais. No entanto, essa é uma das formas mais precisas e
+eficientes de se ter primeiras e segundas derivadas \cite{Fike_2011}.

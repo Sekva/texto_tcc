@@ -5,16 +5,17 @@ Na década de 1930 o mundo encontrava-se em um estado onde problemas de gerencia
 se tornaram muito complexos, e tão pouco estruturados, que modelos matemáticos e o poder
 computacional existente na época foram postos à prova. A partir daí o campo de
 pesquisa responsável por esses assuntos começou a tomar forma e ganhar mais importância.
-Dentre os vários nomes dados a essa área de pesquisa, podemos encontrar pesquisa operacional,
+Dentre os vários nomes dados a essa área de pesquisa, podemos encontrar: pesquisa operacional,
 análise de sistemas, análise de custo-benefício e análise de custo-efetividade. Durante essa
-década, onde inciava-se a segunda guerra mundial, problemas como a alocação de recursos
+década, onde inciava-se a Segunda Guerra Mundial, problemas como a alocação de recursos
 limitados entre atividades simultâneas sob certas restrições eram comuns.
 
 
-\subsection{Kantorovich}
+\subsection{L. V. Kantorovich}
+\label{sec_kantorovich}
 
 Em 1939, problemas de otimização de produções com base nas reservas da indústria (materiais,
-trabalhadores e equipamentos) se tornaram essenciais no sustento do estado Soviético.
+trabalhadores e equipamentos) se tornaram essenciais no sustento do estado soviético.
 Segundo Kantorovich \cite{kantorovich1939}, existem duas formas de melhorar a eficiência
 de uma fábrica. A primeira é melhorando a tecnologia empregada nos meios de produção, e a
 outra é melhorando a organização do planejamento e da produção.
@@ -42,7 +43,6 @@ duas restrições:
 
 \vspace{5pt}
 
-%\begin{enumerate}[leftmargin=\parindent] alinha o conteúdo com o paragrafo
 \begin{enumerate}[leftmargin=5em]%\itemsep 3em
   \item \(h_{i, k} \geq 0\), para \(i =1, ..., m \);
   \item \(\sum_{k=1}^m h_{i, k} = 1\), para \(i =1, ..., m \);
@@ -97,7 +97,7 @@ mais de uma parte, e que ela pode ser configurada para operar de diferentes mét
 método resultando em números diferentes de partes. Considerando \( \gamma_{i, k, l} \) o número de
 \(k\)-ésimas partes, produzidas na \(i\)-ésima máquina, utilizando a \(l\)-ésima configuração,
 é preciso encontrar a fração de horas do dia trabalhado \(h_{i, l}\) que uma máquina \(i\) deverá
-passar operando na configuração \(l\). O números de \(k\)-ésimas partes é dado por
+passar operando na configuração \(l\). O número de \(k\)-ésimas partes é dado por
 \( z_k = \Sigma_{i, l} \gamma_{i, k, l} h_{i, l}\). São aplicados as restrições da mesma forma para o Problema
 A e o Problema B. Com isso temos o Problema C:
 
@@ -117,27 +117,27 @@ máximos entre \(\{\lambda_1\alpha_{i, 1}, \lambda_2\alpha_{i, 2}, ..., \lambda_
 observados nas máquinas \(i\) que resultaram em máximos são postos como \(h_{i, k}\). Feito isso,
 fica muito mais fácil determinar os outros valores para \( h_{i, k} \).
 
-\subsection{Dantzig}
+\subsection{G. B. Dantzig}
+\label{sec_dantzig}
 
-Ainda na década de 40, mas desta vez no Estados Unidos da América, os mesmos problemas de alocação de
+Ainda na década de 40, mas desta vez nos Estados Unidos da América, os mesmos problemas de alocação de
 recursos surgiam, uma vez dado o contexto de guerra. Dada necessidade de coordenação entre os diversos
-problemas que demandavam atenção, Dantzig \citeyear{dantzig1}, ao mesmo tempo que \citeauthor{kantorovich1939},
+problemas que demandavam atenção, Dantzig \cite{dantzig1}, ao mesmo tempo que Kantorovich,
 desenvolveu modelos e métodos para a resolução de problemas lineares.
 
 Para dar exemplos de uso, Dantzig elencou alguns problemas rotineiros para ele nas décadas de 30-40.
 Dentre os problemas, podemos falar sobre uma empresa vendedora de mesas. A empresa tem quatro modelos
 de mesas, onde cada mesa é construída em uma carpinteira e depois mandada para o acabamento. O número
 de horas de trabalho e o número de horas disponíveis para cada lugar são conhecidos. É certo a
-disponibilidade de matérias primas e a venda das mesas fabricadas. O objetivo da empresa é saber
+disponibilidade de matérias-primas e a venda das mesas fabricadas. O objetivo da empresa é saber
 quantas mesas de cada modelo irá encomendar de forma que maximize o lucro, e isso facilmente
 pode ser representado como um problema linear.
 
 Dentre as várias contribuições dadas por Dantzig, podemos destacar três. A primeira sendo a
 padronização de um problema linear. Como já visto, o problema de otimização linear consiste
-em otimizar uma expressão linear de \(n\) considerando um conjunto de \(m\) igualdades
+em otimizar uma expressão linear com \(n\) variáveis, mas considerando um conjunto de \(m\) igualdades
 também lineares:
 
-% TODO: melhorar mostragem
 
 \begin{mini!}
 {x}{ c_1 x_1 + ... + c_n x_n \label{dobj}}{\label{prob_dantzig}}{}
@@ -155,10 +155,10 @@ Considerando em notação de matrizes e vetores:
 \end{mini!}
 
 A restrição \ref{dr22} foi considerada parte da formulação padrão uma vez que os problemas
-consistia em escolha de número de itens, o que limita a escolha a ser nula ou positiva, mas
+consistiam em escolha de número de itens, o que limita a escolha a ser nula ou positiva, mas
 sem muitas dificuldades podemos tornar um problema com variáveis negativas nesta forma.
 
-Uma segunda contribuição foram instruções praticas de como modelar problemas lineares.
+Uma segunda contribuição foram instruções práticas de como modelar problemas lineares.
 São consideradas duas abordagens para modelagem, por receita/atividade e por balanço
 de materiais. A primeira abordagem considera uma coleção de processos que são tomados
 durante a situação que se deseja otimizar. Já a segunda, uma coleção de restrições acerca
@@ -170,7 +170,7 @@ A terceira contribuição, certamente uma das que lhe trouxe fama, foi o método
 resolução de problemas lineares. O método opera sobre o problema na forma canônica, que
 considera o sinal \(\leq\) ao invés de \(=\) em \ref{dr12}. A transformação de um problema
 para o outro é trivial, basta duplicar cada linha de \(A\) e \(b\) e cada linha duplicada
-é multiplicado por \(-1\). As restrições definem um politopo, que por exemplo, um politopo
+é multiplicado por \(-1\). As restrições definem um politopo, um exemplo de politopo
 de 3 dimensões é um poliedro.
 
 Uma característica de um problema linear é que a solução é um vértice do politopo. Para ver
@@ -178,6 +178,6 @@ isso basta considerar um poliedro e verificar que o ponto mais alto (ou mais bai
 poliedro é um vértice. Caso qualquer ponto em uma face do poliedro seja uma solução, isso
 também faz com que qualquer vértice daquela face seja uma solução.
 
-O método simplex, de forma geral, faz operações em uma matriz gerada a partir problema
+O método simplex, de forma geral, faz operações em uma matriz gerada a partir do problema
 até que se produza a solução. Uma forma de visualização para essas operações é considerar
 que cada operação move a solução atual de um vértice para um vértice vizinho.

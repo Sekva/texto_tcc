@@ -38,7 +38,7 @@ TODO: instroduzir o que é essa seção
 
 \par Essas noções definem um ente que denotamos por limite, e que se apresenta como a seguir:
 $$\lim_{x \rightarrow \check{x}}f(x)= f(\check{x}).$$
-Essa equação representa o fato de que ao considerarmos $x$ tender à $\check{x}$ obtemos por implicação que $f(x)$ tende à $f(\check{x})$. Como dissemos que isso ocorre para todos os valores de $\check{x} \in I$, então ocorre que o limite de $f(x)$ existe para qualquer valor de $x \in I$. Tecnicamente isso tem uma outra interpretação. Se considerarmos uma sequência de valores reais $\{x_k\}$, em $I$ tais que a partir de um determinado índice $K$ tenhamos $||x_k - \check{x}|| < \delta$. O fato de $f(x)$ ser contínua em $I$ implica que se considerarmos a sequência de valores reais gerados $\{f(x_k)\}$ será tal que $||f(x_k) - f(\check{x})|| < \epsilon$. Em outras palavras, ao considerar uma sequência de valores reais $\{x_k\}$ convergindo para o valor $\check{x}$ temos que os valores associados pela imagem da função real contínua $\{f(x_k)\}$ é uma sequência de valores reais convergentes à $f(\check{x})$.
+essa equação representa o fato de que ao considerarmos $x$ tender à $\check{x}$ obtemos por implicação que $f(x)$ tende à $f(\check{x})$. Como dissemos que isso ocorre para todos os valores de $\check{x} \in I$, então ocorre que o limite de $f(x)$ existe para qualquer valor de $x \in I$. Tecnicamente isso tem uma outra interpretação. Se considerarmos uma sequência de valores reais $\{x_k\}$, em $I$ tais que a partir de um determinado índice $K$ tenhamos $||x_k - \check{x}|| < \delta$. O fato de $f(x)$ ser contínua em $I$ implica que se considerarmos a sequência de valores reais gerados $\{f(x_k)\}$ será tal que $||f(x_k) - f(\check{x})|| < \epsilon$. Em outras palavras, ao considerar uma sequência de valores reais $\{x_k\}$ convergindo para o valor $\check{x}$ temos que os valores associados pela imagem da função real contínua $\{f(x_k)\}$ é uma sequência de valores reais convergentes à $f(\check{x})$.
 
 \par Estamos em posição de confrontar os seguintes entendimentos sobre o que desejamos como solução do que chamamos de otimização de funções reais que são os extremos de uma função real. 
 
@@ -55,6 +55,7 @@ Essa equação representa o fato de que ao considerarmos $x$ tender à $\check{x
 \par Como um primeiro passo concreto em direção à nossa ambiciosa missão de concatenar a teoria de otimização em alguns comentários, nos deparamos a um resultado clássico, conhecido como o Teorema de Weierstrass, que enunciamos:
 
 \begin{theorem}[Teorema de Weierstrass]
+\label{Teorema_de_Weierstrass}
   Toda função contínua definida em um intervalo fechado assume seus extremos.
 \end{theorem}
 
@@ -67,7 +68,7 @@ Essa equação representa o fato de que ao considerarmos $x$ tender à $\check{x
 \end{theorem}
 
 
-\par Podemos observar que esse critério garante a existência de valores de ótimo. O que computacionalmente é suficiente, mas ineficiente teoricamente. O que nos leva a considerar um refinamento em nossa abordagem. A fim de fortalecer os critérios de otimalidade vamos considerar a diferenciabiliade. 
+\par Podemos observar que esse critério garante a existência de valores de ótimo. O que computacionalmente é suficiente, mas ineficiente teoricamente. O que nos leva a considerar um refinamento em nossa abordagem. A fim de fortalecer os critérios de otimalidade vamos considerar a diferenciabilidade. 
 
 \begin{definition}[Função Diferenciável]
   Considerando uma função real $f(x)$ definida num intervalo aberto $I$. Diremos que $f(x)$ é diferenciável em $I$ se, e somente se, o seguinte limite existir para todo valor real $\check{x} \in I$:
@@ -150,9 +151,9 @@ $$f(x) - f(x^*) \approx \frac{1}{2} f^{''}(x^*)(x-x^*)^2.$$
   $$||x - \check{x}|| < \delta \Rightarrow ||f(x) - f(\check{x})|| < \epsilon.$$ 
 \end{definition}
 
-\par Tal como feito para função reais à uma variável, temos que essas noções definem um ente que denotamos por limite, e que se apresenta como a seguir:
+\par Tal como feito para funções reais à uma variável, temos que essas noções definem um ente que denotamos por limite, e que se apresenta como a seguir:
 $$\lim_{x \rightarrow \check{x}}f(x)= f(\check{x}).$$
-Essa equação representa o fato de que ao considerarmos $x$ tender à $\check{x}$ obtemos por implicação que $f(x)$ tende à $f(\check{x})$. Como dissemos que isso ocorre para todos os valores de $\check{x} \in \mathcal{U}$, então ocorre que o limite de $f(x)$ existe para qualquer valor de $x \in \mathcal{U}$.
+Essa equação representa o fato de que ao considerarmos $x$ tendendo à $\check{x}$ obtemos por implicação que $f(x)$ tende à $f(\check{x})$. Como dissemos que isso ocorre para todos os valores de $\check{x} \in \mathcal{U}$, então ocorre que o limite de $f(x)$ existe para qualquer valor de $x \in \mathcal{U}$.
 
 \par  Tecnicamente isso tem uma outra interpretação. Se considerarmos uma sequência de pontos $\{x_k\}$, em $\mathcal{U}$ tais que a partir de um determinado índice $K$ tenhamos $||x_k - \check{x}|| < \delta$. O fato de $f(x)$ ser contínua em $\mathcal{U}$ implica que se considerarmos a sequência de pontos gerados $\{f(x_k)\}$ será tal que $||f(x_k) - f(\check{x})|| < \epsilon$. Em outras palavras, ao considerar uma sequência de pontos $\{x_k\}$ convergindo para o valor $\check{x}$ temos que os pontos associados pela imagem da função real contínua $\{f(x_k)\}$ é uma sequência de pontos convergentes à $f(\check{x})$.
 
