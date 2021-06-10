@@ -2,27 +2,19 @@
 
 \chapter{\larger Introdução}
 \label{chap:introducao}
+		
+Os processos industriais potencializados no início do século XX guiado pelos frontes das duas grandes gerras trouxe um solavanco ao desejo de solução de problemas de caráter otimizável. Dois personagens em cenários distintos se sobressaem dando partida a corrida armamentista dos métodos de otimização.
 
-Edite e coloque aqui o seu texto de introdução.
+Por outro lado, de um ponto de vista teórico os métodos de otimização nascem junto com o Cálculo Diferencial advindo do Principia (Newton) e reformulado por seus colaboradores, Euler, Cauchy, Weierstrass, Lagrange, entre outros. O mecanismo em si ainda precisava de um interlocutor, o computador, a máquina que decifraria os enigmas da fenomenologia. Com a evolução dos sistemas processuais booleanos advieram a cepa de uma nova era, o modernismo pragmático das máquinas digitais possibilitaram um novo horizonte a ser concebido pelas mentes mais audazes e, convenientemente, mais bem preparadas de toda a história humana, os cientistas do meio do século XX. 
 
-A Introdução é a parte inicial do texto, na qual devem constar o tema e a delimitação do assunto tratado, objetivos da pesquisa e outros elementos necessários para situar o tema do trabalho, tais como: justificativa, procedimentos metodológicos (classificação inicial), embasamento teórico (principais bases sintetizadas) e estrutura do trabalho, tratados de forma sucinta. Recursos utilizados e cronograma são incluídos quando necessário. Salienta-se que os procedimentos metodológicos e o embasamento teórico são tratados, posteriormente, em capítulos próprios e com a profundidade necessária ao trabalho de pesquisa.
+Apenas depois de quase 30 anos de avanços teóricos e práticos é que pudemos contar com métodos que se equivaleriam ao clássico método de Newton no que se refere a solução de problema de busca linear. O efeito desse avanço nos colocou em um movimento que só fez acelerar. Desde o combalido método Simplex, enviesando entre os métodos de Newton e seus correlacionados, estamos em uma busca contínua por um modo de encontrar ótimos de funções de formas cada vez mais eficientes. Por essa busca e pelo sucesso dela é que temos hoje computadores funcionais em dispositivos móveis e uma janela de aplicabilidades dos modelos de otimização evoluindo dia após dia. 
 
-\section{LEIA ESTA SEÇÃO ANTES DE COMEÇAR}
-\label{sec:antesleiame}
+É nesse cenário que viemos apresentar um método que foi gerado para ser aplicado a um espectro grande de modelos pela amplitude de seus parâmetros. Visando uma aplicação à problemas não lineares e em que as funções que representam o modelo não sejam necessariamente conexas, o SCP se propõe como uma ferramenta robusta e metamorfa. Pois o algoritmo no qual está erguido faz uso de um modo sofisticado dos elementos que compõem todos os métodos clássicos, e mais, ele se supõe ser ainda mais eficaz que cada um deles.
 
-Este documento é um \emph{template} \LaTeX{} que foi concebido, primariamente, para ser utilizado na elaboração de Trabalho de Conclusão de Curs em conformidade com as normas da Universidade Tecnológica Federal do Paraná.
+Entendo que só se poderia apresentar os aspectos técnicos do SCP mediante uma abreviada introdução ao teor histórico que fomentou as ideias por trás do ideal do algoritmo e, que também, seria necessário apresentar estruturas fundamentais à otimização matemática, em seu próprio território, dentre outras estruturas que se aliciam à técnica, seja pelo suporte ao mecanismo teórico, seja pela praticidade de linguagem. Apresentamos no Capítulo \ref{chap:fundamentacaoTeorica} um relato histórico e teórico que sustenta o SCP em seus alicerces mais amplos. Iniciando com a ideia prática de resolver um problema e embarcando numa discussão indo até o problema de fazer estimativas de um ente matemático clássico que se revela indomesticável quase, a Hessiana.
 
-Para a produção deste \emph{template} foi necessário adaptar o arquivo {\ttfamily abntex2.cls}. Assim, foi produzido o arquivo {\ttfamily utfpr-abntex2.cls} que define o \verb|documentclass| específico para a UTFPR.
+Seguindo uma estrutura textual que possibilite a compreensão do que foi produzido ao longo de seis meses de dedicação erguemos o método científico que utilizamos no Capítulo \ref{chap:metodologia} e, em seguida, no Capítulo \ref{chap:analise_discussiva} apresentamos nosso objeto central, a análise analítica do método mediante uma sentença prática. Fazendo uso de lógica de programação foi estruturado um algoritmo auxiliar que serviu para imergir aos instrumentos intrínsecos do SCP e revelar seus mecanismos e manobras. Disso seguimos para uma modelagem de um método construído com um algoritmo inédito, que traduz o SCP de uma forma que possibilite a sua codificação em uma linguagem que consiga compilar suas rotinas.
 
-Antes de começar a escrever o seu trabalho acadêmico utilizando este \emph{template}, é importante saber que há dois arquivos que você precisará editar para que a capa e a folha de rosto de seu trabalho sejam geradas automaticamente.
-São eles os arquivos {\ttfamily capa.tex} e {\ttfamily folha-rosto.tex}, ambos no diretório  {\ttfamily /elementos-pre-textuais}.
-No arquivo {\ttfamily capa.tex} deverá ser informado nome do autor, título do trabalho, natureza do trabalho, nome do orientador e outras informações necessárias.
-No arquivo {\ttfamily folha-rosto.tex}, que contém o texto padrão estabelecendo que este documento é um requisito parcial para a obtenção do título pretendido, será necessário apenas comentar as linhas que não se aplicam ao tipo de trabalho acadêmico.
+Além de se aproximar com muita eficiência de um algoritmo que revele o SCP numa plataforma pública e de fácil acesso, os frutos desse trabalho transbordam na área teórica, no que diz respeito a formação de recursos humanos, e no requisito prático, no que diz respeito a elaboração de um código que lê o SCP via lógica de programação. 
 
-A compilação para gerar um arquivo no formato pdf, incluindo corretamente as referências bibliográficas, deve ser realizada utilizando o comando \verb|makefile|, disponível na mesma pasta onde está o arquivo principal \verb|utfpr-tcc.tex|. Caso seja alterado o nome do arquivo \verb|utfpr-tcc.tex|, deverá ser alterado no arquivo \verb|makefile| também.
-
-\section{ORGANIZAÇÃO DO TRABALHO}
-\label{sec:organizacaoTrabalho}
-
-Normalmente ao final da introdução é apresentada, em um ou dois parágrafos curtos, a organização do restante do trabalho acadêmico.
-Deve-se dizer o quê será apresentado em cada um dos demais capítulos.
+Ademais, desejamos que esse trabalho possa vir a servir de inspiração a outros trabalhos que evoluam ainda mais os avanços que atingimos e que possam trazer uma estrutura mais sólida para a área da otimização contínua.

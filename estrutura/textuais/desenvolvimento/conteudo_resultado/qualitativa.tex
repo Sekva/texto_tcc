@@ -1,13 +1,5 @@
 \section{Análise Qualitativa do algoritmo - SCP}
-%TODO: --
-%\begin{enumerate}
-%\item copiar o pseudo codigo do scp
-%\item analisar minuciosamente cada etapada do algoritmo
-%\item ENTREGAR 07/06/2021 AS 16 O CAPTULO 4 TODO E INTEIRO
-%\end{enumerate}
 
-
-%\subsection{Problema resolvido pelo SCP}
 O SCP resolve problemas no seguinte formato:
 
 \vspace{-15pt}
@@ -26,19 +18,7 @@ em diversas áreas.
 
 Outra coisa que é assumida, é que as qualificações de restrições de Mangasarian-Fromovitz estendidas (EMFCQ)
 \cite{di1994exact} são válidas para qualquer \( x \in \mathbb{R}^n \), como visto na seção \ref{sec_emfcq}.
-%\cite{di1994exact} são válidas para qualquer \( x \in \mathbb{R}^n \) de forma que, \( \nabla h_r(x) \), para
-%\(r = 1, ..., m_e\), sejam linearmente independentes e que:
 
-%\vspace{-15pt}
-%\begin{flalign}
-%  & \exists z \in \mathbb{R}^n \\
-%  & \nabla g_j(x)^T z < 0, j \in (J_+(x) \cup J_0(x)) \\
-%  & \nabla h_r(x)^T z = 0, r = 1, ..., m_e
-%\end{flalign}
-%onde \( J_+(x) := \{j | g_j(x) > 0\} \) é o conjunto de restrições violadas e
-%\( J_0(x) := \{j | g_j(x) = 0\} \) é o conjunto de restrições que estão na fronteira
-%da região limitada por elas.
-%
 Estas qualificações garantem que, para qualquer ponto não viável, exista uma
 direção de descida em direção a uma região viável. Existe também uma relação entre as EMFCQ
 e funções de penalidade exatas.
