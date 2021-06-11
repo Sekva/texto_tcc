@@ -49,10 +49,19 @@
 \RequirePackage[brazilian, hyperpageref]{backref}       % Produzir índice nas referências
 \RequirePackage{makeidx}                                % Produzir índice remissivo de palavras
 \RequirePackage{chngcntr}
-
+\RequirePackage{titlesec}
 % -----------------------------------------------------------------------------
 % Configurações gerais
 % -----------------------------------------------------------------------------
+
+
+    
+%16 = tamanho da fonte
+%19.2 = baselineskip = 16 * 1.2
+\newcommand\fontecap{\fontsize{16pt}{19.2pt}\selectfont}
+\newcommand\fontesec{\fontsize{12pt}{14.2pt}\selectfont}
+
+
 
 % Retira o espaço extra desnecessário nas frases
 \frenchspacing
@@ -161,6 +170,11 @@
     \aliaspagestyle{chapter}{abntchapfirst}
     \nouppercaseheads
     \bookmarksetup{startatroot}
+    
+    \titleformat{\chapter}{\normalfont\fontecap\bfseries}{\thechapter}{16pt}{\fontecap\bfseries}
+    \titleformat{\section}{\normalfont\fontesec\bfseries}{\thesection}{12pt}{\fontesec\bfseries}
+    \titleformat{\subsection}{\normalfont\fontesec\bfseries}{\thesubsection}{12pt}{\fontesec\bfseries}    
+    \titleformat{\subsubsection}{\normalfont\fontesec\bfseries}{\thesubsubsection}{12pt}{\fontesec\bfseries}    
 }
 
 % Configura layout para elementos pós-textuais
@@ -198,7 +212,7 @@
 % -----------------------------------------------------------------------------
 
 % Tamanho da indentação do parágrafo
-\setlength{\parindent}{1.5cm}
+\setlength{\parindent}{1.27cm}
 
 % Espaçamento entre um parágrafo e outro
 \setlength{\parskip}{0.0cm}

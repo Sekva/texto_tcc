@@ -1,5 +1,7 @@
 \section{Problemas lineares duais}
 \label{sec_prob_dual}
+
+\noindent
 Qualquer problema linear possui um outro problema atrelado a ele, o problema dual \cite{fischetti2019}.
 Considerando a ideia de que queremos minimizar uma quantidade na reta real e, por
 simplicidade, assumimos que este mínimo existe. Podemos dizer então que este valor
@@ -90,13 +92,13 @@ dual pois, por construção, no momento em que multiplicamos o sistema \(Ax = b\
 vemos que existem soluções para \(u^TA = c^T\). Portanto podemos dizer que:
 
 \begin{equation}
-  c^Tx = u^TAx \implies c^Tx = u^Tb \geq c_0
+  c^Tx = u^TAx \Rightarrow c^Tx = u^Tb \geq c_0
 \end{equation}
 
 Mas como estamos considerando \(u^Tb = c_0\):
 
 \begin{equation}
- c^Tx = u^Tb = c_0 \implies c^Tx = c_0
+ c^Tx = u^Tb = c_0 \Rightarrow c^Tx = c_0
 \end{equation}
 
 
@@ -113,7 +115,7 @@ Então mostramos que:
 Que é o mesmo que dizer que:
 
 \begin{equation}
-\underset{x}{\mathrm{min}} = \underset{c_0}{\mathrm{max}} = \underset{u}{\mathrm{max}} \implies c_0 = u^Tb
+\underset{x}{\mathrm{min}} = \underset{c_0}{\mathrm{max}} = \underset{u}{\mathrm{max}} \Rightarrow c_0 = u^Tb
 \end{equation}
 
 Então temos mostrado que a solução do problema primal e dual são iguais (para o caso linear). Esse fato se

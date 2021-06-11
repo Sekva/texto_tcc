@@ -1,5 +1,6 @@
 \section{Os pilares arquitetônicos do SCP}
 
+\noindent
 O algorítimo SCP \cite{Still2010} apresentado é a extensão de um trabalho sobre as
 mesmas bases. Anteriormente, os autores haviam desenvolvido um método capaz de resolver apenas
 problemas convexos com restrições de desigualdades não lineares.
@@ -17,6 +18,8 @@ separáveis. Já no Sequential Cutting Plane, é usada uma sequência de resolu�
 lineares.
 
 \subsection{Ferramentas usadas pelo SCP}
+
+\noindent
 O SCP \cite{Still2010} pode ser usado para resolver problemas não lineares, com restrições tanto
 de igualdade, quanto de desigualdade, o que, por exemplo, o LANCELOT (\ref{sec_lancelot}) não pode
 resolver, já que requer que as restrições de desigualdade sejam convertidas em igualdades. Outro
@@ -26,6 +29,7 @@ que sejam continuamente diferenciáveis.
 \subsubsection{Condições de Karush-Kuhn-Tucker}
 \label{sec_kkt}
 
+\noindent
 As condições de Karush-Kuhn-Tucker (KKT) são um conjunto de condições necessárias para
 que uma solução seja considerada um ótimo local para um dado problema. Esse conjunto
 de condições são usadas como peça fundamental para a construção de diversos métodos mais
@@ -108,6 +112,8 @@ As condições de primeira ordem para um \(x^*\) ser solução são as seguintes
 
 \subsubsection{Qualificações de Mangasarian e Fromovitz}
 \label{sec_emfcq}
+
+\noindent
 As qualificações de restrições de Mangasarian e Fromovitz são um trabalho
 em cima de um conjunto de qualificações "rival" das de Karush-Kuhn-Tucker,
 as qualificações de Fritz John.
@@ -188,6 +194,8 @@ restrições de igualdade sejam linearmente independentes.
 
 
 \subsection{Sobre a escolha do uso de problemas lineares}
+
+\noindent
 Como mostrado em um dos métodos anteriores em \ref{secao_historia}, a resolução de subproblemas
 lineares podem ser usadas tanto isoladamente, quanto em conjunto com a resolução de subproblemas
 quadráticos para resolver problemas de otimização não linear. Os métodos que usam os subproblemas
@@ -212,6 +220,8 @@ podemos citar testes em algoritmos genéticos \cite{Deb_2000, Joines}, ambientes
 
 \subsubsection{LANCELOT}
 \label{sec_lancelot}
+
+\noindent
 O LANCELOT \cite{conn1991globally} é na verdade um conjunto de técnicas compiladas em um único
 pacote da  linguagem Fortran. Dentre as técnicas utilizadas, a técnica escolhida para fazer o
 comparativo com o SCP foi um método capaz de convergir para um ótimo global fazendo o uso da
@@ -275,6 +285,8 @@ possível provar que a convergência se dá para um ótimo global e que é do ti
 
 \subsubsection{DONLP2}
 \label{sec_dosnlp2}
+
+\noindent
 O DONLP2 é a implementação de uma variante de um método SQP capaz de resolver problemas 
 abrangentes, da seguinte forma:
 

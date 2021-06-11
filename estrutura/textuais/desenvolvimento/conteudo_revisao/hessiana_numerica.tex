@@ -1,4 +1,6 @@
 \section{Cálculos numéricos da Hessiana}
+
+\noindent
 O cálculo das informações de segunda ordem de uma função, a matriz Hessiana, faz parte do conjunto
 de problemas computacionais encontrados durante o processo de otimização. Diversos métodos são
 formulados com a necessidade do uso da Hessiana.
@@ -17,6 +19,8 @@ de computação exata da Hessiana, e métodos que computam apenas aproximações
 
 
 \subsection{Diferença finita}
+
+\noindent
 Os métodos que usam diferença finita podem ser vistos como traduções das definições matemáticas
 das derivadas. No entanto, quando esses métodos são implementados praticamente, problemas com a
 precisão dos números obtidos se tornam um problema, assim como o custo de avaliar diversas
@@ -85,6 +89,8 @@ precisão oferecida, ou ainda, condições de parada de métodos (\ref{sec_kkt})
 
 \subsection{DFP e BFGS}
 \label{sec_bfgs}
+
+\noindent
 Quando o cálculo da matriz Hessiana se torna custoso demais para se calcular o valor exato,
 métodos de atualização da Hessiana tomam seus lugares. Esses métodos normalmente constroem
 essa atualização baseando-se na característica interativa dos algoritmos que estão envolvidos.
@@ -187,6 +193,8 @@ Na literatura encontra-se constantemente exemplos de que o BFGS é um dos melhor
 métodos disponíveis, tanto em eficiência quanto em facilidade de implementação.
 
 \subsection{Passo complexo}
+
+\noindent
 O método do passo complexo, mostrado por Lai \cite{Lai_2005}, mas
 conhecido desde 1967 \cite{Lyness_1967}, toma como base a expansão de Taylor da função
 perturbada por um termo complexo:
@@ -230,6 +238,8 @@ O erro em relação a qualquer método de diferença finita (comparáveis por se
 
 \subsection{Números hiper-duais}
 \label{sec_hiper_dual}
+
+\noindent
 O método do uso de números hiper-duais \cite{Fike_2011} é baseado na ideia de generalização dos números complexos.
 Um número hiper-dual é definido como:
 

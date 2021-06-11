@@ -1,5 +1,6 @@
 \section{Análise Qualitativa do algoritmo - SCP}
 
+\noindent
 O SCP resolve problemas no seguinte formato:
 
 \vspace{-15pt}
@@ -25,6 +26,8 @@ e funções de penalidade exatas.
 
 
 \subsection{O Algoritmo}
+
+\noindent
 O algoritmo é iterativo, assim como no clássico método de Newton se é gerada
 uma sequência de pontos convergentes para um ponto ótimo.
 Cada uma de suas iterações consiste em um conjunto de subiterações de
@@ -77,6 +80,7 @@ estacionário.
 
 \subsubsection{Subiterações lineares}
 
+\noindent
 Cada subiteração linear é a resolução de um problema linear fixado no ponto
 atual \( x_i \), \(i\) sendo a iteração linear atual. O problema linear que
 será resolvido é dado por:
@@ -302,6 +306,8 @@ parada as iterações de resoluções de problemas lineares, deve ser retornada 
 necessárias, \((d_i, x_i, H_i, \lambda_i, \mu_i)\).
 
 \subsubsection{Função Mérito}
+
+\noindent
 É usada uma função de mérito para verificações da velocidade de descida. O mérito é dado pela
 minimização da função objetivo (\ref{scp_obj}) e a anulação de um termo de penalização:
 
@@ -430,6 +436,8 @@ Um pseudo-código para o que foi dito é:
 
 
 \subsubsection{Regiões de confiança}
+
+\noindent
 As regiões de confiança são usadas como delimitações para o espaço das direções de descidas,
 garantindo que estas sejam de um tamanho adequado, e atualizadas de acordo com os movimentos do
 ponto em cada iteração, ou seja, se a região é muito grande e o ponto em relação a última

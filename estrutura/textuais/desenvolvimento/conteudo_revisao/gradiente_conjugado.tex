@@ -1,4 +1,6 @@
 \section{Método do gradiente conjugado}
+
+\noindent
 Dentre os métodos mais simples podemos citar o método do gradiente descendente
 ou o próprio método de Newton, mas que possuem seus problemas, e por isso,
 a necessidade de métodos um pouco mais elaborados, mas ainda assim não
@@ -13,6 +15,8 @@ afim para que se possa considerar as resoluções trazidas pelo método do
 gradiente conjugado.
 
 \subsection{Método do gradiente descendente}
+
+\noindent
 O método do gradiente descendente é um dos métodos iterativos mais simples
 que podemos encontrar. Ele consiste em mover o ponto da iteração atual de
 acordo com a direção de declive mais acentuada, ou seja, a direção do
@@ -30,9 +34,9 @@ bom valor, ou ainda minimizar também esse valor afim de obter o tamanho ótimo 
 passo:
 
 \vspace{-15pt}
-\begin{mini!}
-{\alpha_k}{ f(x_k - \alpha_k \nabla f(x_k)) \label{gd_obj}}{\label{prob_gd}}{}
-\end{mini!}
+\begin{mini}
+{\alpha_k}{ f(x_k - \alpha_k \nabla f(x_k)) \label{gd_obj}}{}{}
+\end{mini}
 
 O gradiente descendente, por mais simples e prático que seja, tem seu preço.
 Se pararmos para observar seu comportamento, percebemos um esforço gasto à toa.
@@ -55,6 +59,7 @@ o progresso em apenas uma direção.
 
 \subsection{Construindo o método do gradiente conjugado}
 
+\noindent
 Uma das motivações do método do gradiente conjugado \cite{bonnans2006numerical}
 \cite{1987polyak} é resolver um sistema linear de \(n\) equações na forma \(Ax = b \).
 Os métodos convencionais para esse tipo de problema falham no sentido de que, para um
@@ -128,9 +133,9 @@ interpretar o problema. Então, podemos escrever um problema do tipo \(Ax = b\) 
 problema de otimização de uma função quadrática convexa:
 
 \vspace{-15pt}
-\begin{mini!}
-{x}{ f(x) = \frac{1}{2} \langle x, x \rangle_A - \langle b, x \rangle \label{gcq_obj}}{\label{prob_gcq}}{}
-\end{mini!}
+\begin{mini}
+{x}{ f(x) = \frac{1}{2} \langle x, x \rangle_A - \langle b, x \rangle \label{gcq_obj}}{}{}
+\end{mini}
 
 Como a função é quadrática e convexa, sabemos que possui apenas um único ponto de
 extremo \(x^*\) e que é o mínimo. A partir dessas informações podemos definir as
@@ -150,9 +155,9 @@ ao produto de uma constante e a variável real. Portanto:
 
 E da mesma forma:
 
-\begin{equation*}
+\begin{equation}
 \nabla^2 f(x) = A
-\end{equation*}
+\end{equation}
 
 Com isso podemos usar o mesmo método para encontrar soluções para \(Ax = b\) para
 minimizar funções cuja matriz hessiana (\(\nabla^2 f(x)\)), que chamaremos sempre de \(A\),

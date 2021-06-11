@@ -10,7 +10,6 @@
     abnt-etal-list=3,
     abnt-thesis-year=final
 ]{abntex2cite}                  % Configura as citações bibliográficas conforme a norma ABNT
-
 % PACOTES----------------------------------------------------------------------
 
 \usepackage{booktabs}                                       % Réguas horizontais em tabelas
@@ -43,17 +42,27 @@
 %\usepackage{scalefnt}                                      % Permite redimensionar tamanho da fonte
 %\usepackage{subfig}                                        % Posicionamento de figuras
 %\usepackage{upgreek}                                       % Fonte letras gregas
-\usepackage[singlelinecheck=false,tableposition=bottom]{caption}
+\usepackage[font={footnotesize,bf},center,singlelinecheck=false,tableposition=bottom]{caption}
 \usepackage{tabularx}
 
-
+\usepackage[utf8]{inputenc}                                 % Codificação do documento
 \usepackage{fontspec}
-\renewcommand{\familydefault}{\sfdefault}
-\setmainfont{Accanthis ADF Std No3}
-\setromanfont{Accanthis ADF Std No3}
-\setsansfont{Accanthis ADF Std No3}
-\setmonofont{Accanthis ADF Std No3}
+%\usepackage[T1]{fontenc}
+%\usepackage[scaled]{helvet}                                % Usa a fonte Helvetica
+%\usepackage{times}                                         % Usa a fonte Times
+%\usepackage{palatino}                                      % Usa a fonte Palatino
+%\usepackage{lmodern}                                       % Usa a fonte Latin Modern
+%\usepackage{accanthis}
+\setmainfont{Times New Roman}
+%\usepackage{indentfirst}
 
+    
+%\renewcommand{\familydefault}{\sfdefault}
+%\setmainfont{Accanthis ADF Std No3}
+%\setromanfont{Accanthis ADF Std No3}
+%\setsansfont{Accanthis ADF Std No3}
+%\setmonofont{Accanthis ADF Std No3}
+    
 %% Times New Roman
 %\setromanfont[
 %BoldFont=timesbd.ttf,
@@ -99,15 +108,20 @@
 %\newtheorem{summary}[theorem]{Summary}
 %\newenvironment{proof}[1][\textbf{Demonstração:}\hspace{0.2cm}]{\textit{#1}}{\begin{flushright}\itshape{QED.}\end{flushright}}
 
-
-     
-\usepackage[utf8]{inputenc}                                 % Codificação do documento
-%\usepackage[T1]{fontenc}
-%\usepackage[scaled]{helvet}                                % Usa a fonte Helvetica
-%\usepackage{times}                                         % Usa a fonte Times
-%\usepackage{palatino}                                      % Usa a fonte Palatino
-%\usepackage{lmodern}                                       % Usa a fonte Latin Modern
-%\usepackage{accanthis}
-
 \usepackage[short,nocomma]{optidef}
+\usepackage{blindtext}
 \usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+
+ 
+%\usepackage{xparse}
+% load showframe just to show where the box borders are
+%\usepackage{showframe}
+
+%\newsavebox{\fminipagebox}
+%\NewDocumentEnvironment{fminipage}{m O{\fboxsep}}
+% {\par\kern#2\noindent\begin{lrbox}{\fminipagebox}
+%  \begin{minipage}{\dimexpr#1-2\fboxsep-2\fboxrule}\ignorespaces}
+% {\end{minipage}\end{lrbox}%
+%  \fbox{\usebox{\fminipagebox}}%
+%  \par\kern#2 }

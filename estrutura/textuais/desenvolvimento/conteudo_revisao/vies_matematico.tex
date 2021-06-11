@@ -1,5 +1,6 @@
 \section{A programação sob o viés matemático}
 
+\noindent
 Visando uma exposição técnica e concisa do conteúdo dessa seção foi elaborado pelo professor orientador desse trabalho o texto que se apresenta.
 
 \par Desde que começamos a produzir materiais usando de maquinários nos confrontamos com o problema de otimização. Em primeira escala o problema já tinha uma abordagem matemática sólida iniciada em consequência da evolução da matemática analítica que foi fortificada pelos instrumentos advindos do Cálculo Diferencial e Integral. 
@@ -10,7 +11,8 @@ Visando uma exposição técnica e concisa do conteúdo dessa seção foi elabor
 
 \subsection{Funções à Uma Variável Real}
 
-\par Damos início a essa seção apresentando o que devemos entender por processo de otimização. Tornou-se comum o uso de modelagem matemática para a determinação de como os processos de certos fenômenos podem ser simulados. Essa simulação molda o que significamos como sendo uma solução para um problema que está dentro de parâmetros estabelecidos a partir do fenômeno. O instrumento que usamos para representar o modelo é o que matematicamente entendemos como sendo uma função. Que definimos a seguir:
+\noindent
+Damos início a essa seção apresentando o que devemos entender por processo de otimização. Tornou-se comum o uso de modelagem matemática para a determinação de como os processos de certos fenômenos podem ser simulados. Essa simulação molda o que significamos como sendo uma solução para um problema que está dentro de parâmetros estabelecidos a partir do fenômeno. O instrumento que usamos para representar o modelo é o que matematicamente entendemos como sendo uma função. Que definimos a seguir:
 
 \begin{definition}[Função Real]
   Uma função real é uma relação entre dois subconjuntos $I$, $J \subset \mathbb{R}$. Para que seja considerada uma função a relação deve satisfazer as seguintes condições:				
@@ -32,13 +34,17 @@ Visando uma exposição técnica e concisa do conteúdo dessa seção foi elabor
 
 \begin{definition}[Função Contínua]
   Dizemos que uma função real definida em um subconjunto $I$, um intervalo, é uma função contínua se, e somente se, para todo valor real $\check{x} \in I$ pudermos escolher arbitrariamente uma variável infinitesimal, $\epsilon > 0$, que implique na existência de outra variável infinitesimal $\delta>0$ tais que:
-  $$||x - \check{x}|| < \delta \Rightarrow ||f(x) - f(\check{x})|| < \epsilon.$$ 
+  \begin{equation}
+    ||x - \check{x}|| < \delta \Rightarrow ||f(x) - f(\check{x})|| < \epsilon
+  \end{equation}
 \end{definition}
 
 \par A construção do entendimento do que vem a ser uma função contínua é de grande interesse ao que estamos construindo. Devemos perceber que dizemos que uma função é contínua em um valor real específico $\check{x}$, isso confere um caráter local à definição. De fato podemos definir continuidade pontualmente. Mas escolhemos apresentar essa definição que implicitamente é dada para todos os valores de um intervalo real. Ademais, o fato de $||x - \check{x}|| < \delta$ significa na prática que estamos considerando estimativas para o valor de $\check{x}$ com um erro de no máximo $\delta$. Que faz implicar que as estimativas para o valor de $f(\check{x})$ no máximo vão diferir em $\epsilon$, que descrevemos como: $||f(x) - f(\check{x})|| < \epsilon$.
 
 \par Essas noções definem um ente que denotamos por limite, e que se apresenta como a seguir:
-$$\lim_{x \rightarrow \check{x}}f(x)= f(\check{x}).$$
+\begin{equation}
+  \lim_{x \rightarrow \check{x}}f(x)= f(\check{x})
+\end{equation}
 essa equação representa o fato de que ao considerarmos $x$ tender à $\check{x}$ obtemos por implicação que $f(x)$ tende à $f(\check{x})$. Como dissemos que isso ocorre para todos os valores de $\check{x} \in I$, então ocorre que o limite de $f(x)$ existe para qualquer valor de $x \in I$. Tecnicamente isso tem uma outra interpretação. Se considerarmos uma sequência de valores reais $\{x_k\}$, em $I$ tais que a partir de um determinado índice $K$ tenhamos $||x_k - \check{x}|| < \delta$. O fato de $f(x)$ ser contínua em $I$ implica que se considerarmos a sequência de valores reais gerados $\{f(x_k)\}$ será tal que $||f(x_k) - f(\check{x})|| < \epsilon$. Em outras palavras, ao considerar uma sequência de valores reais $\{x_k\}$ convergindo para o valor $\check{x}$ temos que os valores associados pela imagem da função real contínua $\{f(x_k)\}$ é uma sequência de valores reais convergentes à $f(\check{x})$.
 
 \par Estamos em posição de confrontar os seguintes entendimentos sobre o que desejamos como solução do que chamamos de otimização de funções reais que são os extremos de uma função real. 
@@ -73,7 +79,9 @@ essa equação representa o fato de que ao considerarmos $x$ tender à $\check{x
 
 \begin{definition}[Função Diferenciável]
   Considerando uma função real $f(x)$ definida num intervalo aberto $I$. Diremos que $f(x)$ é diferenciável em $I$ se, e somente se, o seguinte limite existir para todo valor real $\check{x} \in I$:
-  $$ f^{'}(\check{x})= \lim_{h \rightarrow 0}\frac{f(\check{x}+h)- f(\check{x})}{h}.$$ 
+  \begin{equation}
+    f^{'}(\check{x})= \lim_{h \rightarrow 0}\frac{f(\check{x}+h)- f(\check{x})}{h}
+  \end{equation}
   onde $f^{'}(\check{x})$ denota a derivada de $f(x)$ em $\check{x}$.
 \end{definition}
 
@@ -95,19 +103,25 @@ essa equação representa o fato de que ao considerarmos $x$ tender à $\check{x
 
 \par Para além dessas análises ainda somos capazes de refinar ainda mais os critérios de otimalidade se considerarmos que a função objetivo seja duas vezes diferenciável e que sua segunda derivada seja uma função contínua. A segunda derivada de uma função é precisamente o que parece ser, a derivada da função derivada. Isto é,
 
-$$ f^{''}(\check{x}) = \lim_{h \rightarrow 0} \frac{f^{'}(\check{x}+h)- f^{'}(\check{x})}{h}.$$
+\begin{equation}
+  f^{''}(\check{x}) = \lim_{h \rightarrow 0} \frac{f^{'}(\check{x}+h)- f^{'}(\check{x})}{h}o
+\end{equation}
 
 \par Para dar contexto ao que vamos apresentar devemos fazer a exposição de um resultado deveras valoroso que permite fazermos uma representação local de uma função duas vezes diferenciável da forma seguinte:
 
 \begin{theorem}[Teorema de Taylor]
   Dada uma função real $f:[a,b] \rightarrow J$. Se $f(x)$ for duas vezes diferenciável em $(a,b)$, então para todo $c \in (a,b)$ temos que:
-  $$f(x) = f(c)+ f^{'}(c)(x-c) + \frac{1}{2} f^{''}(c)(x-c)^2 + r(x),$$
+  \begin{equation}
+    f(x) = f(c)+ f^{'}(c)(x-c) + \frac{1}{2} f^{''}(c)(x-c)^2 + r(x),
+  \end{equation}
   com $\lim_{x \rightarrow c}\frac{r(x)}{|x|} = 0$.
 \end{theorem}
 
 
 \par Portanto, ao aplicarmos o Teorema de Taylor a um ponto crítico de $f(x)$ obtemos que:
-$$f(x) - f(x^*) \approx \frac{1}{2} f^{''}(x^*)(x-x^*)^2.$$
+\begin{equation}
+  f(x) - f(x^*) \approx \frac{1}{2} f^{''}(x^*)(x-x^*)^2
+\end{equation}
 
 \par O termo $(x-x^*)^2$ é definido positivo. Logo o sinal de variação da função com relação ao ponto crítico $x^*$ é dado pela aplicação da segunda derivada ao ponto crítico, isto é, é dado por $f^{''}(x^*)$. Esse fato sugere as seguintes definições:
 
@@ -131,7 +145,8 @@ $$f(x) - f(x^*) \approx \frac{1}{2} f^{''}(x^*)(x-x^*)^2.$$
 
 \subsection{Funções à Várias Variáveis Reais}
 
-\par Nessa seção exporemos o contexto de otimização para funções à várias variáveis reais. A primeira coisa que faremos é definir um ente.
+\noindent
+Nessa seção exporemos o contexto de otimização para funções à várias variáveis reais. A primeira coisa que faremos é definir um ente.
 
 \begin{definition}[Função Real à várias variáveis]
   Uma função real à várias variáveis é uma relação entre dois conjuntos $\mathcal{U} \subset \mathbb{R}^n$ e $J \subset \mathbb{R}$. Para que seja considerada uma função a relação deve satisfazer as seguintes condições:				
@@ -149,11 +164,15 @@ $$f(x) - f(x^*) \approx \frac{1}{2} f^{''}(x^*)(x-x^*)^2.$$
 
 \begin{definition}[Função Contínua]
   Dizemos que uma função real definida em um subconjunto $\mathcal{U} \subset \mathbb{R}^n$ é uma função contínua se, e somente se, para todo ponto $\check{x} \in \mathcal{U}$ pudermos escolher arbitrariamente uma variável infinitesimal, $\epsilon > 0$, que implique na existência de outra variável infinitesimal $\delta>0$ tais que:
-  $$||x - \check{x}|| < \delta \Rightarrow ||f(x) - f(\check{x})|| < \epsilon.$$ 
+  \begin{equation}
+    ||x - \check{x}|| < \delta \Rightarrow ||f(x) - f(\check{x})|| < \epsilon
+  \end{equation}
 \end{definition}
 
 \par Tal como feito para funções reais à uma variável, temos que essas noções definem um ente que denotamos por limite, e que se apresenta como a seguir:
-$$\lim_{x \rightarrow \check{x}}f(x)= f(\check{x}).$$
+\begin{equation}
+  \lim_{x \rightarrow \check{x}}f(x)= f(\check{x})
+\end{equation}
 Essa equação representa o fato de que ao considerarmos $x$ tendendo à $\check{x}$ obtemos por implicação que $f(x)$ tende à $f(\check{x})$. Como dissemos que isso ocorre para todos os valores de $\check{x} \in \mathcal{U}$, então ocorre que o limite de $f(x)$ existe para qualquer valor de $x \in \mathcal{U}$.
 
 \par  Tecnicamente isso tem uma outra interpretação. Se considerarmos uma sequência de pontos $\{x_k\}$, em $\mathcal{U}$ tais que a partir de um determinado índice $K$ tenhamos $||x_k - \check{x}|| < \delta$. O fato de $f(x)$ ser contínua em $\mathcal{U}$ implica que se considerarmos a sequência de pontos gerados $\{f(x_k)\}$ será tal que $||f(x_k) - f(\check{x})|| < \epsilon$. Em outras palavras, ao considerar uma sequência de pontos $\{x_k\}$ convergindo para o valor $\check{x}$ temos que os pontos associados pela imagem da função real contínua $\{f(x_k)\}$ é uma sequência de pontos convergentes à $f(\check{x})$.
@@ -184,21 +203,30 @@ Essa equação representa o fato de que ao considerarmos $x$ tendendo à $\check
 
 \begin{definition}[Função Diferenciável]
   Considerando uma função real $f(x)$ definida num subconjunto $\mathcal{U} \subset \mathbb{R}^n$. Diremos que $f(x)$ é diferenciável em $\mathcal{U}$ se, e somente se, existirem $n$ números reais $\{A_1, ..., A_n\}$, tais que:
-  $$ f(x+v)- f(x)= A_1 \cdot v_1 + ... + A_n \cdot v_n + r(v),$$ 
+  \begin{equation}
+    f(x+v)- f(x)= A_1 \cdot v_1 + ... + A_n \cdot v_n + r(v),
+  \end{equation}
   para todo $x \in \mathcal{U}$, e $v = (v_1, ..., v_n)$ tal que $x+v \in \mathcal{U}$. Com $\lim_{v\rightarrow 0} \frac{r(v)}{||v||}=0$.
 \end{definition}
 
 \par Agora podemos usar da diferenciabilidade da função $f(x)$ para propor uma análise mais robusta do problema a ser otimizado. É fácil observar que se a função for diferenciável então ela é contínua. O que garante que podemos usar o critério de otimalidade para as funções que sejam sabidamente diferenciáveis. O que nos interessa portanto é encontrar mais informações sobre como encontrar os ótimos da função objetivo.
 
 \par Segue direto da definição de função diferenciável que podemos calcular a derivada de $f(x)$ fazendo uso dos vetores canônicos de $\mathbb{R}^n$, obtendo que os números reais $\{A_1, ..., A_n\}$ são o que denominamos de derivadas parciais da função $f(x)$ com relação à suas coordenadas, como segue:
-$$\frac{\partial f}{\partial x_i}(x) = A_i.$$
+\begin{equation}
+  \frac{\partial f}{\partial x_i}(x) = A_i
+\end{equation}
+
 \par Tal como fizemos na seção anterior, podemos definir essas derivadas parciais a partir do cálculo de um limite, com a seguir:
-$$\frac{\partial f}{\partial x_i}(x) = \lim_{h \rightarrow 0}\frac{f(x+h \cdot e_i) - f(x)}{h}.$$
+\begin{equation}
+  \frac{\partial f}{\partial x_i}(x) = \lim_{h \rightarrow 0}\frac{f(x+h \cdot e_i) - f(x)}{h}
+\end{equation}
 \par Podemos fazer uso desses argumentos para definir o que denotamos como a diferencial de $f(x)$ que seria o equivalente a derivada de $f(x)$ quando tínhamos uma variável. 
 
 \begin{definition}[O Diferencial de $f(x)$]
   Seja $f(x)$ uma função real à várias variáveis definida em um aberto $\mathcal{U} \subset \mathbb{R}^n$. Supondo que as $n$ derivadas parciais existam e que sejam funções contínuas, temos o diferencial de $f(x)$ dado com respeito à uma base canônica,$\{dx_1, ..., dx_n\}$, do Espaço Dual $\mathbb{R}^*$ pela expressão:
-  $$Df(x) = \sum_{i=1}^{n} \frac{\partial f}{\partial x_i}(x)  \cdot dx_i .$$
+  \begin{equation}
+    Df(x) = \sum_{i=1}^{n} \frac{\partial f}{\partial x_i}(x)  \cdot dx_i
+  \end{equation}
 \end{definition}
 
 \par Podemos definir os pontos críticos de $f(x)$ a partir do conjunto solução da equação: $Df(x) = 0$. Segue dessa definição que num ponto crítico todas as derivadas parciais são nulas, isto é, $\frac{\partial f}{\partial x_i}(x) = 0$. Temos para as funções à várias variáveis o equivalente ao Teorema de Fermat:
@@ -219,34 +247,52 @@ $$\frac{\partial f}{\partial x_i}(x) = \lim_{h \rightarrow 0}\frac{f(x+h \cdot e
 \end{theorem}
 
 \par Para além dessas análises ainda somos capazes de refinar ainda mais os critérios de otimalidade se considerarmos que a função objetivo seja duas vezes diferenciável e que sua segunda derivada seja uma função contínua. A segunda derivada de uma função é precisamente o que parece ser, a derivada da função derivada. Isto é,
-$$D(Df)(x) = D^{2}f(x).$$
+\begin{equation}
+  D(Df)(x) = D^{2}f(x)
+\end{equation}
 
 \par Para dar contexto ao que vamos apresentar devemos fazer a exposição de um resultado deveras valoroso que permite fazermos uma representação local de uma função duas vezes diferenciável da forma seguinte:
 
 \begin{theorem}[Teorema de Taylor]
-  Seja $f(x)$ uma função real à várias variáveis definida em um aberto $\mathcal{U} \subset \mathbb{R}^n$. Se $f(x)$ for duas vezes diferenciável em $\mathcal{U}$, então: 
-  $$f(x+v) = f(x)+ Df(x) \cdot v  \hspace{0.1cm} (x+v) + \frac{1}{2} D^2f(x) \cdot v^2 \hspace{0.1cm} (x+v)^2 + r(x),$$
+  Seja $f(x)$ uma função real à várias variáveis definida em um aberto $\mathcal{U} \subset \mathbb{R}^n$. Se $f(x)$ for duas vezes diferenciável em $\mathcal{U}$, então:
+  \begin{equation}
+    f(x+v) = f(x)+ Df(x) \cdot v  \hspace{0.1cm} (x+v) + \frac{1}{2} D^2f(x) \cdot v^2 \hspace{0.1cm} (x+v)^2 + r(x),
+  \end{equation}
   onde $v \in \mathbb{R}^n$, tal que $x+v \in \mathcal{U}$. Com $\lim_{v \rightarrow 0}\frac{r(v)}{||v||^2} = 0$.
 \end{theorem}
 
 \par Nessa versão do Teorema de Taylor apresentamos implicitamente um conceito deveras importante para a análise de funções reais à várias variáveis, a saber, a forma Hessiana. Denotada por $D^2f(x) \cdot v^2$ a forma Hessiana, tem o mesmo papel que a segunda derivada para uma função real à uma variável. Visto que podemos encontrar uma expressão de $f(x)$ numa vizinhança de um ponto crítico dada por:	
-
-$$f(x^*+v) - f(x^*) \approx \frac{1}{2} D^2f(x^*) \cdot v^2 \hspace{0.1cm}  (x^*+v)^2.$$
+\begin{equation}
+  f(x^*+v) - f(x^*) \approx \frac{1}{2} D^2f(x^*) \cdot v^2 \hspace{0.1cm}  (x^*+v)^2
+\end{equation}
 
 \par Precisamos encontrar uma maneira de analisar a variação da forma Hessiana. Uma que se ajusta muito bem por diversas razões é a forma matricial. A matriz da forma Hessiana, é denominada de matriz Hessiana, e tem a seguinte expressão:
-$$[D^2f(x)] = H = \left(\frac{\partial^2 f}{\partial x_i \partial x_j }(x)\right).$$
+\begin{equation}
+  [D^2f(x)] = H = \left(\frac{\partial^2 f}{\partial x_i \partial x_j }(x)\right)
+\end{equation}
+
 \par Analogamente podemos definir a matriz associada ao funcional $Df(x)$ que é denominada de matriz Jacobiana e tem a expressão:
-$$[Df(x)] = J = \left(\frac{\partial f}{\partial x_i}(x)\right).$$
+\begin{equation}
+  [Df(x)] = J = \left(\frac{\partial f}{\partial x_i}(x)\right)
+\end{equation}
 \par Obviamente que a matriz Jacobiana é uma matriz linha, ou coluna. Enquanto que a matriz Hessiana é uma matriz quadrada de ordem $n$. Há um fato muito relevante que faz da matriz Hessiana um manjar da otimização que é o fato de ser uma matriz simétrica, quando consideramos condições simples para a função $f(x)$. A fim de que o Teorema de Shwarz seja satisfeito. Por ser simétrica podemos definir um produto interno sempre que ela for definida positiva. Isso gera um estrutura deveras importante. 
 \par Associado ao funcional $Df(x)$ temos um vetor que desempenha para a otimização um papel de príncipe. Esse vetor é denominado de vetor gradiente, representado por $\nabla f(x)$ e é definido a partir da seguinte equação:
-$$Df(x) \cdot v = \left\langle \nabla f(x), v\right\rangle.$$
+\begin{equation}
+  Df(x) \cdot v = \left\langle \nabla f(x), v\right\rangle
+\end{equation}
 \par Ao usarmos a definição de ângulo entre vetores no $\mathbb{R}^n$, provinda do produto interno, temos que:
-$$cos(\theta_{\nabla f(x),v}) = \frac{\left\langle \nabla f(x), v\right\rangle}{||\nabla f(x)||\cdot ||v||}.$$
+\begin{equation}
+  cos(\theta_{\nabla f(x),v}) = \frac{\left\langle \nabla f(x), v\right\rangle}{||\nabla f(x)||\cdot ||v||}
+\end{equation}
 \par Podemos considerar, sem perda de generalidade que $||v||=1$, encontrando que:
-$$cos(\theta_{\nabla f(x),v})  ||\nabla f(x)|| = \left\langle \nabla f(x), v\right\rangle = Df(x) \cdot v .$$
+\begin{equation}
+  cos(\theta_{\nabla f(x),v})  ||\nabla f(x)|| = \left\langle \nabla f(x), v\right\rangle = Df(x) \cdot v
+\end{equation}
 \par Portanto, podemos concluir que a direção para $v$ na qual o funcional $Df(x)$ assume o maior valor é precisamente $v = \nabla f(x)$ visto que é nessa direção que o ângulo $\theta_{\nabla f(x),\nabla f(x)} = 0$ tornando o $cos(\theta_{\nabla f(x),\nabla f(x)}) =1$, logo: $Df(x) \cdot v = ||\nabla f(x)||$. 
-\par Além desse fato, o gradiente é facilmente calculado visto que ele é definido pelas derivadas parciais: 
-$$\nabla f(x) = \left(\frac{\partial f}{\partial x_1}, ..., \frac{\partial f}{\partial x_n}\right).$$
+\par Além desse fato, o gradiente é facilmente calculado visto que ele é definido pelas derivadas parciais:
+\begin{equation}
+  \nabla f(x) = \left(\frac{\partial f}{\partial x_1}, ..., \frac{\partial f}{\partial x_n}\right)
+\end{equation}
 
 \begin{definition}[Função Convexa]
   Dada uma função real duas vezes diferenciável em $\mathcal{U}$. Diremos que $f(x)$ é convexa se sua forma Hessiana for definida positiva, isto é, se $H \cdot v^2> 0$ para todo $x \in\mathcal{U}$.
@@ -263,7 +309,9 @@ $$\nabla f(x) = \left(\frac{\partial f}{\partial x_1}, ..., \frac{\partial f}{\p
 
 \begin{theorem}[Multiplicadores de Lagrange]
   Seja $f(x)$ uma função duas vezes diferenciável em um aberto $\mathcal{U}$ do $\mathbb{R}^{n+1}$. E seja $M = \phi^{-1}(c)$ uma hiperfície de $\mathbb{R}^n+1$. Então a fim de que exista um ótimo para a restrição $f|M$ é suficiente e necessário que exista um número real $\lambda$ tal que:
-  $$\nabla f(x) = \lambda \cdot \nabla \phi(x).$$
+  \begin{equation}
+    \nabla f(x) = \lambda \cdot \nabla \phi(x)
+  \end{equation}
   O número real $\lambda$ é denominado de multiplicador de Lagrange.
 \end{theorem}
 
