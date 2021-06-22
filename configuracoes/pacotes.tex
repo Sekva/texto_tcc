@@ -53,7 +53,12 @@
 %\usepackage{palatino}                                      % Usa a fonte Palatino
 %\usepackage{lmodern}                                       % Usa a fonte Latin Modern
 %\usepackage{accanthis}
-\setmainfont{Times New Roman}
+\setmainfont{Times New Roman}[SizeFeatures={Size=12}]
+    
+\newfontface \helveft{helvetica-bold.otf}
+\renewcommand{\captionfont}{\fontsize{8.5}{6}\selectfont{}\helveft}
+\renewcommand{\captionlabelfont}{\fontsize{8.5}{6}\selectfont{}\helveft}
+    
 %\usepackage{indentfirst}
 
     
