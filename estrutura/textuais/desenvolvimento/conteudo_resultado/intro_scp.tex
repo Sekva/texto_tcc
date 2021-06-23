@@ -1,7 +1,7 @@
 \section{Introdução ao SCP}
 
 \noindent
-O Sequential Cutting Plane (SCP) \cite{Still2010} pode ser visto como uma demonstração da
+O \textit{Sequential Cutting Plane} (SCP) \cite{Still2010} pode ser visto como uma demonstração da
 capacidade das técnicas de otimização por problemas lineares que, como já dito, haviam
 sido deixadas de lado. O método apresentado por Claus Still e Tapio Westerlund em 2010
 pode ser visto como a conclusão do estudo deles sobre abordagens de subproblemas lineares
@@ -41,7 +41,7 @@ denominações mais comuns, como:
 \begin{itemize}
 \item Otimização Convexa, onde \( \mathcal{F} \) é convexo, e o ótimo é inteiro;
 \item Otimização Disjuntiva, onde algumas variáveis são continuas e outras são booleanas;
-\item Otimização Não Linear, onde restrições não lineares constroem \(\mathcal{F}\) e/ou \(f\) é não linear. Normalmente usados métodos SQP;
+\item Otimização Não Linear, onde restrições não lineares constroem \(\mathcal{F}\) e/ou \(f\) é não linear. Normalmente usados métodos \textit{Sequential Quadratic Programming} (SQP);
 \item Otimização por meio de grafos de expressões;
 \item Otimização por meio de subespaços convexos e/ou linearizações de \(\mathcal{F}\).
 \end{itemize}
@@ -51,7 +51,8 @@ informações ou ferramentas para serem usadas na resolução do problema. Para 
 e com restrições de desigualdades, a resolução de subproblemas lineares oferecem limites inferiores para
 o ótimo, o que para o SCP, saber desses limites ajuda em questões de eficiência. Segundo os autores do
 SCP, ao ser usado para problemas MINLP, foram encontradas soluções melhores em apenas um minuto do que
-usando outros métodos que encontraram boas soluções em 12 horas.
+usando outros métodos que encontraram boas soluções em 12 horas. Essa implementação foi de uma versão
+prévia do SCP, apresentada em 2006 \cite{Still_2005}, mas também com um código de difícil acessível.
 
 A resolução de problemas MINLP convexos é importante no contexto global de problemas MINLP, já
 que a maioria dos problemas são resolvidos por uma sequência de problemas que foram convertidos em

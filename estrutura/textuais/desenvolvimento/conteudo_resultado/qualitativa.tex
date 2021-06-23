@@ -11,13 +11,15 @@ O SCP resolve problemas no seguinte formato:
 \end{mini!}
 
 Onde todas as funções devem ser continuamente diferenciáveis em \(\mathbb{R}^n\) assim como
-devem ser funções \( \mathbb{R}^n \mapsto \mathbb{R} \). Nenhuma função é considerada convexa e isto
-pode ser visto como um avanço à forma anterior do método. A única coisa assumida é que alguma das
+devem ser funções \( \mathbb{R}^n \mapsto \mathbb{R} \). Um avanço em relação a forma anterior
+do método é que nenhuma função é assumida ser convexa, o que se deve ao refanamento das ferramentas
+utilizadas, mais especificamente, a não necessidade de nenhuma propriedade de funções convexas para
+o funcionamento do método. A única coisa assumida é que alguma das
 funções \( g_j(x) \) é linear. Com isso podemos perceber que o SCP é capaz de trabalhar com uma
 grande quantidade de problemas, visto que essa forma de problema pode ser modelada de aplicações
 em diversas áreas.
 
-Outra coisa que é assumida, é que as qualificações de restrições de Mangasarian-Fromovitz estendidas (EMFCQ)
+Outra coisa que é assumida, é que as qualificações de restrições de Mangasarian-Fromovitz estendidas (\textit{Extended Mangasarian-Fromovitz Constraint Qualification}, EMFCQ)
 \cite{di1994exact} são válidas para qualquer \( x \in \mathbb{R}^n \), como visto na seção \ref{sec_emfcq}.
 
 Estas qualificações garantem que, para qualquer ponto não viável, exista uma
@@ -35,11 +37,11 @@ resolução de problemas lineares. A cada problema linear resolvido, é obtida
 uma direção de descida, e com essa direção, é feita uma busca em linha,
 buscando um tamanho ótimo para o passo. Após essas iterações de problemas
 lineares, é esperado que um novo ponto capaz de reduzir suficientemente uma
-função de mérito, o que garante a convergência.
-
-
+função de mérito, o que garante a convergência. Uma sumarização do método pode
+ser visto no Algoritmo \ref{scp_algo}.
 
 \begin{algorithm}[H]
+  \label{scp_algo}
   \SetAlgoLined
   \( k \gets 1 \)\;
   \( H_k \gets I \)\;
@@ -62,21 +64,24 @@ função de mérito, o que garante a convergência.
     \(k \gets k + 1\)
 
   }
-  \caption{SCP}
+  \caption{SCP - \textit{Sequential Cutting Plane}}
 \end{algorithm}
 \vspace{15pt}
 
-
-A função \(SPL\) é responsável por resolver a sequência de problemas lineares
+A função \(SPL\), executada na linha 5, é responsável por resolver a sequência de problemas lineares
 buscando direções ótimas de descida enquanto já desloca o ponto atual. A função
-\(VFM\) é responsável por fazer a verificação da qualidade do novo ponto encontrado
+\(VFM\), chamada na linha 9, é responsável por fazer a verificação da qualidade do novo ponto encontrado
 por \(SPL\), se o ponto satisfizer as condições impostas, ele é mantido, caso contrário
-é buscado um que satisfaça por outros meios. A função \(ARC\) verifica o tamanho da região
-de confiança para as soluções \(d\) encontradas em \(SPL\). Por fim, \(KKTE\) verifica
-se o ponto é um KKT estacionário do problema. Quando o algoritmo para, o ponto
-mais recente adicionado à sequência é a solução, \(x_k\) se foi atingido
+é buscado um que satisfaça por outros meios. A função \(ARC\), na linha 10, verifica o tamanho da região
+de confiança para as soluções \(d\) encontradas em \(SPL\). Por fim, \(KKTE\), linha 11, verifica
+se o ponto é um KKT estacionário do problema. Não é necessário apresentar a implementação da função \(KKTE\),
+visto sua simplicidade, uma vez que é constituída a partir de verificações feitas por cálculos simples.
+Quando o algoritmo para, o ponto mais recente adicionado à sequência é a solução, \(x_k\) se foi atingido
 o número máximo de iterações, ou \(x_{k+1}\) em uma parada por ponto
-estacionário.
+estacionário. O número máximo de interações verificados na linha 4, a priori,
+deve ser escolhido empiricamente pelas conclusões tiradas a partir do funcionamento
+do método. Uma outra possibilidade é usar um mecanismo de limitação dinâmica, com base
+em análises simples do problema observado.
 
 \subsubsection{Subiterações lineares}
 
@@ -133,12 +138,12 @@ Por fim as restrições (\ref{r5_scpl}), (\ref{r6_scpl}) e (\ref{r7_scpl}) contr
 são satisfeitas em \(x_i\), vemos que \( t^g \) ,\(t^{h^+}\) e \(t^{h^-} \) são todos nulos.
 
 
-Para a implementação da função \(SPL\) precisamos inicialmente de uma forma de gerar o problema linear
-(\ref{prob_scpl}), que uma vez gerado, deve ser resolvido. O próximo passo a ser tomado é resolver
-o problema dual de (\ref{prob_scpl}), uma vez que a solução do problema dual pode ser usada como estimativa
-dos multiplicadores de Lagrange. Após isso, já temos a possibilidade de verificar se o ponto atual é um
+Para a implementação da função \(SPL\), como apresentado no Algoritmo \ref{spl_algo}, precisamos inicialmente de uma forma de gerar o problema linear
+(\ref{prob_scpl}), que uma vez gerado, na linha 6, deve ser resolvido (linha 7). O próximo passo a ser tomado é resolver
+o problema dual de (\ref{prob_scpl}), e feito isso a solução do problema dual pode ser usada como estimativa
+dos multiplicadores de Lagrange, o que é feito na linha 8. Após isso, já temos a possibilidade de verificar se o ponto atual é um
 ponto KKT estacionário (visto a necessidade dos multiplicadores de Lagrange para isso). Caso seja KKT
-estacionário já podemos retornar as informações necessárias, do contrário, é feita uma busca em linha
+estacionário já podemos retornar as informações necessárias, como é feito na linha 10, do contrário, é feita uma busca em linha
 buscando um tamanho para o passo na direção encontrada na solução do problema linear. Essa busca em
 linha é feita em uma função Lagrangiana penalizada de acordo com as restrições cumpridas. Uma vez
 encontrado o tamanho do passo, o ponto da interação atual pode ser atualizado como no método de gradiente
@@ -150,6 +155,7 @@ o ponto atualizado como o novo ponto de partida.
 
 \vspace{15pt}
 \begin{algorithm}[H]
+  \label{spl_algo}
   \SetAlgoLined
   \SetKwFunction{FSPL}{SPL}
   \SetKwProg{Fn}{Function}{:}{}
@@ -175,7 +181,7 @@ o ponto atualizado como o novo ponto de partida.
   
   \KwRet \((d_i, x_i, H_i, \lambda_i, \mu_i, false)\)\;
   }
-  \caption{SPL}
+  \caption{SPL - \textit{Sequência de Problemas Lineares}}
 \end{algorithm}
 \vspace{15pt}
 
@@ -276,9 +282,10 @@ descumprida irá fazer a função crescer. O objetivo da minimização é encont
 A forma como é feita essa busca em linha deve ser escolhida com cuidado. Se
 for possível e de interesse, uma busca em linha exata deve ser feita, se não
 pelo menos deve-se considerar uma boa aproximação. Se o tamanho do passo for
-impreciso demais, podemos ter problemas quando o algoritmo estiver próximo
-de um ótimo, podendo, por exemplo, nunca se aproximar o suficiente para
-que seja considerado solução.
+impreciso demais, significando que é fácil encontrar um ponto ótimo melhor que o que
+viria a ser o próximo ponto quando considerada esse tamanho de passo, podemos
+ter problemas quando o algoritmo estiver próximo de um ótimo, podendo, por
+exemplo, nunca se aproximar o suficiente para que seja considerado solução.
 
 Um próximo passo, se foi escolhido fazer dessa forma, é a computação
 da matriz Hessiana da função (\ref{fn_lagrangiana}) Lagrangiana. Os autores do
@@ -319,10 +326,13 @@ minimização da função objetivo (\ref{scp_obj}) e a anulação de um termo de
 O termo de penalização é semelhante aos dois primeiros termos que penalizam a função objetivo
 na Lagrangiana penalizada (\ref{scp_langrangiana_penalizada}). No entanto, ao invés de ser
 usado as estimativas dos multiplicadores de Lagrange, são usados números maiores que elas,
-garantindo que a penalização seja ditada apenas por uma proporção das restrições.
+garantindo que a penalização seja ditada apenas por uma proporção dos valores das restrições
+não cumpridas, o que vem a penalizar de acordo com o quanto o problema está distante de ser
+resolvido.
 
 
 \begin{equation}
+\label{penalidade_merito}
  p(x) = \sum_{j=1}^{m_i} \bar{\lambda_j} g_j(x)^+ + \sum_{r=1}^{m_r} \bar{\mu_r} |h_r(x)|
 \end{equation}
 
@@ -333,8 +343,8 @@ Já que \(\bar{\lambda} > \lambda\) e \(\bar{\mu} > \mu\) basta considerar um in
 para os valores, \(\bar{\lambda} = \lambda + \lambda_{inc}\) e  \(\bar{\mu} = \mu + \mu_{inc}\).
 
 
-A verificação é dada por três condições, o decréscimo da função de mérito, o decréscimo
-suficiente da função de mérito, e o passo tomado é suficientemente grande. A primeira
+A verificação da qualidade da descida é dada por três condições, o decréscimo da função de mérito, o decréscimo
+suficiente da função de mérito, e se o passo tomado é suficientemente grande. A primeira
 condição é apenas verificar se \(M(x_{k+1}) \leq M(x_k)\). A segunda condição é feita
 por querer descobrir se o passo tomado desacelera a descida do algoritmo, verificando
 se a função está sendo reduzida suficientemente. Essa verificação é feita pela análise
@@ -408,10 +418,11 @@ Uma vez encontrado \(\alpha_n\), basta salvar o novo ponto em \(x_{k+1}\) e reto
   x_{k+1} = x_k + \alpha_n d_k
 \end{equation}
 
-Um pseudo-código para o que foi dito é:
+Um pseudo-código para o que foi dito está apresentado no Algoritmo \ref{vfm_algo}.
 
 \vspace{15pt}
 \begin{algorithm}[H]
+  \label{vfm_algo}
   \SetAlgoLined
   \SetKwFunction{FVFM}{VFM}
   \SetKwProg{Fn}{Function}{:}{}
@@ -429,7 +440,7 @@ Um pseudo-código para o que foi dito é:
     \(x_{k+1} \gets x_k + \alpha_k d_k \)\;
     \KwRet \(x_{k+1}\)\;
   }
-  \caption{VFM}
+  \caption{VFM - \textit{Verificação da Função de Mérito}}
 \end{algorithm}
 \vspace{15pt}
 
@@ -458,14 +469,16 @@ tamanho da região de confiança:
 
 Existe uma tolerância para o tamanho do movimento sem que as regiões sejam atualizadas.
 Um parâmetro é escolhido como limite antes de crescer a região e outro para diminuir a
-região. Por experiência numérica dos autores, foram identificados valores para esses
+região. Por experiência numérica dos autores \cite{Still2010}, foram identificados valores para esses
 parâmetros, para o crescimento da região \(\delta_{inc} = 0.8\) e para a diminuição
 \(\delta_{dec} = 0.2\). Podem ser escolhidos quaisquer valores dentro dos intervalos,
 que são \(0.5 \leq \delta_{inc} \leq 1\) e \(0 \leq \delta_{dec} \leq 0.5\). Uma
-vez considerado esses parâmetros a atualização pode ser feita pelo seguinte:
+vez considerado esses parâmetros, a atualização da região pode ser feita como exemplificada
+no Algoritmo \ref{arc_algo}.
 
 \vspace{15pt}
 \begin{algorithm}[H]
+  \label{arc_algo}
   \SetAlgoLined
   \SetKwFunction{FARC}{ARC}
   \SetKwProg{Fn}{Function}{:}{}
@@ -501,7 +514,7 @@ vez considerado esses parâmetros a atualização pode ser feita pelo seguinte:
       }
     }
   }
-  \caption{ARC}
+  \caption{ARC - \textit{Atualização da Região de Confiança}}
 \end{algorithm}
 \vspace{15pt}
 

@@ -2,7 +2,10 @@
 
 \noindent
 Para que pudesse ser feita uma análise quantitativa completa, seria necessário ter uma
-proposta de código finalizada, o que não é o caso. No entanto, será apresentado
+proposta de código finalizada, o que não é o caso. Para que possa se ter essa proposta,
+é preciso fazer uma avaliação fina tanto do funcionamento do método como um todo, quanto
+com cada parte isolada, com um foco especial na busca da direção de descida e no ajuste
+das constantes de penalidade presentes em todo o processo. No entanto, será apresentado
 resultados que consideramos parciais acerca do custo de processamento.
 % , fazendo um comparativo simples com um método simples, o gradiente descendente. Para que se possa ser usado o método do gradiente descendente em problemas com restrições será usado a função Lagrangiana do problema
 O código de nossa autoria que foi construído como uma proposta para o SCP é
@@ -15,7 +18,10 @@ SCP, uma compilada por Hock e Schittkowski \cite{Hock1981}
 e Schittkowski \cite{Schittkowski1987}. Enquanto a elaboração do teste, apenas são
 considerados problemas cujo domínio é o \(\mathbb{R}^2\), e problemas com ambas as
 restrições, tanto de igualdade quanto de desigualdade, por simplicidade e
-verificação da consistência entre problemas.
+verificação da consistência entre problemas. Dado o estado atual da implementação do
+método, não foi vista a necessidade de apresentação do ponto supostamente ótimo
+encontrado pelo algoritmo para cada um dos problemas apresentados. No entanto,
+será falado a respeito das implicações acerca do que foi encontrado.
 
 Todos os testes foram feitos em uma CPU AMD FX-6300, no sistema operacional
 ArchLinux-2021.06.01. O compilador usado foi o rustc 1.51.0-nightly, edição 2018,
@@ -32,7 +38,7 @@ para as operações de baixo nível.
 A primeira base de problemas considerada \cite{sfuca} é parte de um projeto colaborativo
 para se ter uma biblioteca de funções e conjuntos de dados para testes em diversas
 áreas de otimização, simulação e modelagens em geral. Foram escolhidos quatro
-problemas da base, por serem problemas simples. No entanto, são todos irrestritos,
+problemas da base por serem problemas simples, os quais estão listados na Tabela \ref{sfuca_probs}. No entanto, são todos irrestritos,
 isto é, consistem apenas em minimizar a função sem nenhuma restrição.
 
 {
@@ -56,8 +62,8 @@ isto é, consistem apenas em minimizar a função sem nenhuma restrição.
       Sum Squares & \(\displaystyle{f(x) = \sum_{i=1}^2 ix_i^2} \)                                                       & \((0, 0)\) \\ [1ex]
       \hline
     \end{tabular}
+    \label{sfuca_probs}
   \end{table}
-
 }
 
 \begin{center}
@@ -71,6 +77,7 @@ isto é, consistem apenas em minimizar a função sem nenhuma restrição.
   \end{tikzpicture}
   \vspace{6pt}
   \captionof{figure}{Função de Bohachevsky com ótimo em (0, 0).}
+  \label{boha_fig}
   \vspace{6pt}
   
   \begin{tikzpicture}
@@ -81,6 +88,7 @@ isto é, consistem apenas em minimizar a função sem nenhuma restrição.
   \end{tikzpicture}
   \vspace{6pt}
   \captionof{figure}{Função Perm com ótimo em (1, 0.5).}
+  \label{perm_fig}
   \vspace{6pt}
 
   \begin{tikzpicture}
@@ -91,6 +99,7 @@ isto é, consistem apenas em minimizar a função sem nenhuma restrição.
   \end{tikzpicture}
   \vspace{6pt}
   \captionof{figure}{Função Trid com ótimo em (2, 2).}
+  \label{trid_fig}
   \vspace{6pt}
   
   \begin{tikzpicture}
@@ -101,6 +110,7 @@ isto é, consistem apenas em minimizar a função sem nenhuma restrição.
   \end{tikzpicture}
   \vspace{6pt}
   \captionof{figure}{Função Sum Squares com ótimo em (0, 0).}
+  \label{sumsquares_fig}    
   \vspace{6pt}
   
 \end{center}
@@ -110,6 +120,18 @@ Para as restrições de desigualdade, foram consideradas quatro funções limita
 ponto a um quadrado em uma distância razoável do ótimo. Para as restrições de
 igualdade, basta considerar uma função que passe no ótimo, a mais simples é
 apenas uma reta. Devemos lembrar que estamos trabalhando apenas no \(\mathbb{R}^2\).
+
+Cada uma das funções buscam testar o funcionamento da descida do método em superfícies
+com características diferentes. A função de Bohachevsky (Figura \ref{boha_fig}) tem uma
+superfície com lombadas, causadas pela função trigonométrica em sua definição, o que faz
+verificar se o processo não fica preso em um ótimo local. A função de Perm (Figura \ref{perm_fig})
+tem uma especie de anel em que o mínimo está localizando, verificando se o método é capaz
+de contornar ou atravessar esse anel. A função Trid (Figura \ref{trid_fig}) tem uma
+inclinação diferente em cada direção, o que serve de apoio para a análise das direções de
+descidas encontradas durante os testes. Por fim, a função Sum Squares
+(Figura \ref{sumsquares_fig}) é apenas um paraboloide elíptico de rápida descida.
+
+
 
 \subsection{Problemas de  Hock e Schittkowski}
 
@@ -260,10 +282,12 @@ Todos os tempos são em segundos. %Por fim, veremos também o uso de memória RA
 
 Deve ser lembrado que não existe um código acessível para o SCP, uma vez que os
 autores não disponibilizaram o que foi usado para os resultados numéricos. Portanto
-não existe um código de referência para a nova construção. A escrita do método,
+não existe um código de referência para a nova construção. Comparativos entre os
+testes numéricos da implementação aqui proposta e a implementação feita pelos autores
+também é algo dificultado pela falta de acessibilidade do código. A escrita do método,
 considerando todas as suas vantagens, pode ser considerado algo inovador, já que
 existe a contribuição de ser exposto um algoritmo funcional e público para um
-método que apresentado para a comunidade como sendo de difícil acesso.
+método que é apresentado para a comunidade como sendo de difícil acesso.
 
 
 % SEM 1c
@@ -341,11 +365,11 @@ método que apresentado para a comunidade como sendo de difícil acesso.
   \end{table}
 }
 
-Como o código ainda não está finalizado, não foram apresentadas as soluções. No entanto,
-dois ótimos encontrados pelo código (no estado atual) são os ótimos reais, a solução do
-problema de Bohachevsky e o Problema Nº217. Outras questões podem ser percebidas das
-soluções dos outros problemas, como, por exemplo, o fato de ter encontrado a solução
-apenas em uma coordenada e na outra ter encontrado o simétrico do que deveria. Ou
+Como o código ainda não está finalizado, não foram apresentadas as soluções. No entanto, dos 10 problemas, 2 são resolvidos e os demais levantam questões a respeito da implementação feita.
+Dois ótimos encontrados pelo código (no estado atual) são os ótimos reais, a solução do
+problema de Bohachevsky e o Problema Nº217. Dentre as questões que podem ser percebidas das
+soluções dos outros problemas temos, por exemplo, o fato de ter encontrado a solução
+apenas em uma coordenada e na outra ter encontrado o simétrico do que deveria. Ou ainda,
 encontrar soluções não tão distantes da solução real, mas com uma proximidade não
 suficiente para que sejam consideradas um erro de precisão. Desses detalhes podemos
 concluir que o código no estado atual está bem próximo de ser terminado. Dentre os

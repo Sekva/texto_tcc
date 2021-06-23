@@ -14,7 +14,7 @@ gradientes. Essa função é usada em quase todas as vezes que se é requerida u
 do problema, não sendo usada em casos onde se usam certas funções isoladamente. A
 possibilidade de se ter essa estrutura onde todas as funções podem ser avaliadas de uma vez
 nos dá uma vantagem em questões de performance, uma vez que podemos otimizar o tempo de
-realizar todas essas avaliações aumentando consideravelmente o tempo de execução do algoritmo.
+realizar todas essas avaliações diminuindo consideravelmente o tempo de execução do algoritmo.
 
 Um outro efeito benéfico sobre o método ter esses momentos onde todas as funções são
 avaliadas é um custo reduzido em problemas com funções muito difíceis. No entanto, ainda
@@ -27,8 +27,8 @@ do método de resolução, pode ser resolvido com operações simples da CPU, o 
 a velocidade do método. No entanto, complexidade de processo não é a única preocupação
 que se deve ter com um método capaz de resolver problemas de grande escala. Para que
 possamos usar métodos já conhecidos para otimização linear, foi necessária a transformação
-do problema no formato do artigo (\ref{prob_scpl}) em um equivalente em um formato mais
-simples (\ref{prob_scplt}) de ser percebido e partir dele extraído a matriz
+do problema no formato proposto originalmente (\ref{prob_scpl}) em um equivalente de formato mais
+simples (\ref{prob_scplt}) de ser percebido e a partir dele extraído a matriz
 e os vetores (\ref{prob_linear_pdr}), e ai que encontramos o problema.
 
 Mesmo sendo apenas números, o armazenamento da matriz e dos vetores pode vir a
@@ -64,18 +64,18 @@ da posição histórica do método, uma vez que os autores foram capazes de estu
 compreender as ferramentas que utilizaram em um estado muito mais refinado do que
 se tinha, por exemplo, na década de 70.
 
-Contanto só com as ferramentas mais básicas, como as operações entre vetores, números,
+Contando só com as ferramentas mais básicas, como as operações entre vetores, números,
 matrizes e cálculos de derivadas, podemos facilmente implementar métodos básicos, como
 o método de Newton, e o gradiente descendente. Para o método de Newton, que requer o
 uso das primeiras e segundas derivadas, temos duas opções. A primeira sendo calcular
 a matriz Hessiana diretamente, o que é custoso, mas existindo a segunda opção para
 cobrir o caso que é necessário mais desempenho, não é um problema. A segunda opção
-é caracterizada pelo uso do BFGS (\ref{sec_bfgs}), podendo ser adaptado para calcular
-o inverso da Hessiana, já que é o inverso que é usado no método de Newton. Além disso,
-já existindo o cálculo pelo BFGS, podemos usar o próprio método de minimização do BFGS.
-Para o método do gradiente descendente, pequenas mudanças devem ser feitas ao método de
-busca em linha para que se possa escolher os limites para o tamanho do passo, uma
-vez que para o SCP, na função Lagrangiana penalizada, o tamanho do passo é limitado
+é caracterizada pelo uso do BFGS (método de Broyden–Fletcher–Goldfarb–Shanno) (\ref{sec_bfgs}),
+podendo ser adaptado para calcular o inverso da Hessiana, já que é o inverso que é usado no
+método de Newton. Além disso, já existindo o cálculo pelo BFGS, podemos usar o próprio método
+de minimização do BFGS. Para o método do gradiente descendente, pequenas mudanças devem
+ser feitas ao método de busca em linha para que se possa escolher os limites para o tamanho
+do passo, uma vez que para o SCP, na função Lagrangiana penalizada, o tamanho do passo é limitado
 entre \(0\) e \(1\).
 
 Também existem métodos mais complexos que podemos montar a partir do que foi construído
