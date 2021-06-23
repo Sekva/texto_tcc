@@ -155,7 +155,7 @@
 % Elementos pré-textuais
 \renewcommand{\pretextual}
 {%
-    \pagenumbering{gobble}
+    \pagenumbering{arabic}
     \aliaspagestyle{chapter}{empty}
     \pagestyle{empty}
     \aliaspagestyle{cleared}{empty}
@@ -165,7 +165,7 @@
 % Configura layout para elementos textuais
 \renewcommand{\textual}
 {%
-    \pagenumbering{arabic} % A numeração das páginas é em algarismos arábicos, inciando em 1
+    %\pagenumbering{arabic} % A numeração das páginas é em algarismos arábicos, inciando em 1
     \pagestyle{abntheadings}
     \aliaspagestyle{chapter}{abntchapfirst}
     \nouppercaseheads
@@ -285,43 +285,42 @@
 % -----------------------------------------------------------------------------
 \makeatletter
 \renewcommand{\imprimircapa}{
-    \begin{capa}
-        \begin{center}
-		\begin{SingleSpacing}
-            		\large\MakeUppercase{\imprimirinstituicao} \\
-	    		\abntex@ifnotempty{\imprimirdepartamento}
-            		{
-                		\MakeUppercase{\imprimirdepartamento} \\
-            		}
-           		\large\MakeUppercase{\imprimirprograma} \\
-		\end{SingleSpacing}
-        \end{center}
-        \vspace{120pt}
+  \begin{capa}
+    \begin{center}
+      \begin{SingleSpacing}
+        \large\MakeUppercase{\imprimirinstituicao} \\
+        \abntex@ifnotempty{\imprimirdepartamento}
+        {
+          \MakeUppercase{\imprimirdepartamento} \\
+        }
+        \large\MakeUppercase{\imprimirprograma} \\
+      \end{SingleSpacing}
+    \end{center}
+    \vspace{120pt}
 	\begin{center}
-		\MakeUppercase{\imprimirautor}\\
+      \MakeUppercase{\imprimirautor}\\
 	\end{center}
 	\vspace{120pt}
-        \begin{center}
-            \ABNTEXchapterfont\MakeUppercase{\imprimirtitulo}
-            \abntex@ifnotempty{\imprimirsubtitulo}
-	    {%
-                {\ABNTEXchapterfont: }{\large{\imprimirsubtitulo}}
-            }
-        \end{center}
+    \begin{center}
+      \ABNTEXchapterfont\MakeUppercase{\imprimirtitulo}
+      \abntex@ifnotempty{\imprimirsubtitulo}
+      {%
+        {\ABNTEXchapterfont: }{\large{\imprimirsubtitulo}}
+      }
+    \end{center}
 	\vspace{120pt}
 	\begin{center}
-		\large\MakeUppercase{\imprimirprojeto}
-	\end{center}
-	\vfill
-        \begin{center}
-		\begin{SingleSpacing}
-            		\MakeUppercase{\imprimirlocal}\\
-            		\MakeUppercase{\imprimirdata}
-		\end{SingleSpacing}
-    	\end{center}
+      \large\MakeUppercase{\imprimirprojeto}
+    \end{center}
 
-    \end{capa}
-
+    \vspace*{\fill}
+    \begin{center}
+      \begin{SingleSpacing}
+        \MakeUppercase{\imprimirlocal}\\
+        \MakeUppercase{\imprimirdata}
+      \end{SingleSpacing}
+    \end{center}      
+  \end{capa}
 }
 \makeatother
 
@@ -331,7 +330,7 @@
 \makeatletter
 \renewcommand{\folhaderostocontent}
 {%
-    \setcounter{page}{2}
+    \setcounter{page}{1}
     \begin{center}
         \MakeUppercase{\imprimirautor}\\
     \end{center}
@@ -364,12 +363,11 @@
         \end{tabular}
     }
 
-    \vspace*{\fill}
-
+    \vspace*{121.3pt}
     \begin{center}
 	\begin{SingleSpacing}
             \MakeUppercase{\imprimirlocal}\\
-            \MakeUppercase{\imprimirdata}
+            \vspace*{3.5pt}\MakeUppercase{\imprimirdata}
 	\end{SingleSpacing}
     \end{center}
 }
@@ -381,15 +379,38 @@
 \makeatletter
 \newcommand{\imprimirfolhadeaprovacao}
 {%
-    \begin{folhadeaprovacao}
-        \vspace*{\fill}
+  \begin{folhadeaprovacao}
 
-        \begin{tabular}{p{.45\textwidth}p{.45\textwidth}}
-            & \imprimirtextopadraofolhadeaprovacao \\
-        \end{tabular}
+    \begin{center}
+      {\MakeUppercase\imprimirautor}\\
+    \end{center}
+    \vspace*{50pt}
+    \begin{center}
+      \begin{center}
+        \ABNTEXchapterfont\MakeUppercase{\imprimirtitulo}
+        \abntex@ifnotempty{\imprimirsubtitulo}
+        {%
+          {\ABNTEXchapterfont: }{\large{\imprimirsubtitulo}}
+        }
+      \end{center}
+      \vspace*{50pt}
+      \hspace{.45\textwidth}
+      \begin{minipage}{.5\textwidth}
+        \imprimirpreambulo
+      \end{minipage}%
+      \vspace*{25pt}
+    \end{center}
+   
+    \flushright{\imprimirlocal, 21 de Junho de 2021}
+    \vspace*{25pt}
+    \assinatura{Orientador: \textbf{Prof. Dr. \imprimirorientador} \\ \imprimirinstOrientador}
+    \vspace*{25pt}
+    \assinatura{\textbf{Prof. Dr. Igor Medeiros Vanderlei} \\ \imprimirinstOrientador}
+    \vspace*{25pt}
+    \assinatura{\textbf{Profa. Dra. Maria Aparecida Amorim Sibaldo} \\ \imprimirinstOrientador}
+    \vspace*{25pt}
 
-        \vspace*{\fill}
-    \end{folhadeaprovacao}
+  \end{folhadeaprovacao}
 }
 \makeatother
 

@@ -67,7 +67,11 @@ isto é, consistem apenas em minimizar a função sem nenhuma restrição.
 }
 
 \begin{center}
-  
+
+  \vspace{6pt}
+  \captionof{figure}{Função de Bohachevsky com ótimo em (0, 0).}
+  \label{boha_fig}
+  \vspace{6pt}
   \begin{tikzpicture}
     \begin{axis}[xlabel=$x_1$,ylabel=$x_2$,domain=-0.5:0.5, y domain=-0.5:0.5,view/h=60,view/v=45,]
       % \addplot3 [surf,mesh/ordering=y varies,] {x^2 + 2*y^2 - 0.3 * cos(3 * 3.14159626 * x + 4 * 3.1415926 *  y) + 0.3};
@@ -75,43 +79,39 @@ isto é, consistem apenas em minimizar a função sem nenhuma restrição.
       \addplot3+ [only marks] coordinates {(0, 0, 0)};
     \end{axis}
   \end{tikzpicture}
+
   \vspace{6pt}
-  \captionof{figure}{Função de Bohachevsky com ótimo em (0, 0).}
-  \label{boha_fig}
+  \captionof{figure}{Função Perm com ótimo em (1, 0.5).}
+  \label{perm_fig}
   \vspace{6pt}
-  
   \begin{tikzpicture}
     \begin{axis}[xlabel=$x_1$,ylabel=$x_2$,domain=-2:2, y domain=-2:2,view/h=60,view/v=45,]
       \addplot3 [surf,mesh/ordering=y varies,] {(((1+0.5)*x-1)+((2+0.5)*y - 0.5) )^2 + (((1+0.5)*x^2-1)+((2+0.5)*y^2-4))^2 };
       \addplot3+ [only marks] coordinates {(1, 0.5, 0)};
     \end{axis}
   \end{tikzpicture}
-  \vspace{6pt}
-  \captionof{figure}{Função Perm com ótimo em (1, 0.5).}
-  \label{perm_fig}
-  \vspace{6pt}
 
+  \vspace{6pt}
+  \captionof{figure}{Função Trid com ótimo em (2, 2).}
+  \label{trid_fig}
+  \vspace{6pt}
   \begin{tikzpicture}
     \begin{axis}[xlabel=$x_1$,ylabel=$x_2$,domain=-4:4, y domain=-4:4,view/h=60,view/v=45,]
       \addplot3 [surf,mesh/ordering=y varies,] {(x-1)^2 + (y-1)^2  - y*x};
       \addplot3+ [only marks] coordinates {(2, 2, 0)};
     \end{axis}
   \end{tikzpicture}
+
   \vspace{6pt}
-  \captionof{figure}{Função Trid com ótimo em (2, 2).}
-  \label{trid_fig}
+  \captionof{figure}{Função Sum Squares com ótimo em (0, 0).}
+  \label{sumsquares_fig}    
   \vspace{6pt}
-  
   \begin{tikzpicture}
     \begin{axis}[xlabel=$x_1$,ylabel=$x_2$,domain=-10:10, y domain=-10:10,view/h=65,view/v=40,]
       \addplot3 [surf,mesh/ordering=y varies,] {  (1 * x^2) + (2 * y^2)   };
       \addplot3+ [only marks] coordinates {(0, 0, 0)};
     \end{axis}
   \end{tikzpicture}
-  \vspace{6pt}
-  \captionof{figure}{Função Sum Squares com ótimo em (0, 0).}
-  \label{sumsquares_fig}    
-  \vspace{6pt}
   
 \end{center}
 

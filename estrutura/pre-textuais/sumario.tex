@@ -3,6 +3,20 @@
 
 \renewcommand{\contentsname}{SUMÁRIO}
 
+%\makeatletter
+%\settocpreprocessor{chapter}{%
+%    \let\tempf@rtoc\f@rtoc% 
+%    \def\f@rtoc{%
+%      \texorpdfstring{\MakeUppercase{%
+%        \tempf@rtoc}%
+%      }{\tempf@rtoc}%
+%    }%
+%}
+%\makeatother
+%   
+%\renewcommand{\cftsectionfont}{\MakeUppercase}
+%\renewcommand{\cftsubsectionfont}{\bfseries}
+    
 \pdfbookmark[0]{\contentsname}{toc}
 \tableofcontents*
 \cleardoublepage
